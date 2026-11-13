@@ -3,7 +3,6 @@ package br.com.cuidaquemcuida.model;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * Um período da escala de revezamento. {@code pessoaId} nulo = turno vago.
@@ -22,8 +21,9 @@ public class Turno {
     private StatusTurno status;
 
     public Turno(Long id, long pacienteId, Long pessoaId, LocalDateTime inicio, LocalDateTime fim, StatusTurno status) {
-        Objects.requireNonNull(inicio, "Informe o início do turno");
-        Objects.requireNonNull(fim, "Informe o fim do turno");
+        if (inicio == null || fim == null) {
+            throw new IllegalArgumentException("Informe o início e o fim do turno");
+        }
         if (!fim.isAfter(inicio)) {
             throw new IllegalArgumentException("O fim do turno precisa ser depois do início");
         }
