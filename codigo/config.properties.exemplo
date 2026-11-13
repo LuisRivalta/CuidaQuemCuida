@@ -1,0 +1,10 @@
+# Copie este arquivo para "config.properties" (na mesma pasta) e preencha.
+# O config.properties NÃO vai para o Git (está no .gitignore).
+#
+# No Supabase: botão "Connect" > "Session pooler". O texto vem assim:
+#   postgresql://postgres.ABCDEF:[YOUR-PASSWORD]@aws-0-sa-east-1.pooler.supabase.com:5432/postgres
+# Converta para:
+db.url=jdbc:postgresql://HOST_DO_POOLER:5432/postgres?sslmode=require
+db.usuario=postgres.SEU_REF
+db.senha=COLOQUE_A_SENHA_AQUI
+porta=8080
