@@ -963,7 +963,7 @@ rota('GET', '/pacientes/{id}/estatisticas', false, ({ eu, params: [id], q }) => 
   sql('SELECT m.nome, AVG(CASE WHEN d.status = \'DADA\' THEN 1.0 ELSE 0 END) AS taxa FROM dose d JOIN medicamento m ON m.id = d.medicamento_id WHERE m.paciente_id = ? AND d.previsto_para < ? GROUP BY m.nome');
   sql('SELECT p.nome, SUM(EXTRACT(EPOCH FROM (t.fim - t.inicio)) / 3600) AS horas FROM turno t JOIN pessoa p ON p.id = t.pessoa_id WHERE t.paciente_id = ? GROUP BY p.nome HAVING SUM(EXTRACT(EPOCH FROM (t.fim - t.inicio)) / 3600) > (SELECT AVG(h) FROM (...) sub)');
   const serie = (base, variacao) => Array.from({ length: 14 }, (_, i) => ({
-    data: isoDia(meiaNoite(i - 13)), valor: Math.round((base + ((i * variacao) % 5) - 2) * 10) / 10 }));
+    data: isoDia(meiaNoite(i - 13)), valor: Math.max(0, Math.round((base + ((i * variacao) % 5) - 2) * 10) / 10) }));
   return {
     periodoDias: Number(q.dias) || 30,
     adesao: {

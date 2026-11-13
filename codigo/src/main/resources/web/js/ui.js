@@ -25,6 +25,14 @@ export function el(tag, atributos = {}, ...filhos) {
   return elemento;
 }
 
+/**
+ * Troca o conteúdo de um elemento, ignorando null/undefined/false
+ * (o replaceChildren nativo escreveria "null" na tela).
+ */
+export function preencher(alvo, ...filhos) {
+  alvo.replaceChildren(...filhos.flat().filter((f) => f !== null && f !== undefined && f !== false));
+}
+
 let temporizador;
 
 function mostrar(texto, classe) {

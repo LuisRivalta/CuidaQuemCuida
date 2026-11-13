@@ -2,7 +2,7 @@
 import { chamar } from '../api.js';
 import { escolherPaciente } from '../estado.js';
 import { registrarTela, carregarContexto, ir } from '../rotas.js';
-import { el, campo, lerFormulario, tentar, mostrarAviso } from '../ui.js';
+import { el, preencher, campo, lerFormulario, tentar, mostrarAviso } from '../ui.js';
 
 const VERSAO_TERMO = '1.0';
 
@@ -57,7 +57,7 @@ registrarTela('/cadastro', (conteudo) => {
 });
 
 registrarTela('/inicio-rede', (conteudo) => {
-  conteudo.replaceChildren(
+  preencher(conteudo,
     el('h1', {}, 'Vamos começar'),
     el('p', {}, 'Você ainda não faz parte de nenhuma rede de cuidado.'),
     el('div', { class: 'cartao' },

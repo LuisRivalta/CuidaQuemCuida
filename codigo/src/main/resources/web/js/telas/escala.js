@@ -3,7 +3,7 @@ import { chamar } from '../api.js';
 import { estado, pacienteAtual, souCoordenador } from '../estado.js';
 import { registrarTela, ir } from '../rotas.js';
 import {
-  el, campo, lerFormulario, tentar, mostrarAviso, formatarIntervalo, formatarDiaSemana, formatarData, paraData, isoData, isoLocal,
+  el, preencher, campo, lerFormulario, tentar, mostrarAviso, formatarIntervalo, formatarDiaSemana, formatarData, paraData, isoData, isoLocal,
 } from '../ui.js';
 
 const NIVEL = { ATENCAO: 'Atenção', ALERTA: 'Alerta' };
@@ -162,7 +162,7 @@ registrarTela('/escala', async (conteudo, parametros) => {
   }
 
   const areaFormulario = el('div');
-  conteudo.replaceChildren(
+  preencher(conteudo,
     el('h1', {}, 'Escala'),
     el('div', { class: 'semana-nav' },
       el('a', { class: 'botao secundario pequeno', href: `#/escala?semana=${deslocamento - 1}`, 'aria-label': 'Semana anterior' }, '◀'),

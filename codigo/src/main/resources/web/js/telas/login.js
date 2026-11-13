@@ -2,7 +2,7 @@
 import { chamar, MODO } from '../api.js';
 import { salvarSessao } from '../estado.js';
 import { registrarTela, carregarContexto, ir } from '../rotas.js';
-import { el, campo, lerFormulario, tentar } from '../ui.js';
+import { el, preencher, campo, lerFormulario, tentar } from '../ui.js';
 
 registrarTela('/login', (conteudo) => {
   const form = el('form', { class: 'cartao', novalidate: true },
@@ -24,7 +24,7 @@ registrarTela('/login', (conteudo) => {
     ir('/hoje');
   });
 
-  conteudo.replaceChildren(
+  preencher(conteudo,
     el('h1', {}, 'Bem-vinda(o) ao CuidaQuemCuida'),
     el('p', { class: 'subtitulo' }, 'Organize o cuidado em rede e cuide também de você.'),
     form,

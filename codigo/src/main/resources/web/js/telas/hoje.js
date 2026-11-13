@@ -3,7 +3,7 @@ import { chamar } from '../api.js';
 import { estado, pacienteAtual } from '../estado.js';
 import { registrarTela, ir } from '../rotas.js';
 import {
-  el, campo, tentar, mostrarAviso, formatarHora, formatarIntervalo, formatarDiaSemana, paraData, isoData,
+  el, preencher, campo, tentar, mostrarAviso, formatarHora, formatarIntervalo, formatarDiaSemana, paraData, isoData,
 } from '../ui.js';
 
 const NOMES_SINAL = {
@@ -114,7 +114,7 @@ function linhaItem(item, pacienteId, recarregar) {
     }, 'Feito'));
   }
 
-  li.append(
+  preencher(li,
     el('div', {}, el('span', { class: 'hora' }, formatarHora(item.horario)), el('strong', {}, item.titulo), ' ', etiquetaStatus(item),
       atrasado ? el('span', { class: 'etiqueta ruim' }, 'Atrasado') : null),
     item.tipo === 'TAREFA' && item.detalhe
@@ -134,7 +134,7 @@ registrarTela('/hoje', async (conteudo) => {
     ? el('ol', { class: 'linha-tempo' }, dados.itens.map((item) => linhaItem(item, paciente.id, recarregar)))
     : el('p', {}, dados.turnoAtual ? 'Nada pendente no seu turno. 💚' : 'Nada pendente para hoje. 💚');
 
-  conteudo.replaceChildren(
+  preencher(conteudo,
     el('h1', {}, `Olá, ${primeiroNome}`),
     el('p', { class: 'subtitulo' }, `Hoje, ${formatarDiaSemana(isoData(new Date()))}`),
     await cartaoVago(paciente.id) || '',

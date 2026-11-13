@@ -3,7 +3,7 @@
 import { chamar } from '../api.js';
 import { estado } from '../estado.js';
 import { registrarTela, ir } from '../rotas.js';
-import { el, tentar, mostrarAviso, formatarData } from '../ui.js';
+import { el, preencher, tentar, mostrarAviso, formatarData } from '../ui.js';
 
 const FAIXAS = {
   BAIXA: { classe: 'ok', titulo: 'Sobrecarga baixa', texto: 'Que bom! Continue cuidando de você e dividindo as tarefas com a rede.' },
@@ -46,7 +46,7 @@ function blocoAjuda(avaliacao, redes) {
 
 function telaResultado(conteudo, avaliacao, redes) {
   const faixa = FAIXAS[avaliacao.faixa];
-  conteudo.replaceChildren(
+  preencher(conteudo,
     el('h1', {}, 'Seu resultado'),
     privado(),
     el('div', { class: 'cartao' },
@@ -65,7 +65,7 @@ async function questionario(conteudo) {
 
   function mostrarPergunta(indice) {
     const pergunta = q.perguntas[indice];
-    conteudo.replaceChildren(
+    preencher(conteudo,
       el('h1', {}, 'Como você está?'),
       privado(),
       el('p', { class: 'subtitulo' }, `Pergunta ${indice + 1} de ${q.perguntas.length}`),
@@ -88,7 +88,7 @@ async function questionario(conteudo) {
 
   function mostrarSono() {
     const entrada = el('input', { type: 'number', min: '0', max: '24', step: '0.5', inputmode: 'decimal', id: 'horas-sono', value: horasSono ?? '' });
-    conteudo.replaceChildren(
+    preencher(conteudo,
       el('h1', {}, 'Só mais duas'),
       privado(),
       el('div', { class: 'cartao' },
@@ -128,7 +128,7 @@ registrarTela('/bem-estar', async (conteudo) => {
       `Compartilhar minha pontuação com quem coordena a rede de ${rede.pacienteNome} (entra nas estatísticas do painel).`);
   });
 
-  conteudo.replaceChildren(
+  preencher(conteudo,
     el('h1', {}, 'Bem-estar'),
     privado(),
     el('p', {}, 'Quem cuida também precisa de cuidado. Responda a 12 perguntas rápidas sobre como o cuidado tem afetado você (uns 3 minutos).'),
