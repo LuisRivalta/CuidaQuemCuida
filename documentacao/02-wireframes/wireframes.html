@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CuidaQuemCuida — Wireframes</title>
+<style>
+  :root { --tinta: #333; --linha: #9a9a9a; --caixa: #e6e6e6; --fundo: #f4f4f4; --forte: #777; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 24px; background: #fff; color: var(--tinta); font: 14px/1.4 system-ui, "Segoe UI", sans-serif; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  p.nota { color: #666; margin: 0 0 20px; max-width: 900px; }
+  .telas { display: flex; flex-wrap: wrap; gap: 28px; }
+  figure { margin: 0; }
+  figcaption { font-weight: 700; margin-top: 8px; text-align: center; }
+  .cel { width: 240px; height: 480px; border: 3px solid var(--tinta); border-radius: 26px; padding: 10px; background: var(--fundo);
+         display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
+  .topo { height: 26px; border-bottom: 1px solid var(--linha); display: flex; align-items: center; justify-content: space-between; font-size: 11px; }
+  .bloco { background: var(--caixa); border: 1px solid var(--linha); border-radius: 8px; padding: 6px; font-size: 11px; }
+  .alerta { border: 2px solid var(--forte); }
+  .tracejado { border: 2px dashed var(--forte); background: #fff; }
+  .botao { background: var(--forte); color: #fff; border-radius: 6px; padding: 6px; text-align: center; font-size: 11px; font-weight: 700; }
+  .botao.claro { background: #fff; color: var(--tinta); border: 1px solid var(--forte); }
+  .campo { height: 24px; border: 1px solid var(--linha); background: #fff; border-radius: 4px; }
+  .rot { font-size: 10px; font-weight: 700; margin-top: 2px; }
+  .linha { display: flex; gap: 6px; align-items: center; }
+  .linha > * { flex: 1; }
+  .ponto { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--forte); flex: 0 0 10px; }
+  .ponto.cheio { background: var(--forte); }
+  .barra { height: 8px; background: var(--forte); border-radius: 4px; }
+  .grafico { height: 70px; border: 1px solid var(--linha); background: repeating-linear-gradient(90deg, #fff, #fff 18px, #eee 18px, #eee 19px); position: relative; }
+  .grafico::after { content: ""; position: absolute; left: 6px; right: 6px; top: 40%; border-top: 2px solid var(--forte); transform: skewY(-6deg); }
+  .espaco { flex: 1; }
+  .menu { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--linha); padding-top: 4px; font-size: 9px; text-align: center; }
+  .menu b { text-decoration: underline; }
+  .xs { font-size: 10px; color: #555; }
+</style>
+</head>
+<body>
+<h1>CuidaQuemCuida — Wireframes (baixa fidelidade)</h1>
+<p class="nota">Versão 1 (planejada), 13/11/2026. Celular primeiro: letra grande, botões de dedo (≥ 48 px), ícone sempre com texto, barra inferior com 4 abas (Hoje · Escala · Bem-estar · Mais). No computador, a barra vira menu lateral. Descrição de cada tela em Wireframes.md.</p>
+
+<div class="telas">
+
+<figure><div class="cel">
+  <div class="topo">CuidaQuemCuida</div>
+  <div style="font-weight:700;font-size:14px">Bem-vinda(o)</div>
+  <div class="rot">E-mail</div><div class="campo"></div>
+  <div class="rot">Senha</div><div class="campo"></div>
+  <div class="botao">Entrar</div>
+  <div class="xs">Primeira vez? <u>Criar minha conta</u></div>
+  <div class="bloco">Contas de demonstração (só no modo demonstração)</div>
+</div><figcaption>1. Login</figcaption></figure>
+
+<figure><div class="cel">
+  <div class="topo">CuidaQuemCuida <span>[Paciente ▾]</span></div>
+  <div class="bloco alerta">⚠ Domingo 22h–6h sem ninguém [Posso cobrir]</div>
+  <div style="font-weight:700">Olá, Paulo</div>
+  <div class="bloco">Seu turno: 14h–22h<br><span class="xs">cuidando de Lurdes</span></div>
+  <div class="bloco">
+    <div class="linha"><span class="ponto cheio"></span><span>14:00 Amoxicilina ✓</span></div>
+    <div class="linha"><span class="ponto"></span><span>16:00 Mudar de posição ▸ como fazer</span></div>
+    <div class="botao">Feito</div>
+    <div class="linha"><span class="ponto"></span><span>18:00 Medir pressão</span></div>
+    <div class="botao">Registrar</div>
+    <div class="linha"><span class="ponto"></span><span>20:00 Losartana</span></div>
+    <div class="linha"><div class="botao">Dei o remédio</div><div class="botao claro">Não foi dado</div></div>
+  </div>
+  <div class="espaco"></div>
+  <div class="menu"><b>Hoje</b><span>Escala</span><span>Bem-estar</span><span>Mais</span></div>
+</div><figcaption>2. Hoje</figcaption></figure>
+
+<figure><div class="cel">
+  <div class="topo">Escala</div>
+  <div class="linha"><div class="botao claro">◀</div><b style="text-align:center">9 a 15/11</b><div class="botao claro">▶</div></div>
+  <div class="bloco alerta">Alerta: Marta 96 h em 7 dias, sem folga. Quem pode ajudar: João, Ana</div>
+  <div class="botao">+ Novo turno</div>
+  <div class="rot">Sexta, 13/11</div>
+  <div class="bloco">6h–14h · Marta</div>
+  <div class="bloco">14h–22h · Paulo</div>
+  <div class="bloco">22h–6h · Ana 🌙</div>
+  <div class="rot">Domingo, 15/11</div>
+  <div class="bloco tracejado">22h–6h · sem ninguém [Posso cobrir]</div>
+  <div class="espaco"></div>
+  <div class="menu"><span>Hoje</span><b>Escala</b><span>Bem-estar</span><span>Mais</span></div>
+</div><figcaption>3. Escala</figcaption></figure>
+
+<figure><div class="cel">
+  <div class="topo">Novo turno</div>
+  <div class="rot">Quem</div><div class="campo"></div>
+  <div class="rot">Dia</div><div class="campo"></div>
+  <div class="linha"><div><div class="rot">Início</div><div class="campo"></div></div><div><div class="rot">Fim</div><div class="campo"></div></div></div>
+  <div class="xs">Fim menor que o início = termina no dia seguinte</div>
+  <div class="linha"><div class="botao">Salvar turno</div><div class="botao claro">Cancelar</div></div>
+  <div class="bloco alerta">Se houver conflito: "Paulo já tem turno nesse horário (13/11 12h–18h)"</div>
+</div><figcaption>4. Novo turno (coordenador)</figcaption></figure>
+
+<figure><div class="cel">
+  <div class="topo">Bem-estar</div>
+  <div style="font-weight:700">Como você está?</div>
+  <div class="xs">🔒 Só você vê · Pergunta 4 de 12</div>
+  <div class="barra" style="width:33%"></div>
+  <div class="bloco">Você sente que sua saúde foi afetada por causa do seu envolvimento com seu familiar?</div>
+  <div class="botao claro">Nunca</div><div class="botao claro">Raramente</div><div class="botao claro">Algumas vezes</div>
+  <div class="botao claro">Frequentemente</div><div class="botao claro">Sempre</div>
+  <div class="xs">← Voltar</div>
+  <div class="espaco"></div>
+  <div class="menu"><span>Hoje</span><span>Escala</span><b>Bem-estar</b><span>Mais</span></div>
+</div><figcaption>5. Bem-estar — pergunta</figcaption></figure>
+
+<figure><div class="cel">
+  <div class="topo">Seu resultado</div>
+  <div class="xs">🔒 Só você vê</div>
+  <div class="bloco"><b>Sobrecarga alta</b><br><span style="font-size:20px;font-weight:700">34 de 48</span><br>Você merece apoio.</div>
+  <div class="bloco alerta"><b>Você não está sozinha(o)</b><br>CVV 188 · UBS · CAPS</div>
+  <div class="botao">Pedir ajuda à rede</div>
+  <div class="xs">Avisa a rede sem mostrar a pontuação</div>
+  <div class="botao claro">Voltar</div>
+</div><figcaption>6. Bem-estar — resultado alto</figcaption></figure>
+
+<figure><div class="cel">
+  <div class="topo">Mais</div>
+  <div class="bloco">📊 Painel da rede (coordenador) ›</div>
+  <div class="bloco">💊 Paciente e remédios ›</div>
+  <div class="bloco">👥 Pessoas da rede ›</div>
+  <div class="bloco">❤️ Sinais vitais ›</div>
+  <div class="bloco">📋 Tarefas de cuidado ›</div>
+  <div class="bloco">🔒 Dados coletados ›</div>
+  <div class="bloco">🗄️ Banco ao vivo ›</div>
+  <div class="bloco">👤 Minha conta ›</div>
+  <div class="xs"><u>Sair</u></div>
+  <div class="espaco"></div>
+  <div class="menu"><span>Hoje</span><span>Escala</span><span>Bem-estar</span><b>Mais</b></div>
+</div><figcaption>7. Mais</figcaption></figure>
+
+<figure><div class="cel">
+  <div class="topo">Painel da rede</div>
+  <div class="linha"><div class="bloco">Adesão<br><b>89%</b></div><div class="bloco">Zarit<br><b>4 de 4</b></div></div>
+  <div class="bloco">Quem carrega o cuidado
+    <div class="linha"><span class="xs">Marta</span><div class="barra" style="flex:3"></div><span class="xs">60%</span></div>
+    <div class="linha"><span class="xs">Paulo</span><div class="barra" style="flex:1"></div><span class="xs">20%</span></div>
+  </div>
+  <div class="bloco">Média móvel de horas<div class="grafico"></div></div>
+  <div class="bloco">Chance de atraso: noite 21% × dia 9%</div>
+  <div class="bloco">Noites × sobrecarga: r = 0,93 (forte)</div>
+</div><figcaption>8. Painel da rede</figcaption></figure>
+
+<figure><div class="cel">
+  <div class="topo">Dados coletados</div>
+  <div class="bloco"><b>Seu cadastro</b><br><span class="xs">Por quê · Quem vê · Por quanto tempo</span></div>
+  <div class="bloco"><b>Remédios e doses</b><br><span class="xs">Por quê · Quem vê · Por quanto tempo</span></div>
+  <div class="bloco"><b>Bem-estar (Zarit)</b><br><span class="xs">Só você · até apagar</span></div>
+  <div class="bloco"><b>Auditoria</b><br><span class="xs">6 meses</span></div>
+  <div class="bloco">Seus direitos (LGPD): ver dados, excluir conta · dados no Brasil</div>
+  <div class="xs">Não substitui orientação médica.</div>
+</div><figcaption>9. Dados coletados</figcaption></figure>
+
+</div>
+</body>
+</html>
