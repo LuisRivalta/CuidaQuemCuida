@@ -1,0 +1,7 @@
+codigo/target/
+codigo/config.properties
+.superpowers/
+.obsidian/workspace*.json
+*.class
+.idea/
+*.iml
