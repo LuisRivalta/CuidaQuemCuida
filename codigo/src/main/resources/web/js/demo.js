@@ -574,7 +574,8 @@ rota('GET', '/pacientes/{id}/turnos', false, ({ eu, params: [id], q }) => {
 });
 
 rota('POST', '/pacientes/{id}/turnos', false, ({ eu, params: [id], corpo }) => {
-  exigirCoordenador(eu, id);
+  const membro = exigirMembro(eu, id);
+  if (membro.papel !== 'COORDENADOR' && corpo.pessoaId !== eu) throw falha(403, 'Você só pode marcar turnos para você mesmo(a)');
   validarTurno(corpo);
   const novo = { id: novoId(), pacienteId: id, pessoaId: corpo.pessoaId || null, inicio: corpo.inicio, fim: corpo.fim, status: 'PLANEJADO' };
   exigirSemConflito(novo);

@@ -1,0 +1,38 @@
+{
+  "instrumento": "Escala de Sobrecarga do Cuidador de Zarit, versão curta de 12 itens (ZBI-12)",
+  "fonte": "Bédard et al., 2001 (versão curta); tradução brasileira validada por Scazufca, 2002 (Rev Bras Psiquiatr 24(1):12-7). Texto adaptado para autoaplicação ('você' e 'seu familiar').",
+  "conferido": false,
+  "observacao": "conferido=false: texto e itens ainda não comparados com a fonte original. Conferir na Tarefa B4 do plano e então mudar para true.",
+  "opcoes": [
+    { "valor": 0, "texto": "Nunca" },
+    { "valor": 1, "texto": "Raramente" },
+    { "valor": 2, "texto": "Algumas vezes" },
+    { "valor": 3, "texto": "Frequentemente" },
+    { "valor": 4, "texto": "Sempre" }
+  ],
+  "perguntas": [
+    { "item": 1,  "itemOriginal": 2,  "texto": "Você sente que, por causa do tempo que gasta com seu familiar, não tem tempo suficiente para si mesmo(a)?" },
+    { "item": 2,  "itemOriginal": 3,  "texto": "Você se sente estressado(a) entre cuidar do seu familiar e suas outras responsabilidades com a família e o trabalho?" },
+    { "item": 3,  "itemOriginal": 5,  "texto": "Você se sente irritado(a) quando seu familiar está por perto?" },
+    { "item": 4,  "itemOriginal": 6,  "texto": "Você sente que seu familiar afeta negativamente seus relacionamentos com outros membros da família ou amigos?" },
+    { "item": 5,  "itemOriginal": 9,  "texto": "Você se sente tenso(a) quando seu familiar está por perto?" },
+    { "item": 6,  "itemOriginal": 10, "texto": "Você sente que sua saúde foi afetada por causa do seu envolvimento com seu familiar?" },
+    { "item": 7,  "itemOriginal": 11, "texto": "Você sente que não tem tanta privacidade como gostaria, por causa do seu familiar?" },
+    { "item": 8,  "itemOriginal": 12, "texto": "Você sente que sua vida social tem sido prejudicada porque está cuidando do seu familiar?" },
+    { "item": 9,  "itemOriginal": 17, "texto": "Você sente que perdeu o controle da sua vida desde a doença do seu familiar?" },
+    { "item": 10, "itemOriginal": 19, "texto": "Você se sente em dúvida sobre o que fazer pelo seu familiar?" },
+    { "item": 11, "itemOriginal": 20, "texto": "Você sente que deveria estar fazendo mais pelo seu familiar?" },
+    { "item": 12, "itemOriginal": 21, "texto": "Você sente que poderia cuidar melhor do seu familiar?" }
+  ],
+  "sono": {
+    "horas": "Quantas horas você dormiu por noite, em média, nesta semana?",
+    "qualidade": "Como foi a qualidade do seu sono nesta semana?",
+    "opcoesQualidade": [
+      { "valor": 1, "texto": "Muito ruim" },
+      { "valor": 2, "texto": "Ruim" },
+      { "valor": 3, "texto": "Razoável" },
+      { "valor": 4, "texto": "Boa" },
+      { "valor": 5, "texto": "Muito boa" }
+    ]
+  }
+}

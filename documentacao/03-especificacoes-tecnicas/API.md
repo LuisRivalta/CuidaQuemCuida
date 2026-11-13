@@ -165,11 +165,13 @@ Os mesmos campos do POST, sem `declaracaoAutorizacao`. 200 com o paciente.
 ```
 `pessoaId: null` = turno vago.
 
-### `POST /api/pacientes/{id}/turnos` (coord)
+### `POST /api/pacientes/{id}/turnos`
 ```json
 {"pessoaId": 2, "inicio": "2026-11-14T14:00:00", "fim": "2026-11-14T22:00:00"}
 ```
 201 com o turno.
+- O **coordenador** cria turno para qualquer membro, ou vago (`pessoaId: null`).
+- O **membro** só cria turno para **si mesmo** (`pessoaId` = a pessoa logada). É assim que alguém "se oferece para cobrir" um período vago. Senão, 403 `{"erro": "Você só pode marcar turnos para você mesmo(a)"}`.
 - 400 `{"erro": "O fim do turno precisa ser depois do início"}`.
 - 409 com a lista de conflitos:
 ```json
