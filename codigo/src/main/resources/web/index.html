@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="CuidaQuemCuida: rede de apoio e revezamento para cuidadores familiares.">
+  <meta name="theme-color" content="#0f766e">
+  <title>CuidaQuemCuida</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <div id="faixa-demo" class="faixa-demo" hidden>Modo demonstração — dados de exemplo</div>
+
+  <header class="topo" id="topo" hidden>
+    <span class="marca" aria-label="CuidaQuemCuida">💚 CuidaQuemCuida</span>
+    <label class="seletor-paciente" id="seletor-paciente" hidden>
+      <span class="visualmente-oculto">Paciente</span>
+      <select id="select-paciente"></select>
+    </label>
+  </header>
+
+  <div id="alertas" class="alertas" aria-live="polite"></div>
+  <div id="mensagem" class="mensagem" role="status" aria-live="polite" hidden></div>
+
+  <main id="conteudo" class="conteudo" tabindex="-1"></main>
+
+  <nav class="menu" id="menu" aria-label="Menu principal" hidden>
+    <a href="#/hoje" data-aba="hoje"><span aria-hidden="true">🏠</span>Hoje</a>
+    <a href="#/escala" data-aba="escala"><span aria-hidden="true">📅</span>Escala</a>
+    <a href="#/bem-estar" data-aba="bem-estar"><span aria-hidden="true">🙂</span>Bem-estar</a>
+    <a href="#/mais" data-aba="mais"><span aria-hidden="true">☰</span>Mais</a>
+  </nav>
+</body>
+</html>
