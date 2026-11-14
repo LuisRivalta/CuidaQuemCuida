@@ -30,7 +30,8 @@ Escolhidas do backlog as histórias de prioridade 1 e 2 (H01 a H21), quebradas n
 
 ## Verificação
 - Telas: sintaxe, roteiro automático do contrato e fotos das 16 telas no celular e no computador → **0 erros**.
-- Java: 62 testes escritos; conferência estática dos imports e das chamadas → 0 problemas. A **execução dos testes fica para a Sprint 2** (o computador desta sprint não tem Java).
+- Java: 64 testes escritos; conferência estática dos imports e das chamadas → 0 problemas. A **execução dos testes fica para a Sprint 2** (o computador desta sprint não tem Java).
+- **Revisão de código independente** (14/11): nenhum erro de compilação encontrado; os valores esperados dos testes conferem com a implementação. Dois problemas importantes foram corrigidos na hora: (1) alertas já resolvidos continuavam aparecendo, e agora saem da lista sozinhos; (2) cada tela fazia idas demais ao banco, e agora as doses e tarefas do dia só são inseridas quando faltam, a conexão só é conferida se ficou parada, e a tela Hoje reaproveita os alertas que já recebeu.
 
 ## Daily (resumo)
 - **13/11:** construção das telas e do banco; o computador não tem Java, então as telas ganharam um modo demonstração; Java escrito com testes primeiro; documentação gerada junto.

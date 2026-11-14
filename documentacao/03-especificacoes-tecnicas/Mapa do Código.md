@@ -41,7 +41,7 @@ tags: [indice, codigo]
 [[conflitos]] · [[conflitosIngenuo]] · [[blocosSemFolga]] · [[horasNaJanela]] · [[nivel de sobrecarga]] · [[periodosDescobertos]] · [[sugerirCobertura]] · [[horariosEntre]] · [[status da dose]] · [[foraDaCurva]] · [[pontuar Zarit]] · [[mediaMovel]] · [[pearson]] · [[desvioPadrao]] · [[zScore]] · [[hash da senha]] · [[garantirDoses]] · [[registrar dose]]
 
 ## Testes (`codigo/src/test/java/`)
-13 classes de teste JUnit 5. Lista e o que cada uma prova em [[Testes e Validação]].
+14 classes de teste JUnit 5 (64 testes). Lista e o que cada uma prova em [[Testes e Validação]].
 
 ## Banco (`banco/`)
 `00-apagar-tabelas.sql` · `01-criar-tabelas.sql` · `02-ligar-rls.sql` · `03-dados-demo.sql`. Ver [[Diagrama do Banco]].

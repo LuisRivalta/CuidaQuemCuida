@@ -17,9 +17,9 @@ Quadro do projeto. Cada cartão: tarefa, responsável, quem aprovou e datas reai
 - [ ] B7 Empacotar e entregar (até 19/11) — resp.: Gabriel — aprovado por: Luis
 
 ## Fazendo
-- [ ] A13 Revisão da Parte A — resp.: Gabriel — aprovado por: Luis — início: 13/11
 
 ## Feito
+- [x] A13 Revisão da Parte A (revisão de código + 2 correções) — resp.: Gabriel — aprovado por: Luis — 13/11 a 14/11
 - [x] Descoberta: escolha e análise das ideias — Luis e Gabriel — ~09/11 a 12/11
 - [x] Sprint 0: documento de design, pesquisa de concorrentes, esboços das telas, plano — Luis e Gabriel — 13/11
 - [x] A1 Estrutura do projeto, README e mapa da documentação — resp.: Gabriel — aprovado por: Luis — 13/11

@@ -44,4 +44,12 @@ Cada decisão importante, com data e motivo. Quando o código mudar em relação
 | D28 | Perguntas da Zarit marcadas como "não conferidas" | Fontes inacessíveis na rede usada; conferir antes de gravar ([[Diário de Desafios]] nº 8) |
 | D29 | Notas de classe geradas a partir do próprio código | A documentação fica sempre igual ao implementado |
 
+## Revisão de código da Sprint 1 (14/11/2026)
+| # | Decisão | Por quê |
+|---|---|---|
+| D30 | Alertas calculados que deixaram de valer são marcados como lidos automaticamente | Sem isso, "remédio daqui a pouco" continuava no topo depois de dado |
+| D31 | Doses e tarefas do dia: ler antes e inserir só o que falta | Cada tela aberta mandava dezenas de INSERTs para o banco |
+| D32 | Conexão só é testada (`isValid`) se ficou parada mais de 30 s | Testar sempre era uma ida extra ao banco por comando |
+| D33 | A tela Hoje usa os alertas que vêm no `/hoje` | Evita recalcular tudo numa segunda chamada |
+
 ## Sprint 2 — (a preencher com as decisões tomadas na compilação, nos testes e na integração)

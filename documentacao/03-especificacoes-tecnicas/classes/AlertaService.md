@@ -18,6 +18,7 @@ Faz parte do [[Módulo Hoje e Alertas]].
 | Método | O que faz |
 |---|---|
 | `gerar(long eu, long pacienteId, LocalDateTime agora) → estático List<AlertaDto>` |  |
+| `chaves(List<Alerta> alertas) → estático List<String>` | "TIPO/referencia" de cada alerta: a mesma chave única da tabela (sem o destinatário). |
 | `marcarLido(long eu, long alertaId) → estático void` |  |
 | `deTurnoECoordenadores(long pacienteId, LocalDateTime agora) → estático Set<Long>` | Destinatários de um alerta "do momento": quem está de turno agora e os coordenadores. |
 | `pessoaNoTurno(List<Turno> turnos, LocalDateTime instante) → estático Long` |  |
@@ -27,6 +28,9 @@ Faz parte do [[Módulo Hoje e Alertas]].
 
 ## É usada por
 [[AlertaResource]], [[HojeService]], [[SinalVitalService]]
+
+## Testes
+`AlertaServiceTest` (JUnit 5) em `codigo/src/test/java/`. Ver [[Testes e Validação]].
 
 ---
 Ver também: [[Mapa do Código]] · [[Diagrama de Classes]] · [[Arquitetura]]

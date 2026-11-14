@@ -22,7 +22,7 @@ Faz parte do [[Módulo Medicação]].
 | `criar(long eu, long pacienteId, MedicamentoDto dados) → estático MedicamentoDto` |  |
 | `atualizar(long eu, long medicamentoId, MedicamentoDto dados) → estático MedicamentoDto` |  |
 | `apagar(long eu, long medicamentoId) → estático void` |  |
-| `garantirDoses(long pacienteId, LocalDate dia) → estático void` → [[garantirDoses]] | Cria as doses previstas do dia que ainda não existem (pode ser chamado várias vezes: não duplica). |
+| `garantirDoses(long pacienteId, LocalDate dia) → estático void` → [[garantirDoses]] | Cria as doses previstas do dia que ainda não existem (pode ser chamado várias vezes: não duplica). Primeiro lê o que já existe e só insere o que falta, para não mandar dezenas de INSERTs a cada tela aberta; o ON CONFLICT do banco continua garantindo que duas chamadas ao mesmo tempo não dupliquem. |
 | `dosesDoDia(long pacienteId, LocalDate dia, LocalDateTime agora) → estático List<Dose>` | Doses do dia, com o status atualizado (sem registro depois de 2 h vira "não dada"). |
 | `doses(long eu, long pacienteId, LocalDate dia) → estático List<DoseDto>` |  |
 | `dar(long eu, long doseId, String observacao) → estático DoseDto` |  |

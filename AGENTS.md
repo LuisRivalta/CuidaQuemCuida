@@ -51,3 +51,18 @@ fazer e espere eu confirmar.
 
 ## Estado atual
 - **13/11/2026:** design aprovado; plano aprovado; Parte A (PC sem Java) em andamento.
+- **14/11/2026: Parte A concluída (A1 a A13).** Tudo commitado no Git (branch `main`). **Próximo passo: Tarefa B1** do plano.
+  - **Telas:** completas e testadas no modo demonstração (16 telas, celular e computador, 0 erros).
+  - **Java:** completo, com 64 testes JUnit **escritos, mas nunca compilados nem executados** (o PC da Parte A não tinha JDK). Uma revisão independente leu tudo e não achou erro de compilação; mesmo assim, espere ajustes na B2.
+  - **Banco:** scripts prontos, **nunca executados** (o projeto Supabase ainda não existe; ver B3).
+  - **Documentação:** 152 notas, 0 links quebrados, 11 diagramas Mermaid validados.
+
+## Pendências conhecidas (para a Parte B)
+Achadas na revisão de código e deixadas para depois por serem pequenas. Corrija se der tempo; nenhuma impede a demonstração.
+1. **Texto da Zarit não conferido** (`web/dados/zarit-perguntas.json`, `"conferido": false`): conferir com a fonte antes de gravar (B4, passo 4). **Obrigatório.**
+2. **Jackson:** se aparecer `NoSuchMethodError` vindo de `org.glassfish.jersey.jackson` ao subir, alinhar a versão do `jackson-bom` no `pom.xml` com a do Jersey (`mvn dependency:tree`) ou tirar o BOM.
+3. **Rodar sempre com `mvn compile exec:java`** (o `exec:java` sozinho não recompila; no IntelliJ o botão ▶ já compila).
+4. **Resetar o banco no dia da gravação** (`banco/00` a `03`): a escala de demonstração vai até 7 dias à frente; nos dias seguintes aparecem "turnos vagos" falsos no fim da semana.
+5. Dados de demonstração: doses e tarefas de agora há pouco já entram como feitas; para mostrar uma dose atrasada no vídeo, basta não marcar a próxima dose prevista.
+6. O modo API das telas só liga quando a página é servida pela porta 8080 (`js/api.js`). Mudou a porta? Abra com `?modo=api`.
+7. Pequenas, se sobrar tempo: texto maior que a coluna (`SQLState 22001`) vira 500 em `infra/Sql.java`; o `SELECT` de sessão feito a cada 2 s pela tela Banco ao vivo enche a lista de 50 comandos (pode-se não registrar esse `SELECT` no `LogSql`); "Posso cobrir" tocado por duas pessoas ao mesmo tempo cria dois turnos.

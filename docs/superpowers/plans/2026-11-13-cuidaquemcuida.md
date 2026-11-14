@@ -93,28 +93,28 @@ C:\CuidaQuemCuida\
 **Interfaces:**
 - Produz: a estrutura de pastas do mapa acima, e o `AGENTS.md` que as tarefas seguintes atualizam na seção "Estado atual".
 
-- [ ] **Passo 1:** criar as pastas do mapa de arquivos (as que ainda não existem).
-- [ ] **Passo 2:** `.gitignore` com: `codigo/target/`, `codigo/config.properties`, `.superpowers/`, `.obsidian/workspace*.json`, `*.class`, `.idea/`, `*.iml`.
-- [ ] **Passo 3:** `README.md` (vai no zip; **não cita IA**), com:
+- [x] **Passo 1:** criar as pastas do mapa de arquivos (as que ainda não existem).
+- [x] **Passo 2:** `.gitignore` com: `codigo/target/`, `codigo/config.properties`, `.superpowers/`, `.obsidian/workspace*.json`, `*.class`, `.idea/`, `*.iml`.
+- [x] **Passo 3:** `README.md` (vai no zip; **não cita IA**), com:
   - o que é (2 linhas e o slogan);
   - a equipe (Luis e Gabriel Vilela, turma 2SIOA);
   - as tecnologias;
   - a seção "Como rodar": pré-requisitos (JDK 21 e Maven, ou IntelliJ), criar as tabelas rodando `banco/00` a `03` num PostgreSQL, copiar `config.properties.exemplo` para `config.properties` e preencher, `mvn test`, `mvn exec:java`, abrir `http://localhost:8080`;
   - os logins de demonstração (`marta@demo.cqc`, `paulo@demo.cqc`, `ana@demo.cqc`, `joao@demo.cqc`, todos com a senha `demo1234`);
   - o modo demonstração das telas sem a API.
-- [ ] **Passo 4:** `AGENTS.md` (fora do zip), com:
+- [x] **Passo 4:** `AGENTS.md` (fora do zip), com:
   - o contexto em 10 linhas (GS 2026, CitizenTech, prazo, equipe e papéis);
   - **regras invioláveis**: as restrições globais acima, em especial não citar IA nos entregáveis, datas reais e não inventar desafios;
   - onde está cada coisa (design, edital, plano, código, banco, documentação);
   - como continuar (abrir este plano e seguir o primeiro `- [ ]` não marcado);
   - a seção **"Estado atual"**, atualizada ao fim de cada tarefa, com data e o que foi feito.
-- [ ] **Passo 5:** `Mapa do Projeto.md`, a nota-índice com `[[links]]`:
+- [x] **Passo 5:** `Mapa do Projeto.md`, a nota-índice com `[[links]]`:
   - para o design, o edital e cada pasta;
   - para as notas futuras (API, Regras de Negócio, Estatística, Escala Zarit, Diagrama do Banco, Diagrama de Classes, Arquitetura, Casos de Uso, Wireframes, Personas, Problema e Evidências, Concorrentes, ODS, LGPD, Testes e Validação, Métodos Ágeis, Kanban, Diário de Desafios, Registro de Decisões, Conteúdos do Curso, roteiros).
-- [ ] **Passo 6:** `Kanban.md`, com as colunas `## A fazer`, `## Fazendo`, `## Feito` em listas de tarefas. Um cartão por tarefa deste plano, no formato `- [ ] A3 Banco — resp.: Gabriel — aprovado por: Luis — início: 13/11`. Datas reais. `Sprint 0 - Planejamento.md`: o que foi feito em 13/11 (design, pesquisa de concorrentes, esboços, backlog) e a fase de descoberta (~09/11 a 12/11).
-- [ ] **Passo 7:** `git init` na raiz. Conferir `git config user.name` e `git config user.email`. Se estiverem vazios, **perguntar ao usuário** o nome e o e-mail a usar neste repositório e gravar com `git config` local (sem `--global`).
-- [ ] **Passo 8 — Verificar:** `git status` lista os arquivos novos e **não** lista `.superpowers/`.
-- [ ] **Passo 9:** commit: `git add -A && git commit -m "chore: estrutura do projeto, README e mapa da documentação"`.
+- [x] **Passo 6:** `Kanban.md`, com as colunas `## A fazer`, `## Fazendo`, `## Feito` em listas de tarefas. Um cartão por tarefa deste plano, no formato `- [ ] A3 Banco — resp.: Gabriel — aprovado por: Luis — início: 13/11`. Datas reais. `Sprint 0 - Planejamento.md`: o que foi feito em 13/11 (design, pesquisa de concorrentes, esboços, backlog) e a fase de descoberta (~09/11 a 12/11).
+- [x] **Passo 7:** `git init` na raiz. Conferir `git config user.name` e `git config user.email`. Se estiverem vazios, **perguntar ao usuário** o nome e o e-mail a usar neste repositório e gravar com `git config` local (sem `--global`).
+- [x] **Passo 8 — Verificar:** `git status` lista os arquivos novos e **não** lista `.superpowers/`.
+- [x] **Passo 9:** commit: `git add -A && git commit -m "chore: estrutura do projeto, README e mapa da documentação"`.
 
 ### Tarefa A2: Contrato da API
 
@@ -124,13 +124,13 @@ C:\CuidaQuemCuida\
 **Interfaces:**
 - Produz: o contrato que as telas (A4 a A6, incluindo o `demo.js`) e o Java (A9) seguem **exatamente**. Uma mudança aqui exige mudar os dois lados.
 
-- [ ] **Passo 1:** escrever o `API.md` com as regras gerais:
+- [x] **Passo 1:** escrever o `API.md` com as regras gerais:
   - base `/api`;
   - cabeçalho `Authorization: Bearer <token>` em toda rota, menos as marcadas como pública;
   - códigos 200, 201, 204, 400 (dado inválido), 401 (sem login), 403 (sem permissão), 404, 409 (conflito ou já registrado);
   - formato de erro e de datas das restrições globais;
   - "(coord)" quer dizer que só o coordenador daquele paciente pode usar.
-- [ ] **Passo 2:** documentar cada rota com um exemplo de JSON de entrada e de saída, usando estes campos (os nomes são obrigatórios):
+- [x] **Passo 2:** documentar cada rota com um exemplo de JSON de entrada e de saída, usando estes campos (os nomes são obrigatórios):
 
 | Rota | Entrada → Saída |
 |---|---|
@@ -181,8 +181,8 @@ C:\CuidaQuemCuida\
 | `GET /api/pacientes/{id}/estatisticas?dias=30` (coord) | → `{adesao:{geral,porMedicamento:[{nome,taxa}],porPeriodo:[{periodo,taxa}]}, cargaPorPessoa:[{nome,horas,percentual}], acimaDaMedia:[nome], equilibrio:{desvioPadrao,coeficienteVariacao}, mediaMovelHoras:[{nome,serie:[{data,valor}]}], horasPorTurno:{media,mediana,moda}, horaComMaisAtrasos, chanceAtraso:{noturno,diurno}, zarit:{compartilharam,total,media,mediana,moda,pearsonNoturnosZarit,pearsonNoturnosSono}}`. Taxas de 0 a 1. Indefinido = `null` |
 | `GET /api/demo/sql` | → `[{quando,tipo,sql,ms}]`, os últimos 50 (SQL com `?` no lugar dos valores) |
 
-- [ ] **Passo 3 — Verificar:** cada linha da tabela da seção 9 do design tem rota aqui, e cada tela da seção 10 tem as rotas de que precisa.
-- [ ] **Passo 4:** commit `docs: contrato da API`.
+- [x] **Passo 3 — Verificar:** cada linha da tabela da seção 9 do design tem rota aqui, e cada tela da seção 10 tem as rotas de que precisa.
+- [x] **Passo 4:** commit `docs: contrato da API`.
 
 ### Tarefa A3: Banco de dados (scripts e diagrama planejado)
 
@@ -193,7 +193,7 @@ C:\CuidaQuemCuida\
 **Interfaces:**
 - Produz: as tabelas e colunas abaixo, que o Java (A8 e A9) usa pelos mesmos nomes.
 
-- [ ] **Passo 1:** `01-criar-tabelas.sql`, começando com `SET TIME ZONE 'America/Sao_Paulo';`. Todas as chaves são `bigserial`, salvo indicação. Todo `CHECK` de domínio usa exatamente estes valores:
+- [x] **Passo 1:** `01-criar-tabelas.sql`, começando com `SET TIME ZONE 'America/Sao_Paulo';`. Todas as chaves são `bigserial`, salvo indicação. Todo `CHECK` de domínio usa exatamente estes valores:
 
 | Tabela | Colunas e restrições |
 |---|---|
@@ -216,9 +216,9 @@ C:\CuidaQuemCuida\
 | `auditoria` | id; pessoa_id FK NULL; acao CHECK (INSERIR, ALTERAR, EXCLUIR, LOGIN); tabela varchar(40) NN; registro_id bigint; quando timestamp default now(); detalhe varchar(300) |
 
   Índices: `turno(paciente_id, inicio)`, `turno(pessoa_id, inicio)`, `dose(previsto_para)`, `sinal_vital(paciente_id, tipo, medido_em)`, `alerta(destinatario_id, lido_em)`, `execucao_tarefa(prevista_para)`.
-- [ ] **Passo 2:** `00-apagar-tabelas.sql`: `DROP TABLE IF EXISTS ... CASCADE` das 17 tabelas, na ordem inversa. `02-ligar-rls.sql`: `ALTER TABLE <t> ENABLE ROW LEVEL SECURITY;` nas 17, **sem nenhuma política**. Um comentário no topo explica: fecha a API automática do Supabase para a chave pública; o Java entra com o usuário dono das tabelas (`postgres`), a quem o RLS não se aplica.
-- [ ] **Passo 3:** gerar, com o script auxiliar na pasta temporária, o salt e o hash de `demo1234` (PBKDF2WithHmacSHA256, 600.000 iterações, salt de 16 bytes, saída de 32 bytes, Base64). Anotar os dois valores, que vão no seed e no `SenhaTest` (A8).
-- [ ] **Passo 4:** `03-dados-demo.sql`, começando com `SET TIME ZONE 'America/Sao_Paulo';`. **Determinístico** e com datas relativas a `CURRENT_DATE`, para sempre parecer atual ao resetar. Sem `random()`: a variação vem de expressões fixas sobre a data e o id. O conteúdo:
+- [x] **Passo 2:** `00-apagar-tabelas.sql`: `DROP TABLE IF EXISTS ... CASCADE` das 17 tabelas, na ordem inversa. `02-ligar-rls.sql`: `ALTER TABLE <t> ENABLE ROW LEVEL SECURITY;` nas 17, **sem nenhuma política**. Um comentário no topo explica: fecha a API automática do Supabase para a chave pública; o Java entra com o usuário dono das tabelas (`postgres`), a quem o RLS não se aplica.
+- [x] **Passo 3:** gerar, com o script auxiliar na pasta temporária, o salt e o hash de `demo1234` (PBKDF2WithHmacSHA256, 600.000 iterações, salt de 16 bytes, saída de 32 bytes, Base64). Anotar os dois valores, que vão no seed e no `SenhaTest` (A8).
+- [x] **Passo 4:** `03-dados-demo.sql`, começando com `SET TIME ZONE 'America/Sao_Paulo';`. **Determinístico** e com datas relativas a `CURRENT_DATE`, para sempre parecer atual ao resetar. Sem `random()`: a variação vem de expressões fixas sobre a data e o id. O conteúdo:
   - **Pessoas** (as 4 com o hash do Passo 3):
     - Marta Souza, 58, FEMININO, `marta@demo.cqc`;
     - Paulo Souza, 54, MASCULINO, `paulo@demo.cqc`;
@@ -264,14 +264,14 @@ C:\CuidaQuemCuida\
 | Paulo | 11 e 12 | MODERADA | 4 e 4 |
 | João | 7 e 6 | BAIXA | 5 e 4 |
 
-- [ ] **Passo 5:** `Diagrama do Banco.md` com um `erDiagram` Mermaid das 17 tabelas e cardinalidades. No topo: "Versão 1 (planejada) — 13/11/2026. O DER final é gerado do banco real pelo DBeaver (Tarefa B5)". Links para [[Design da Solução]] e [[API]].
+- [x] **Passo 5:** `Diagrama do Banco.md` com um `erDiagram` Mermaid das 17 tabelas e cardinalidades. No topo: "Versão 1 (planejada) — 13/11/2026. O DER final é gerado do banco real pelo DBeaver (Tarefa B5)". Links para [[Design da Solução]] e [[API]].
 - [ ] **Passo 6 — Verificar:** se o projeto Supabase já existir, o usuário roda 00, 01, 02 e 03 no SQL Editor, nessa ordem, sem erro, e confere:
   - `select count(*) from pessoa` = 4;
   - `select count(*) from turno where pessoa_id is null` = 0 (domingo vago é ausência de turno);
   - `select status, count(*) from dose group by status` mostra DADA, ATRASADA, NAO_DADA e PENDENTE.
   
   Se o projeto ainda não existir, essa verificação passa para a B3.
-- [ ] **Passo 7:** commit `feat(banco): tabelas, RLS e dados de demonstração`.
+- [x] **Passo 7:** commit `feat(banco): tabelas, RLS e dados de demonstração`.
 
 ### Tarefa A4: Telas — base, login, cadastro e modo demonstração
 
@@ -287,22 +287,22 @@ C:\CuidaQuemCuida\
   - `ui.js`: `el(tag, atributos, ...filhos)`, `mostrarErro(msg)`, `mostrarAviso(msg)`, `formatarHora(iso)`, `formatarData(iso)`;
   - `app.js`: roteador por hash, `registrarTela(rota, funcaoRender)`, barra de alertas no topo, barra inferior (Hoje · Escala · Bem-estar · Mais) e seletor de paciente quando houver mais de uma rede.
 
-- [ ] **Passo 1:** `index.html` com `lang="pt-BR"`, viewport para celular, título "CuidaQuemCuida", Chart.js 4.4.1 por CDN (`https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js`) e `<script type="module" src="js/app.js">`. No modo demo, mostra a faixa "Modo demonstração — dados de exemplo".
-- [ ] **Passo 2:** `estilo.css`, pensado primeiro para o celular, com variáveis em `:root`: cor principal verde-azulada calma, fundo claro, texto de alto contraste, cores de alerta (vermelho, amarelo), raio, espaçamentos, fonte base de 18 px e `min-height: 48px` em botões e campos. A partir de 900 px, a barra inferior vira menu lateral e o conteúdo fica centralizado (máximo de 720 px). Foco visível nos elementos.
-- [ ] **Passo 3:** `api.js`, `demo.js`, `ui.js` e `app.js` conforme as interfaces. Rotas registradas nesta tarefa:
+- [x] **Passo 1:** `index.html` com `lang="pt-BR"`, viewport para celular, título "CuidaQuemCuida", Chart.js 4.4.1 por CDN (`https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js`) e `<script type="module" src="js/app.js">`. No modo demo, mostra a faixa "Modo demonstração — dados de exemplo".
+- [x] **Passo 2:** `estilo.css`, pensado primeiro para o celular, com variáveis em `:root`: cor principal verde-azulada calma, fundo claro, texto de alto contraste, cores de alerta (vermelho, amarelo), raio, espaçamentos, fonte base de 18 px e `min-height: 48px` em botões e campos. A partir de 900 px, a barra inferior vira menu lateral e o conteúdo fica centralizado (máximo de 720 px). Foco visível nos elementos.
+- [x] **Passo 3:** `api.js`, `demo.js`, `ui.js` e `app.js` conforme as interfaces. Rotas registradas nesta tarefa:
   - `#/login`;
   - `#/cadastro` (com o termo de consentimento destacado e a caixa "Li e aceito", obrigatória);
   - `#/novo-paciente` (com responsável legal, parentesco e a declaração de autorização, obrigatória);
   - `#/entrar-rede` (código e vínculo).
   
   Depois do login: sem rede, vai para a escolha entre "Cadastrar paciente" e "Entrar com código"; com rede, vai para `#/hoje`.
-- [ ] **Passo 4 — Verificar sintaxe:** `node --check` em cada `.js` (todos sem erro).
-- [ ] **Passo 5 — Verificar no navegador:** servir com `python -m http.server 8000 --directory codigo/src/main/resources/web` (em segundo plano) e abrir `http://localhost:8000`. Se possível, capturar com o Edge sem janela, em 390×844, e conferir a imagem:
+- [x] **Passo 4 — Verificar sintaxe:** `node --check` em cada `.js` (todos sem erro).
+- [x] **Passo 5 — Verificar no navegador:** servir com `python -m http.server 8000 --directory codigo/src/main/resources/web` (em segundo plano) e abrir `http://localhost:8000`. Se possível, capturar com o Edge sem janela, em 390×844, e conferir a imagem:
   - login com `marta@demo.cqc` / `demo1234` entra;
   - a faixa de demonstração aparece;
   - o cadastro sem aceite mostra o erro;
   - nada passa da largura da tela no celular.
-- [ ] **Passo 6:** commit `feat(telas): base, login, cadastro e modo demonstração`.
+- [x] **Passo 6:** commit `feat(telas): base, login, cadastro e modo demonstração`.
 
 ### Tarefa A5: Telas — Hoje, Escala e Bem-estar
 
@@ -312,38 +312,38 @@ C:\CuidaQuemCuida\
 **Interfaces:**
 - Consome: `chamar`, `el`, `registrarTela` (A4) e as rotas da A2.
 
-- [ ] **Passo 1: `#/hoje`** (base: o esboço aprovado):
+- [x] **Passo 1: `#/hoje`** (base: o esboço aprovado):
   - alertas no topo, com botão "Posso assumir" no turno vago;
   - "Seu turno 14h–20h" ou, sem turno, "Seu próximo turno: ...";
   - a linha do tempo dos itens do `GET /api/hoje`, cada um com um botão: "Dei o remédio" (`PUT /doses/{id}/dar`), "Não foi dado" (pede o motivo), "Feito" (tarefa comum, `PUT /execucoes/{id}/feita`), "Registrar" (tarefa com `tipoSinal`: abre o formulário de sinal vital já com o tipo e, ao salvar, marca a execução como feita);
   - "como fazer" expande a orientação da tarefa;
   - no 409, mostra a mensagem do servidor.
-- [ ] **Passo 2: `#/escala`:**
+- [x] **Passo 2: `#/escala`:**
   - semana com ◀ ▶ e os turnos por dia;
   - vago em vermelho tracejado com "Assumir";
   - o resultado de `/escala/analise` em avisos amarelos (sobrecarga, com a sugestão vinda de `/turnos/{id}/sugestoes`) e vermelhos (conflito);
   - "+ Novo turno" (só para o coordenador), com pessoa ou vago, data, início e fim. Turno que atravessa a meia-noite é permitido: o fim no dia seguinte é calculado quando o fim é menor que o início.
-- [ ] **Passo 3: `zarit-perguntas.json`:** `[{"item":1,"texto":"..."} ... 12]` com os itens da **ZBI-12** (Bédard et al., 2001) no texto da **tradução brasileira validada** (Scazufca, 2002, SciELO, acesso aberto). Buscar a fonte e copiar o texto exato. Se não conseguir confirmar algum item, gravar o texto com o prefixo `[CONFERIR]` e listá-lo em B4. Opções de resposta: Nunca (0), Raramente (1), Algumas vezes (2), Frequentemente (3), Sempre (4). Mais 2 perguntas de sono, fora da pontuação: "Quantas horas você dormiu por noite, em média, nesta semana?" e "Como foi a qualidade do seu sono?" (de 1, muito ruim, a 5, muito boa).
-- [ ] **Passo 4: `#/bem-estar`:**
+- [x] **Passo 3: `zarit-perguntas.json`:** `[{"item":1,"texto":"..."} ... 12]` com os itens da **ZBI-12** (Bédard et al., 2001) no texto da **tradução brasileira validada** (Scazufca, 2002, SciELO, acesso aberto). Buscar a fonte e copiar o texto exato. Se não conseguir confirmar algum item, gravar o texto com o prefixo `[CONFERIR]` e listá-lo em B4. Opções de resposta: Nunca (0), Raramente (1), Algumas vezes (2), Frequentemente (3), Sempre (4). Mais 2 perguntas de sono, fora da pontuação: "Quantas horas você dormiu por noite, em média, nesta semana?" e "Como foi a qualidade do seu sono?" (de 1, muito ruim, a 5, muito boa).
+- [x] **Passo 4: `#/bem-estar`:**
   - "Só você vê" no topo;
   - a última pontuação, a próxima data sugerida e o histórico (`/zarit/minhas`);
   - "Responder agora": uma pergunta por vez, com "Pergunta N de 12" e voltar; depois as 2 de sono; envio por `POST /api/zarit`;
   - resultado com a faixa explicada em linguagem simples;
   - se ALTA: o bloco "Você não está sozinha(o)", com CVV 188 (ligação gratuita, 24 h), "Procure a UBS de referência" e "CAPS da sua cidade", e o botão "Pedir ajuda à rede";
   - interruptor "Compartilhar minha pontuação com o coordenador", por rede (`PUT /compartilhar-zarit`).
-- [ ] **Passo 5:** `Escala Zarit.md`: o que é, a fonte (Scazufca 2002; ZBI-12 de Bédard 2001; estudo brasileiro de 2019), as faixas usadas (BAIXA 0–10, MODERADA 11–20, ALTA 21–48, com a fonte da faixa alta), a nota de direitos autorais (uso acadêmico sem financiamento) e a privacidade (dois consentimentos).
-- [ ] **Passo 6 — Verificar:** `node --check` nos 3 arquivos novos. No navegador (modo demo, logado como Paulo):
+- [x] **Passo 5:** `Escala Zarit.md`: o que é, a fonte (Scazufca 2002; ZBI-12 de Bédard 2001; estudo brasileiro de 2019), as faixas usadas (BAIXA 0–10, MODERADA 11–20, ALTA 21–48, com a fonte da faixa alta), a nota de direitos autorais (uso acadêmico sem financiamento) e a privacidade (dois consentimentos).
+- [x] **Passo 6 — Verificar:** `node --check` nos 3 arquivos novos. No navegador (modo demo, logado como Paulo):
   - "Dei o remédio" muda o item para dado;
   - a Escala mostra o domingo 22–06 vago;
   - a Zarit respondida até o fim com respostas altas mostra o bloco do CVV.
-- [ ] **Passo 7:** commit `feat(telas): Hoje, Escala e Bem-estar`.
+- [x] **Passo 7:** commit `feat(telas): Hoje, Escala e Bem-estar`.
 
 ### Tarefa A6: Telas — Mais, painel, LGPD e Banco ao vivo
 
 **Arquivos:**
 - Criar: `js/telas/mais.js`, `js/telas/painel.js`
 
-- [ ] **Passo 1: `#/mais`**, uma lista de entradas:
+- [x] **Passo 1: `#/mais`**, uma lista de entradas:
   - Painel da rede (só para o coordenador);
   - Paciente e remédios;
   - Pessoas da rede;
@@ -353,13 +353,13 @@ C:\CuidaQuemCuida\
   - Banco ao vivo;
   - Minha conta;
   - Sair.
-- [ ] **Passo 2:** subtelas, todas com criar, editar e excluir quando a rota permite:
+- [x] **Passo 2:** subtelas, todas com criar, editar e excluir quando a rota permite:
   - **Paciente e remédios:** o formulário de remédio troca os campos pelo tipo de regra (intervalo: horas e primeira dose; horários fixos: lista de horas; dias alternados: horas e início).
   - **Pessoas da rede:** membros com papel e horas na semana; código de convite com "Gerar novo" (coordenador); mudar o papel e remover (coordenador).
   - **Sinais vitais:** registrar; gráfico de linha por tipo nos últimos 30 dias (Chart.js), com a faixa desenhada; os pontos fora da faixa ou da curva destacados.
   - **Tarefas de cuidado:** CRUD.
   - **Minha conta:** meus dados, e "Excluir minha conta" com confirmação explicando a anonimização.
-- [ ] **Passo 3: `#/mais/painel`** (`painel.js`), na ordem:
+- [x] **Passo 3: `#/mais/painel`** (`painel.js`), na ordem:
   - cartões de adesão geral, doses atrasadas e "N de M compartilharam a Zarit";
   - barras de "Quem carrega o cuidado" (%);
   - linha da média móvel de 7 dias das horas por pessoa;
@@ -370,13 +370,13 @@ C:\CuidaQuemCuida\
   - equilíbrio da rede (desvio padrão e coeficiente de variação).
   
   Todo valor `null` mostra "Dados insuficientes". Rodapé: "Dados de demonstração simulados" quando estiver no modo demo ou com o seed.
-- [ ] **Passo 4: Dados coletados:** a tabela "dado · por que coletamos · quem vê · por quanto tempo", com as linhas das seções 8 e 11 do design (cadastro; dados de cuidado; Zarit; sessão de 7 dias; auditoria de 6 meses; Banco ao vivo só na memória). Mais os direitos ("ver meus dados", "excluir minha conta"), a base legal (consentimento, art. 11, I da LGPD), "dados guardados no Brasil" e o aviso "não substitui orientação médica".
-- [ ] **Passo 5: Banco ao vivo:** a lista de `GET /api/demo/sql`, atualizada a cada 2 s enquanto a tela está aberta, com uma etiqueta colorida por tipo (INSERT, SELECT, UPDATE, DELETE), o SQL em fonte monoespaçada e o tempo em ms. No modo demo, o `demo.js` simula entradas coerentes com o que o usuário fez.
-- [ ] **Passo 6 — Verificar:** `node --check`. No navegador, logado como Marta (coordenadora):
+- [x] **Passo 4: Dados coletados:** a tabela "dado · por que coletamos · quem vê · por quanto tempo", com as linhas das seções 8 e 11 do design (cadastro; dados de cuidado; Zarit; sessão de 7 dias; auditoria de 6 meses; Banco ao vivo só na memória). Mais os direitos ("ver meus dados", "excluir minha conta"), a base legal (consentimento, art. 11, I da LGPD), "dados guardados no Brasil" e o aviso "não substitui orientação médica".
+- [x] **Passo 5: Banco ao vivo:** a lista de `GET /api/demo/sql`, atualizada a cada 2 s enquanto a tela está aberta, com uma etiqueta colorida por tipo (INSERT, SELECT, UPDATE, DELETE), o SQL em fonte monoespaçada e o tempo em ms. No modo demo, o `demo.js` simula entradas coerentes com o que o usuário fez.
+- [x] **Passo 6 — Verificar:** `node --check`. No navegador, logado como Marta (coordenadora):
   - o painel desenha todos os gráficos sem erro no console;
   - logado como Paulo, "Painel da rede" não aparece;
   - o Banco ao vivo mostra um UPDATE depois de um "Dei o remédio".
-- [ ] **Passo 7:** commit `feat(telas): Mais, painel, dados coletados e banco ao vivo`.
+- [x] **Passo 7:** commit `feat(telas): Mais, painel, dados coletados e banco ao vivo`.
 
 ### Tarefa A7: Java — projeto Maven, modelo e regras puras (com testes)
 
@@ -422,7 +422,7 @@ C:\CuidaQuemCuida\
   - `SinalVitalRegras`: `foraDaFaixa(double valor, FaixaSinal faixa)` e `foraDaCurva(double valor, List<Double> historico)`;
   - `ZaritCalculadora`: `static int pontuar(int[] respostas)` (exige 12 valores de 0 a 4, senão `IllegalArgumentException`) e `static FaixaZarit faixa(int pontuacao)`.
 
-- [ ] **Passo 1: escrever os testes** (asserções obrigatórias; com `assertEquals` em `double`, tolerância de 1e-9):
+- [x] **Passo 1: escrever os testes** (asserções obrigatórias; com `assertEquals` em `double`, tolerância de 1e-9):
   - `PeriodoTest`: `de(05:59)`=MADRUGADA, `de(06:00)`=MANHA, `de(11:59)`=MANHA, `de(12:00)`=TARDE, `de(18:00)`=NOITE, `de(23:59)`=NOITE, `de(00:00)`=MADRUGADA.
   - `TurnoTest`:
     - 22:00 do dia 1 às 06:00 do dia 2: `minutos()`=480 e `noturno()`=true;
@@ -467,12 +467,12 @@ C:\CuidaQuemCuida\
     - doze 0 → 0 e BAIXA;
     - `faixa(10)`=BAIXA, `faixa(11)`=MODERADA, `faixa(20)`=MODERADA, `faixa(21)`=ALTA;
     - 11 respostas lança exceção; um valor 5 lança exceção.
-- [ ] **Passo 2:** implementar o modelo e as regras com as assinaturas acima. Detalhes:
+- [x] **Passo 2:** implementar o modelo e as regras com as assinaturas acima. Detalhes:
   - `conflitos` ordena por `inicio` e compara cada turno com o de **maior fim** visto até ali;
   - `blocosSemFolga` ordena e junta turnos cujo intervalo é menor que `Limites.FOLGA_MIN_HORAS`;
   - `horasSeguidas` é a soma de `minutosTrabalhados` do bloco.
-- [ ] **Passo 3 — Verificar:** **adiado para a B2** (`mvn test`). Aqui, o revisor confere a coerência entre os testes e as assinaturas e a ausência de erro de compilação aparente.
-- [ ] **Passo 4:** commit `feat(java): modelo e regras de negócio com testes`.
+- [x] **Passo 3 — Verificar:** **adiado para a B2** (`mvn test`). Aqui, o revisor confere a coerência entre os testes e as assinaturas e a ausência de erro de compilação aparente.
+- [x] **Passo 4:** commit `feat(java): modelo e regras de negócio com testes`.
 
 ### Tarefa A8: Java — infraestrutura (servidor, conexão, segurança)
 
@@ -503,7 +503,7 @@ C:\CuidaQuemCuida\
   - grava `req.setProperty("pessoaId", id)`.
 - `Autorizacao`: `static Optional<Papel> papel(List<MembroRede> redes, long pacienteId)` (pura); `static Papel exigirMembro(long pessoaId, long pacienteId)` (403 "Você não faz parte da rede deste paciente"); `static void exigirCoordenador(long pessoaId, long pacienteId)` (403 "Só o coordenador pode fazer isso").
 
-- [ ] **Passo 1: testes:**
+- [x] **Passo 1: testes:**
   - `SenhaTest`:
     - `confere("demo1234", SALT_SEED, HASH_SEED)` true, com os valores da A3, passo 3;
     - `confere("errada", SALT_SEED, HASH_SEED)` false;
@@ -515,9 +515,9 @@ C:\CuidaQuemCuida\
   - `AutorizacaoTest`:
     - `papel` de uma rede com o paciente 1 como MEMBRO dá MEMBRO para o paciente 1 e vazio para o paciente 2;
     - membro inativo dá vazio.
-- [ ] **Passo 2:** implementar conforme as interfaces.
-- [ ] **Passo 3 — Verificar:** adiado para a B2.
-- [ ] **Passo 4:** commit `feat(java): servidor, conexão, log de SQL e segurança`.
+- [x] **Passo 2:** implementar conforme as interfaces.
+- [x] **Passo 3 — Verificar:** adiado para a B2.
+- [x] **Passo 4:** commit `feat(java): servidor, conexão, log de SQL e segurança`.
 
 ### Tarefa A9: Java — DAOs, serviços e recursos da API
 
@@ -532,15 +532,15 @@ C:\CuidaQuemCuida\
 - Consome: `Sql`, `Autorizacao`, `ApiException` (A8) e as regras e o modelo (A7).
 - Produz: as rotas da A2, exatamente.
 
-- [ ] **Passo 1: teste** `EstatisticaServiceTest.nanViraNull`: `EstatisticaService.paraJson(Double.NaN)` é `null`; `paraJson(0.5)` é 0.5; `paraJson(Double.POSITIVE_INFINITY)` é `null`.
-- [ ] **Passo 2: DAOs.** Um por tabela ou grupo, todo SQL via `Sql`, sempre com `?`. Obrigatórios:
+- [x] **Passo 1: teste** `EstatisticaServiceTest.nanViraNull`: `EstatisticaService.paraJson(Double.NaN)` é `null`; `paraJson(0.5)` é 0.5; `paraJson(Double.POSITIVE_INFINITY)` é `null`.
+- [x] **Passo 2: DAOs.** Um por tabela ou grupo, todo SQL via `Sql`, sempre com `?`. Obrigatórios:
   - **`DoseDao.marcarDada(long id, long pessoaId)`:** `UPDATE dose SET ... WHERE id=? AND status='PENDENTE'`. Se afetar 0 linhas, o serviço lê quem registrou e lança 409 "Essa dose já foi registrada por {nome}".
   - **`DoseDao.garantirDoses(long medicamentoId, List<LocalDateTime>)`:** `INSERT ... ON CONFLICT (medicamento_id, previsto_para) DO NOTHING`. O mesmo para as execuções de tarefa.
   - **`EstatisticaDao`, com SQL que apareça no vídeo:**
     - adesão por remédio e por período com `GROUP BY` (Fase 6);
     - carga por pessoa com `JOIN` entre turno e pessoa (Fase 5);
     - "acima da média" com **subconsulta** `HAVING sum(horas) > (SELECT avg(...) ...)` (Fase 6).
-- [ ] **Passo 3: serviços**, com as regras do design:
+- [x] **Passo 3: serviços**, com as regras do design:
   - **`ContaService`:** cadastro (salt, hash, consentimento TERMO_USUARIO v1.0; o e-mail é guardado em minúsculas); login (token aleatório de 32 bytes em Base64 URL-safe, expiração em 7 dias, auditoria LOGIN); `excluir` (anonimiza conforme o design, seção 11; apaga as avaliações Zarit; bloqueia com 409 o único coordenador de rede com outros membros; apaga o paciente quando a pessoa é o último membro).
   - **`RedeService`:** criar paciente (código de 6 caracteres sem ambiguidade, de `ABCDEFGHJKLMNPQRSTUVWXYZ23456789`, gerado de novo se já existir; quem cria vira COORDENADOR; consentimento DADOS_PACIENTE com `responsavel_nome`); entrar com código; renovar o convite; membros com horas em 7 dias.
   - **`EscalaService`:** criar, editar e assumir rodam `EscalaRegras.conflitos` sobre os turnos da pessoa (409 com a lista); `analise` junta conflitos, períodos descobertos (só se `precisa24h`) e sobrecarga por membro; sugestões.
@@ -551,9 +551,9 @@ C:\CuidaQuemCuida\
   - **`HojeService`:** turno atual ou próximo, mais os itens do dia (doses e execuções de tarefa, inclusive as de medição, com `tipoSinal`), em ordem de horário. Com turno em andamento, mostra os itens do turno; sem turno, as pendências do dia.
   - **`EstatisticaService`:** monta a resposta da A2 com `Estatistica` e `EstatisticaDao`, passando cada `double` por `paraJson`. A Zarit usa só quem tem `compartilha_zarit` true. Pearson por avaliação: x = número de turnos noturnos da pessoa (em todas as redes) nos 14 dias antes da avaliação; y = pontuação (e qualidade do sono).
   - **Auditoria:** toda inserção, alteração e exclusão nos serviços chama `AuditoriaDao.registrar(pessoaId, acao, tabela, id, detalhe)`.
-- [ ] **Passo 4: recursos JAX-RS** conforme a A2. Toda rota com `{id}` de paciente chama `Autorizacao.exigirMembro` ou `exigirCoordenador` antes de qualquer coisa. Rotas de turno, dose, tarefa e medicamento pelo próprio id descobrem o `pacienteId` dono e checam do mesmo jeito.
-- [ ] **Passo 5 — Verificar:** adiado para a B2 (compilar e testar) e a B4 (de ponta a ponta). Aqui, o revisor compara cada rota da A2 com o recurso correspondente.
-- [ ] **Passo 6:** commit `feat(java): DAOs, serviços e API`.
+- [x] **Passo 4: recursos JAX-RS** conforme a A2. Toda rota com `{id}` de paciente chama `Autorizacao.exigirMembro` ou `exigirCoordenador` antes de qualquer coisa. Rotas de turno, dose, tarefa e medicamento pelo próprio id descobrem o `pacienteId` dono e checam do mesmo jeito.
+- [x] **Passo 5 — Verificar:** adiado para a B2 (compilar e testar) e a B4 (de ponta a ponta). Aqui, o revisor compara cada rota da A2 com o recurso correspondente.
+- [x] **Passo 6:** commit `feat(java): DAOs, serviços e API`.
 
 ### Tarefa A10: Diagramas, casos de uso e wireframes (versão 1)
 
@@ -565,10 +565,10 @@ C:\CuidaQuemCuida\
   - `Fluxo - Dar o Remédio.md`, `Fluxo - Montar a Escala.md`, `Fluxo - Bem-estar e Pedido de Ajuda.md` (`flowchart` de atividades com decisões);
   - `documentacao/02-wireframes/Wireframes.md` + `wireframes.html` (todas as telas em baixa fidelidade, em cinza, a partir dos esboços aprovados em `.superpowers/brainstorm/`).
 
-- [ ] **Passo 1:** escrever os diagramas. Todos com o cabeçalho "Versão 1 (planejada) — data" e links para [[Design da Solução]], [[API]] e as notas relacionadas.
-- [ ] **Passo 2:** `wireframes.html`, com 9 telas de celular lado a lado: Login, Hoje, Escala, Novo turno, Bem-estar (pergunta), Bem-estar (resultado alto), Mais, Painel, Dados coletados. `Wireframes.md` descreve cada tela (objetivo, elementos, decisões de acessibilidade) e manda abrir o HTML.
-- [ ] **Passo 3 — Verificar:** abrir os `.md` no Obsidian (ou no modo leitura) e confirmar que todo bloco Mermaid desenha sem erro de sintaxe. Abrir o `wireframes.html` no navegador.
-- [ ] **Passo 4:** commit `docs: diagramas, casos de uso e wireframes v1`.
+- [x] **Passo 1:** escrever os diagramas. Todos com o cabeçalho "Versão 1 (planejada) — data" e links para [[Design da Solução]], [[API]] e as notas relacionadas.
+- [x] **Passo 2:** `wireframes.html`, com 9 telas de celular lado a lado: Login, Hoje, Escala, Novo turno, Bem-estar (pergunta), Bem-estar (resultado alto), Mais, Painel, Dados coletados. `Wireframes.md` descreve cada tela (objetivo, elementos, decisões de acessibilidade) e manda abrir o HTML.
+- [x] **Passo 3 — Verificar:** abrir os `.md` no Obsidian (ou no modo leitura) e confirmar que todo bloco Mermaid desenha sem erro de sintaxe. Abrir o `wireframes.html` no navegador.
+- [x] **Passo 4:** commit `docs: diagramas, casos de uso e wireframes v1`.
 
 ### Tarefa A11: Notas técnicas (módulos, classes e funções)
 
@@ -579,11 +579,11 @@ C:\CuidaQuemCuida\
   - `classes/` com uma nota por classe Java (menos os DTOs, que ficam numa nota única `DTOs da API.md`);
   - `funcoes/` com uma nota por função de regra: `conflitos`, `conflitosIngenuo`, `blocosSemFolga`, `horasNaJanela`, `nivel`, `periodosDescobertos`, `sugerirCobertura`, `horariosEntre`, `DoseRegras.status`, `foraDaCurva`, `pontuar`, `mediaMovel`, `pearson`, `desvioPadrao`, `zScore`, `Senha.hash`, `garantirDoses`, `marcarDada`.
 
-- [ ] **Passo 1:** formato de cada nota de classe: frontmatter (`tipo: classe`, `camada`, `arquivo`), "Para que serve", "Campos principais", "Métodos" (com `[[link]]` para a nota da função quando houver), "Usa" e "É usada por" (links), "Conceito do curso" (por exemplo, "Herança — Fase 3").
-- [ ] **Passo 2:** formato de cada nota de função: assinatura, o que faz, regra do design (link para [[Regras de Negócio]]), exemplo de entrada e saída tirado do teste, complexidade quando for relevante (`conflitos`: O(n log n) × O(n²)), trecho de código curto e o teste que a cobre.
-- [ ] **Passo 3:** cada nota de módulo liga as telas (arquivo JS), os recursos, os serviços, os DAOs, as tabelas e os casos de uso daquele módulo. `Mapa do Código.md` liga tudo por camada.
-- [ ] **Passo 4 — Verificar:** no Obsidian, a visão de grafo mostra as notas ligadas, sem notas de classe órfãs. Busca por `[[` sem destino: só podem sobrar notas previstas na A12.
-- [ ] **Passo 5:** commit `docs: notas técnicas de módulos, classes e funções`.
+- [x] **Passo 1:** formato de cada nota de classe: frontmatter (`tipo: classe`, `camada`, `arquivo`), "Para que serve", "Campos principais", "Métodos" (com `[[link]]` para a nota da função quando houver), "Usa" e "É usada por" (links), "Conceito do curso" (por exemplo, "Herança — Fase 3").
+- [x] **Passo 2:** formato de cada nota de função: assinatura, o que faz, regra do design (link para [[Regras de Negócio]]), exemplo de entrada e saída tirado do teste, complexidade quando for relevante (`conflitos`: O(n log n) × O(n²)), trecho de código curto e o teste que a cobre.
+- [x] **Passo 3:** cada nota de módulo liga as telas (arquivo JS), os recursos, os serviços, os DAOs, as tabelas e os casos de uso daquele módulo. `Mapa do Código.md` liga tudo por camada.
+- [x] **Passo 4 — Verificar:** no Obsidian, a visão de grafo mostra as notas ligadas, sem notas de classe órfãs. Busca por `[[` sem destino: só podem sobrar notas previstas na A12.
+- [x] **Passo 5:** commit `docs: notas técnicas de módulos, classes e funções`.
 
 ### Tarefa A12: Outros materiais, ágil e roteiros
 
@@ -591,11 +591,11 @@ C:\CuidaQuemCuida\
 - Criar em `documentacao/04-outros-materiais/`: `Problema e Evidências.md`, `Personas.md`, `Concorrentes.md`, `ODS.md`, `LGPD, Segurança e Acessibilidade.md`, `Testes e Validação.md`, `Formulário Zarit (validação).md`, `Diário de Desafios.md`, `Registro de Decisões.md`, `Conteúdos do Curso.md`, `agil/Métodos Ágeis.md`, `agil/Backlog.md`, `agil/Sprint 1 - Construção.md`
 - Criar em `videos/`: `Roteiro - Pitch.md`, `Roteiro - Técnico.md`, `links.txt`
 
-- [ ] **Passo 1:** notas de produto, a partir das seções 1, 11, 15 e 16 do design, com as fontes da pesquisa de 13/11 (os mesmos links da conversa de design: Lotsa, App Cuidar, Alzheimer.App, cuidaemcasa, UNA-SUS, Febraz/Humanis, SciELO Scazufca, PMC ZBI-12, PNAD 2022/2019). Personas: Marta (coordenadora), Paulo (filho que trabalha), João (vizinho idoso, pouca intimidade com tecnologia).
-- [ ] **Passo 2:** `Backlog.md` com as histórias de usuário ("Como ..., quero ..., para ...") e o critério de aceite, uma por funcionalidade. `Métodos Ágeis.md` explica o Scrum usado: papéis (Luis PO, Gabriel SM), eventos, artefatos e a ligação com a Fase 1. `Sprint 1 - Construção.md` registra as datas reais da Parte A.
-- [ ] **Passo 3:** `Testes e Validação.md`: os testes JUnit (tabela com nome e o que prova), os cenários de aceite manuais (um por história, com as colunas "esperado" e "obtido" em branco para a B4) e as métricas de sucesso. `Formulário Zarit (validação).md`: o texto pronto para montar no Google Forms (termo curto de participação anônima, as 12 perguntas, as 2 de sono e "você cuida de quem?") e a tabela para registrar os resultados reais com data.
-- [ ] **Passo 4:** `Diário de Desafios.md`: um modelo de entrada (problema, o que tentamos, decisão, trecho, data) e **só os desafios que de fato aconteceram até aqui** (por exemplo: o PC sem Java obrigou a separar as telas em modo demonstração; contar a verdade sobre isso). Os previstos ficam numa seção separada "A acompanhar". `Registro de Decisões.md`: as decisões da seção 19 do design, mais as da Parte A, com data.
-- [ ] **Passo 5:** `Roteiro - Pitch.md`: 3:00 com marcação de tempo:
+- [x] **Passo 1:** notas de produto, a partir das seções 1, 11, 15 e 16 do design, com as fontes da pesquisa de 13/11 (os mesmos links da conversa de design: Lotsa, App Cuidar, Alzheimer.App, cuidaemcasa, UNA-SUS, Febraz/Humanis, SciELO Scazufca, PMC ZBI-12, PNAD 2022/2019). Personas: Marta (coordenadora), Paulo (filho que trabalha), João (vizinho idoso, pouca intimidade com tecnologia).
+- [x] **Passo 2:** `Backlog.md` com as histórias de usuário ("Como ..., quero ..., para ...") e o critério de aceite, uma por funcionalidade. `Métodos Ágeis.md` explica o Scrum usado: papéis (Luis PO, Gabriel SM), eventos, artefatos e a ligação com a Fase 1. `Sprint 1 - Construção.md` registra as datas reais da Parte A.
+- [x] **Passo 3:** `Testes e Validação.md`: os testes JUnit (tabela com nome e o que prova), os cenários de aceite manuais (um por história, com as colunas "esperado" e "obtido" em branco para a B4) e as métricas de sucesso. `Formulário Zarit (validação).md`: o texto pronto para montar no Google Forms (termo curto de participação anônima, as 12 perguntas, as 2 de sono e "você cuida de quem?") e a tabela para registrar os resultados reais com data.
+- [x] **Passo 4:** `Diário de Desafios.md`: um modelo de entrada (problema, o que tentamos, decisão, trecho, data) e **só os desafios que de fato aconteceram até aqui** (por exemplo: o PC sem Java obrigou a separar as telas em modo demonstração; contar a verdade sobre isso). Os previstos ficam numa seção separada "A acompanhar". `Registro de Decisões.md`: as decisões da seção 19 do design, mais as da Parte A, com data.
+- [x] **Passo 5:** `Roteiro - Pitch.md`: 3:00 com marcação de tempo:
   - 0:00 história da Marta e dado do IBGE;
   - 0:30 o problema;
   - 0:50 a solução;
@@ -616,14 +616,14 @@ C:\CuidaQuemCuida\
   - 2:45 testes JUnit passando.
   
   `links.txt`: duas linhas, `Pitch: <link>` e `Técnico: <link>`.
-- [ ] **Passo 6 — Verificar:** abrir a seção "Checklist do edital" do design: todo item aponta para uma nota que agora existe.
-- [ ] **Passo 7:** commit `docs: materiais de produto, ágil, validação e roteiros`. Atualizar o "Estado atual" do `AGENTS.md` e o `Kanban.md`.
+- [x] **Passo 6 — Verificar:** abrir a seção "Checklist do edital" do design: todo item aponta para uma nota que agora existe.
+- [x] **Passo 7:** commit `docs: materiais de produto, ágil, validação e roteiros`. Atualizar o "Estado atual" do `AGENTS.md` e o `Kanban.md`.
 
 ### Tarefa A13: Revisão final da Parte A e preparação para casa
 
-- [ ] **Passo 1:** revisor independente: (a) compara cada rota da A2 com o `demo.js` e com os recursos Java; (b) procura erro de compilação aparente no Java (import faltando, tipo errado, assinatura divergente entre as tarefas); (c) procura qualquer menção a IA nos entregáveis (`grep -ri "claude\|inteligência artificial\| IA "` em `documentacao/`, `videos/`, `README.md`, `codigo/src`). Corrigir o que achar.
-- [ ] **Passo 2:** atualizar o `AGENTS.md` ("Estado atual: Parte A concluída em <data>; próximo passo: B1") e o Kanban.
-- [ ] **Passo 3:** commit `chore: revisão da parte A`.
+- [x] **Passo 1:** revisor independente: (a) compara cada rota da A2 com o `demo.js` e com os recursos Java; (b) procura erro de compilação aparente no Java (import faltando, tipo errado, assinatura divergente entre as tarefas); (c) procura qualquer menção a IA nos entregáveis (`grep -ri "claude\|inteligência artificial\| IA "` em `documentacao/`, `videos/`, `README.md`, `codigo/src`). Corrigir o que achar.
+- [x] **Passo 2:** atualizar o `AGENTS.md` ("Estado atual: Parte A concluída em <data>; próximo passo: B1") e o Kanban.
+- [x] **Passo 3:** commit `chore: revisão da parte A`.
 - [ ] **Passo 4: levar o projeto para casa.** Copiar a pasta `C:\CuidaQuemCuida` **inteira** (inclusive a pasta oculta `.git`) para um pendrive ou nuvem pessoal. Ou, se tiver conta no GitHub: criar um repositório **privado** vazio e rodar `git remote add origin <url>` e `git push -u origin HEAD`. Não copiar `codigo/config.properties` (ainda nem existe).
 
 ---

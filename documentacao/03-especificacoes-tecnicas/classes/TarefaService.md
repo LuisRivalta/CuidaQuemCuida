@@ -22,7 +22,7 @@ Faz parte do [[Módulo Protocolo de Cuidado]].
 | `criar(long eu, long pacienteId, TarefaDto dados) → estático TarefaDto` |  |
 | `atualizar(long eu, long tarefaId, TarefaDto dados) → estático TarefaDto` |  |
 | `apagar(long eu, long tarefaId) → estático void` |  |
-| `garantirExecucoes(long pacienteId, LocalDate dia) → estático void` | Cria as execuções do dia que ainda não existem (não duplica). |
+| `garantirExecucoes(long pacienteId, LocalDate dia) → estático void` | Cria as execuções do dia que ainda não existem (não duplica). Lê antes e só insere o que falta. |
 | `execucoes(long eu, long pacienteId, LocalDate dia) → estático List<ExecucaoDto>` |  |
 | `feita(long eu, long execucaoId) → estático ExecucaoDto` |  |
 | `dto(ExecucaoTarefa e, Map<Long, TarefaCuidado> tarefas, Map<Long, String> nomes) → estático ExecucaoDto` |  |

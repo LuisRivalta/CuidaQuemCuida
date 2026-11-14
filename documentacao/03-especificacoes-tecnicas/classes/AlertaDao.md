@@ -19,6 +19,7 @@ Faz parte do [[Módulo Hoje e Alertas]].
 |---|---|
 | `gravar(Alerta a) → estático int` | Grava o alerta; se o mesmo (tipo, referência, destinatário) já existe, não faz nada. Devolve 1 se gravou. |
 | `naoLidos(long pessoaId, long pacienteId) → estático List<AlertaDto>` |  |
+| `marcarResolvidos(long pessoaId, long pacienteId, List<String> chavesAtivas) → estático void` | Alertas calculados (dose, tarefa, turno vago, conflito, sobrecarga) que não valem mais (a dose foi dada, alguém cobriu o turno...) saem da lista: são marcados como lidos. Os gravados na hora do fato (sinal vital e pedido de ajuda) só saem quando a pessoa toca em "Ok". |
 | `marcarLido(long id, long pessoaId) → estático int` |  |
 
 ## Usa

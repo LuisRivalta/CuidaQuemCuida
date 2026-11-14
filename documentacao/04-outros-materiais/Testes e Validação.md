@@ -25,9 +25,10 @@ Rodam com `mvn test` (ou Maven → Lifecycle → test no IntelliJ). O print da j
 | `SenhaTest` | 6 | A senha da demonstração confere com o hash dos dados; senha errada; conta anonimizada nunca confere; salt aleatório; hash determinístico; token de 43 caracteres |
 | `LogSqlTest` | 3 | Guarda só os 50 últimos, o mais novo primeiro; tipo do comando; espaços compactados |
 | `AutorizacaoTest` | 3 | Trocar o id do paciente não dá acesso; quem saiu da rede perde o acesso; só saúde, login e cadastro são públicos |
-| **Total** | **62** | |
+| `AlertaServiceTest` | 2 | A chave de cada alerta (usada para tirar da lista os que já foram resolvidos) é tipo + referência e não contém o separador do SQL |
+| **Total** | **64** | |
 
-> Os testes foram **escritos antes** do código de cada regra (TDD). O computador usado na construção não tinha Java, então a primeira execução acontece na Tarefa B2. Resultado: _a preencher (data e "62 de 62 passaram")_.
+> Os testes foram **escritos antes** do código de cada regra (TDD). O computador usado na construção não tinha Java, então a primeira execução acontece na Tarefa B2. Resultado: _a preencher (data e "64 de 64 passaram")_.
 
 ## 2. Testes das telas (modo demonstração)
 Feitos durante a construção, em 13/11/2026:
