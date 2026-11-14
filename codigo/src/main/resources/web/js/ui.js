@@ -33,19 +33,30 @@ export function preencher(alvo, ...filhos) {
   alvo.replaceChildren(...filhos.flat().filter((f) => f !== null && f !== undefined && f !== false));
 }
 
+/** Converte um trecho fixo de SVG/HTML (nunca texto digitado pelo usuário) em elemento. */
+export function deHtml(html) {
+  const molde = document.createElement('template');
+  molde.innerHTML = html.trim();
+  return molde.content.firstElementChild;
+}
+
 let temporizador;
 
-function mostrar(texto, classe) {
+function mostrar(texto, classe, acao) {
   const caixa = document.getElementById('mensagem');
-  caixa.textContent = texto;
+  if (classe !== 'erro' && !caixa.hidden && caixa.classList.contains('erro')) return;   // um aviso não apaga um erro aberto
+  caixa.replaceChildren(el('span', {}, texto),
+    acao ? el('button', { type: 'button', onclick: () => { caixa.hidden = true; acao.aoClicar(); } }, acao.rotulo) : null);
   caixa.className = 'mensagem ' + classe;
   caixa.hidden = false;
   clearTimeout(temporizador);
-  temporizador = setTimeout(() => { caixa.hidden = true; }, 5000);
+  // erro fica até a pessoa fechar (pode aparecer com o celular bloqueado); aviso some em 5 s
+  if (classe !== 'erro') temporizador = setTimeout(() => { caixa.hidden = true; }, 5000);
 }
 
-export function mostrarErro(texto) { mostrar(texto, 'erro'); }
-export function mostrarAviso(texto) { mostrar(texto, ''); }
+export function mostrarErro(texto) { mostrar(texto, 'erro', { rotulo: 'Fechar', aoClicar: () => {} }); }
+/** Aviso no rodapé por 5 s. acao (opcional) = { rotulo, aoClicar }, ex.: "Desfazer". */
+export function mostrarAviso(texto, acao) { mostrar(texto, '', acao); }
 
 /** Campo com rótulo. Ex.: campo('Nome', el('input', { name: 'nome' })) */
 export function campo(rotulo, controle, ajuda) {

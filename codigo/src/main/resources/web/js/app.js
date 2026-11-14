@@ -4,6 +4,19 @@ import { MODO } from './api.js';
 import { estado, escolherPaciente } from './estado.js';
 import { el, tentar } from './ui.js';
 import { telas, carregarContexto, atualizarAlertas } from './rotas.js';
+import { periodoDoDia, ehNoite } from './ceu.js';
+
+const modoEscuro = matchMedia('(prefers-color-scheme: dark)');
+
+/** Tema noturno de noite e de madrugada, ou quando o celular está em modo escuro. */
+function aplicarTema() {
+  const periodo = periodoDoDia();
+  document.body.dataset.periodo = periodo;
+  document.body.dataset.tema = ehNoite(periodo) || modoEscuro.matches ? 'noite' : 'dia';
+  document.querySelector('meta[name="theme-color"]')
+    .setAttribute('content', getComputedStyle(document.body).getPropertyValue('--fundo').trim());
+}
+modoEscuro.addEventListener('change', aplicarTema);
 
 // Cada tela se registra ao ser importada.
 import './telas/login.js';
@@ -31,10 +44,12 @@ async function mostrarRota() {
   const conteudo = document.getElementById('conteudo');
   const comMenu = !ROTAS_SEM_MENU.has(rota);
   document.getElementById('menu').hidden = !comMenu;
-  document.getElementById('topo').hidden = !estado.token;
-  document.body.style.paddingBottom = comMenu ? '' : '0';
+  document.getElementById('topo').hidden = !estado.token || ROTAS_PUBLICAS.has(rota);
+  document.body.classList.toggle('sem-menu', !comMenu);
 
   const aba = rota.split('/')[1];
+  document.body.dataset.tela = aba;
+  aplicarTema();
   for (const link of document.querySelectorAll('.menu a')) {
     if (link.dataset.aba === aba) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -63,6 +78,13 @@ async function mostrarRota() {
 }
 
 document.getElementById('faixa-demo').hidden = MODO !== 'demo';
+// no modo demonstração os dados nascem de novo a cada carga da página: registros guardados de antes
+// (fila sem internet da tela Hoje) apontariam para itens que não existem mais
+if (MODO === 'demo') {
+  try {
+    for (const chave of Object.keys(localStorage)) if (chave.startsWith('cqc.registros-pendentes')) localStorage.removeItem(chave);
+  } catch { /* sem armazenamento: nada a limpar */ }
+}
 document.getElementById('select-paciente').addEventListener('change', (evento) => {
   escolherPaciente(Number(evento.target.value));
   mostrarRota();

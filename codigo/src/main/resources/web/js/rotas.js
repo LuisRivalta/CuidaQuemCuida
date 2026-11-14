@@ -3,6 +3,7 @@
 import { chamar } from './api.js';
 import { estado, escolherPaciente, pacienteAtual } from './estado.js';
 import { el, tentar } from './ui.js';
+import { icone } from './icones.js';
 
 export const telas = new Map();
 
@@ -41,15 +42,23 @@ export async function atualizarAlertas() {
   mostrarAlertas(await chamar('GET', `/alertas?pacienteId=${paciente.id}`).catch(() => []));
 }
 
-/** Mostra até 3 alertas no topo (a tela Hoje usa os que já vieram no /hoje, sem pedir de novo). */
-export function mostrarAlertas(alertas) {
-  const caixa = document.getElementById('alertas');
-  caixa.replaceChildren(...alertas.slice(0, 3).map((a) => el('div', {
-    class: 'alerta' + (a.prioridade < 60 ? ' atencao' : ''), role: 'alert',
+/**
+ * Monta até 3 avisos; aoLer() roda depois de marcar um como lido.
+ * anunciar=false tira o role="alert" (para o leitor de tela não repetir os avisos a cada atualização).
+ */
+export function cartoesAlerta(alertas, aoLer, { anunciar = true } = {}) {
+  return alertas.slice(0, 3).map((a) => el('div', {
+    class: 'alerta' + (a.prioridade < 60 ? ' atencao' : ''), role: anunciar ? 'alert' : null,
   },
-  el('span', {}, '⚠ ', a.mensagem),
+  icone('sino'),
+  el('span', { class: 'alerta-texto' }, a.mensagem),
   el('button', {
-    class: 'pequeno secundario', 'aria-label': 'Marcar alerta como lido',
-    onclick: async () => { await tentar(() => chamar('PUT', `/alertas/${a.id}/lido`)); atualizarAlertas(); },
-  }, 'Ok'))));
+    class: 'pequeno secundario', 'aria-label': `Entendi, marcar como lido: ${a.mensagem}`,
+    onclick: async () => { await tentar(() => chamar('PUT', `/alertas/${a.id}/lido`)); aoLer(); },
+  }, 'Entendi')));
+}
+
+/** Mostra os alertas no topo (a tela Hoje mostra os dela dentro da própria tela). */
+export function mostrarAlertas(alertas) {
+  document.getElementById('alertas').replaceChildren(...cartoesAlerta(alertas, atualizarAlertas));
 }
