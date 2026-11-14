@@ -52,4 +52,24 @@ Cada decisão importante, com data e motivo. Quando o código mudar em relação
 | D32 | Conexão só é testada (`isValid`) se ficou parada mais de 30 s | Testar sempre era uma ida extra ao banco por comando |
 | D33 | A tela Hoje usa os alertas que vêm no `/hoje` | Evita recalcular tudo numa segunda chamada |
 
+## Redesenho visual das telas (14/11/2026)
+| # | Decisão | Por quê |
+|---|---|---|
+| D34 | Novo visual "acolhedor e calmo": céu que muda com a hora (madrugada, manhã, tarde, noite), morros, azul-noite, pêssego e verde-sálvia; fundo pêssego bem claro (`#fff4ec`) | O visual anterior era frio e genérico; quem usa está cansado e usa muito de madrugada |
+| D35 | Fontes Young Serif (títulos) e Lexend (texto); movimento com GSAP (por CDN); ícones desenhados em SVG, sem emoji | A Lexend foi criada para facilitar a leitura; emoji muda de aparelho para aparelho |
+| D36 | Marca fixa: dois corações (coral e sálvia), o nome CuidaQuemCuida e a frase "Quem cuida também precisa de cuidado." | Uma identidade só para telas, vídeos e documentação |
+| D37 | Tema noturno automático: de 18h às 6h ou com o celular em modo escuro | Não ofuscar quem cuida de madrugada |
+| D38 | Tratamento de gênero pelo campo `genero` do cadastro; texto neutro quando não houver; mensagens sobre outra pessoa sempre neutras | A maioria de quem cuida é mulher, mas a rede tem homens; a mensagem de pedido de ajuda (`AlertaPedidoAjuda`) fica neutra na Parte B |
+| D39 | Tela Hoje: o item em destaque segue uma prioridade (remédio dentro do prazo, item da hora, atrasado mais recente, próximo); tarefas superadas vão para "Ficou para trás" | Antes o destaque podia ser uma tarefa de 12 h atrás e esconder um antibiótico na hora certa |
+| D40 | Registro com "Desfazer" (15 s para remédio, 8 s para o resto), guardado no navegador até o servidor confirmar, numa fila por pessoa | Medo de apertar errado; internet instável; a API não tem rota de correção ([[Diário de Desafios]] nº 10) |
+| D41 | A tela Hoje se atualiza a cada minuto e ao voltar ao app, sem voltar ao topo, e fica travada até a versão nova chegar | Tela parada leva a remédio em dobro |
+| D42 | "Quem deu e quando" e "quem está cuidando agora" vêm de rotas que já existiam (`GET /pacientes/{id}/doses` e `/turnos`), sem mudar o `/hoje` | Correções mínimas: o contrato da API não muda |
+| D43 | Fora do turno, o destaque é só remédio atrasado, com "antes de dar, confirme com quem está no turno"; no resto, um cartão calmo dizendo quem está cuidando | Evita dose em dobro e mostra a cada membro só o necessário |
+| D44 | "Sem registro" separado de "Não dado" | O sistema marca a dose como não dada depois de 120 min sem registro, o que não quer dizer que não foi dada |
+| D45 | "Não foi dado" com motivos em botões (no lugar da caixa do navegador) e aviso no "Estava dormindo" ("Vou dar quando acordar") | Rápido no celular; evita registrar "não dado" quando o remédio vai ser dado depois |
+| D46 | Medição com unidade, vírgula aceita, conferência de valor impossível e aviso fixo fora da faixa, com botão para ligar para o SAMU (192) | Um erro de digitação viraria alarme para a rede; o sistema não manda notificação |
+| D47 | Quando a sobrecarga é de quem está vendo, o aviso fala com a pessoa e fica no topo; quem está sobrecarregado não recebe "Posso cobrir" | "Cuidar de quem cuida" é o diferencial do produto |
+| D48 | Login com o céu, a marca e, no modo demonstração, botões para entrar como cada pessoa da família de exemplo | Facilita a apresentação e a gravação dos vídeos |
+| D49 | Alvos de toque de 48 px em tudo e letra relativa (112,5%) | Persona João; respeitar a letra escolhida no navegador |
+
 ## Sprint 2 — (a preencher com as decisões tomadas na compilação, nos testes e na integração)

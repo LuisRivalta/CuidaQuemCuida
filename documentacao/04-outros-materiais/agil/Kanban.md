@@ -17,6 +17,7 @@ Quadro do projeto. Cada cartão: tarefa, responsável, quem aprovou e datas reai
 - [ ] B7 Empacotar e entregar (até 19/11) — resp.: Gabriel — aprovado por: Luis
 
 ## Fazendo
+- [ ] Redesenho visual das telas: tela Hoje pronta (4 rodadas de revisão de usabilidade, nota 30/40); login redesenhado, correções da revisão pendentes; outras 16 telas a seguir — resp.: Luis — desde 14/11
 
 ## Feito
 - [x] A13 Revisão da Parte A (revisão de código + 2 correções) — resp.: Gabriel — aprovado por: Luis — 13/11 a 14/11

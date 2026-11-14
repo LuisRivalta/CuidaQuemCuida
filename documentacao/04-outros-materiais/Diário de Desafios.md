@@ -54,6 +54,23 @@ Achados ao fotografar automaticamente as 16 telas em tamanho de celular:
 - **Problema:** as páginas dos artigos com o texto oficial em português não abriram na rede usada (erro de certificado).
 - **Decisão:** o texto das 12 perguntas foi escrito a partir da tradução brasileira e marcado como **não conferido** (`"conferido": false`). A conferência com a fonte original ficou como passo obrigatório antes de gravar o vídeo (Tarefa B4).
 
+## 9. Tela em branco depois de atualizar as telas (14/11/2026)
+- **Problema:** depois de atualizar os módulos JavaScript, o navegador continuou usando uma versão antiga de `ui.js` guardada no cache. A tela de login importava uma função nova (`deHtml`), que não existia no arquivo antigo. O navegador acusou "does not provide an export named 'deHtml'", e a tela ficou em branco.
+- **O que tentamos:** recarregar a página do jeito normal não resolveu, porque o navegador manteve o arquivo do cache.
+- **Decisão:** recarregar ignorando o cache (Ctrl+F5) sempre que as telas forem atualizadas, e desligar o cache no roteiro automático de fotos. A orientação ficou anotada para o dia da gravação. Uma melhoria possível, ainda não feita, é o servidor mandar o cabeçalho `Cache-Control`.
+
+## 10. Registrar rápido sem perder a segurança (14/11/2026) ⭐ vídeo
+- **Problema:** tocar em "Dei o remédio" precisa ser instantâneo (quem cuida tem pressa), mas um toque errado num remédio é grave, a internet cai e a API não tem rota para corrigir um registro.
+- **O que tentamos:**
+  1. Registrar na hora e redesenhar a tela inteira: a pessoa perdia o lugar e não tinha como voltar atrás.
+  2. Um "Desfazer" de 5 s no aviso do rodapé: na revisão de usabilidade apareceu que um segundo registro apagava o "Desfazer" do primeiro e que a atualização automática redesenhava a tela por cima.
+- **Decisão:**
+  - o registro aparece na hora, mas fica guardado no navegador (uma fila por pessoa) e só vai ao servidor depois de 15 s para remédio, ou 8 s para o resto, com "Desfazer" no próprio item e o tempo à vista;
+  - sair do app envia na hora;
+  - sem internet, o registro fica na fila e é enviado depois;
+  - a tela não se redesenha enquanto há registro esperando, e fica travada ao voltar ao app até chegar a versão nova.
+- **Trecho:** `registrarComDesfazer`, `enviar` e `atualizar` em `codigo/src/main/resources/web/js/telas/hoje.js`.
+
 ## A acompanhar (previstos, ainda não aconteceram)
 - Conexão com o Supabase: a conexão direta só funciona em IPv6; usar o "Session pooler".
 - Versões das bibliotecas Jackson alinhadas pelo `jackson-bom` (conferir com `mvn dependency:tree`).
