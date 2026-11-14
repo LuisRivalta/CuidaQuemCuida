@@ -16,8 +16,10 @@ import br.com.cuidaquemcuida.resource.Dtos.MedicamentoDto;
 import br.com.cuidaquemcuida.resource.Dtos.RegraDto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -80,13 +82,30 @@ public final class MedicacaoService {
         AuditoriaDao.registrar(eu, AuditoriaDao.EXCLUIR, "medicamento", medicamentoId, atual.getNome());
     }
 
-    /** Cria as doses previstas do dia que ainda não existem (pode ser chamado várias vezes: não duplica). */
+    /**
+     * Cria as doses previstas do dia que ainda não existem (pode ser chamado várias vezes: não duplica).
+     * Primeiro lê o que já existe e só insere o que falta, para não mandar dezenas de INSERTs a cada tela aberta;
+     * o ON CONFLICT do banco continua garantindo que duas chamadas ao mesmo tempo não dupliquem.
+     */
     public static void garantirDoses(long pacienteId, LocalDate dia) {
         List<Medicamento> remedios = MedicamentoDao.doPaciente(pacienteId);
-        Sql.transacao(() -> {
-            for (Medicamento m : remedios) {
-                DoseDao.garantir(m.getId(), m.horariosEntre(dia.atStartOfDay(), dia.plusDays(1).atStartOfDay()));
+        Set<String> existentes = DoseDao.doPacienteNoDia(pacienteId, dia).stream()
+                .map(d -> d.getMedicamentoId() + "@" + d.getPrevistoPara())
+                .collect(Collectors.toSet());
+        Map<Long, List<LocalDateTime>> faltando = new LinkedHashMap<>();
+        for (Medicamento m : remedios) {
+            List<LocalDateTime> novos = m.horariosEntre(dia.atStartOfDay(), dia.plusDays(1).atStartOfDay()).stream()
+                    .filter(h -> !existentes.contains(m.getId() + "@" + h))
+                    .toList();
+            if (!novos.isEmpty()) {
+                faltando.put(m.getId(), novos);
             }
+        }
+        if (faltando.isEmpty()) {
+            return;
+        }
+        Sql.transacao(() -> {
+            faltando.forEach(DoseDao::garantir);
             return null;
         });
     }

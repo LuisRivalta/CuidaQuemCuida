@@ -108,7 +108,13 @@ public final class AlertaService {
         }
 
         meus.forEach(AlertaDao::gravar);
+        AlertaDao.marcarResolvidos(eu, pacienteId, chaves(meus));   // o que deixou de valer some da lista
         return AlertaDao.naoLidos(eu, pacienteId);   // inclui os gravados na hora do fato (sinal vital, pedido de ajuda)
+    }
+
+    /** "TIPO|referencia" de cada alerta: a mesma chave única da tabela (sem o destinatário). */
+    static List<String> chaves(List<Alerta> alertas) {
+        return alertas.stream().map(a -> a.getTipo().name() + "|" + a.getReferencia()).toList();
     }
 
     public static void marcarLido(long eu, long alertaId) {

@@ -34,12 +34,16 @@ export async function carregarContexto() {
   montarSeletor();
 }
 
-/** Mostra até 3 alertas não lidos do paciente atual no topo da tela. */
+/** Busca os alertas não lidos do paciente atual e mostra no topo da tela. */
 export async function atualizarAlertas() {
-  const caixa = document.getElementById('alertas');
   const paciente = pacienteAtual();
-  if (!estado.token || !paciente) { caixa.replaceChildren(); return; }
-  const alertas = await chamar('GET', `/alertas?pacienteId=${paciente.id}`).catch(() => []);
+  if (!estado.token || !paciente) { mostrarAlertas([]); return; }
+  mostrarAlertas(await chamar('GET', `/alertas?pacienteId=${paciente.id}`).catch(() => []));
+}
+
+/** Mostra até 3 alertas no topo (a tela Hoje usa os que já vieram no /hoje, sem pedir de novo). */
+export function mostrarAlertas(alertas) {
+  const caixa = document.getElementById('alertas');
   caixa.replaceChildren(...alertas.slice(0, 3).map((a) => el('div', {
     class: 'alerta' + (a.prioridade < 60 ? ' atencao' : ''), role: 'alert',
   },

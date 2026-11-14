@@ -8,25 +8,32 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Conexões JDBC com o PostgreSQL (Supabase). Abrir uma conexão nova a cada comando custaria centenas de
- * milissegundos (TLS até o servidor), então as conexões livres são reaproveitadas.
+ * milissegundos (TLS até o servidor), então as conexões livres são reaproveitadas. Só se confere se a conexão
+ * ainda está viva quando ela ficou parada por mais de 30 s (conferir sempre seria uma ida extra ao banco por comando).
  * ponytail: pool mínimo sem limite de espera; trocar por HikariCP se houver muitos acessos simultâneos.
  */
 public final class Conexao {
 
     private static final int MAX_LIVRES = 8;
-    private static final BlockingQueue<Connection> LIVRES = new LinkedBlockingQueue<>();
+    private static final long CONFERIR_SE_PARADA_MS = 30_000;
+
+    private record Livre(Connection conexao, long devolvidaEm) {
+    }
+
+    private static final BlockingQueue<Livre> LIVRES = new LinkedBlockingQueue<>();
 
     private Conexao() {
     }
 
-    /** Pega uma conexão (reaproveitada se ainda estiver válida). Devolva com {@link #devolver}. */
+    /** Pega uma conexão (reaproveitada se ainda estiver boa). Devolva com {@link #devolver}. */
     public static Connection pegar() throws SQLException {
-        Connection conexao;
-        while ((conexao = LIVRES.poll()) != null) {
-            if (conexao.isValid(2)) {
-                return conexao;
+        Livre livre;
+        while ((livre = LIVRES.poll()) != null) {
+            boolean recente = System.currentTimeMillis() - livre.devolvidaEm() < CONFERIR_SE_PARADA_MS;
+            if (!livre.conexao().isClosed() && (recente || livre.conexao().isValid(2))) {
+                return livre.conexao();
             }
-            fecharSemErro(conexao);
+            fecharSemErro(livre.conexao());
         }
         return DriverManager.getConnection(
                 Config.obrigatorio("db.url"), Config.obrigatorio("db.usuario"), Config.obrigatorio("db.senha"));
@@ -41,9 +48,10 @@ public final class Conexao {
                 conexao.rollback();
                 conexao.setAutoCommit(true);
             }
-            if (!LIVRES.offer(conexao) || LIVRES.size() > MAX_LIVRES) {
-                LIVRES.remove(conexao);
+            if (LIVRES.size() >= MAX_LIVRES) {
                 fecharSemErro(conexao);
+            } else {
+                LIVRES.offer(new Livre(conexao, System.currentTimeMillis()));
             }
         } catch (SQLException e) {
             fecharSemErro(conexao);

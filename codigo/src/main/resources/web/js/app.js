@@ -56,7 +56,7 @@ async function mostrarRota() {
       el('p', {}, erro.message || 'Tente de novo em instantes.'),
       el('button', { onclick: mostrarRota }, 'Tentar de novo')));
   }
-  if (comMenu) atualizarAlertas();
+  if (comMenu && rota !== '/hoje') atualizarAlertas();   // a tela Hoje já recebe os alertas no /hoje
   else document.getElementById('alertas').replaceChildren();
   conteudo.focus({ preventScroll: true });
   window.scrollTo(0, 0);

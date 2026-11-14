@@ -12,8 +12,10 @@ import br.com.cuidaquemcuida.resource.Dtos.ExecucaoDto;
 import br.com.cuidaquemcuida.resource.Dtos.TarefaDto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -68,13 +70,26 @@ public final class TarefaService {
         AuditoriaDao.registrar(eu, AuditoriaDao.EXCLUIR, "tarefa_cuidado", tarefaId, atual.getTitulo());
     }
 
-    /** Cria as execuções do dia que ainda não existem (não duplica). */
+    /** Cria as execuções do dia que ainda não existem (não duplica). Lê antes e só insere o que falta. */
     public static void garantirExecucoes(long pacienteId, LocalDate dia) {
         List<TarefaCuidado> tarefas = TarefaDao.doPaciente(pacienteId);
-        Sql.transacao(() -> {
-            for (TarefaCuidado t : tarefas) {
-                TarefaDao.garantirExecucoes(t.getId(), t.horariosDoDia(dia));
+        Set<String> existentes = TarefaDao.execucoesNoDia(pacienteId, dia).stream()
+                .map(e -> e.getTarefaId() + "@" + e.getPrevistaPara())
+                .collect(Collectors.toSet());
+        Map<Long, List<LocalDateTime>> faltando = new LinkedHashMap<>();
+        for (TarefaCuidado t : tarefas) {
+            List<LocalDateTime> novas = t.horariosDoDia(dia).stream()
+                    .filter(h -> !existentes.contains(t.getId() + "@" + h))
+                    .toList();
+            if (!novas.isEmpty()) {
+                faltando.put(t.getId(), novas);
             }
+        }
+        if (faltando.isEmpty()) {
+            return;
+        }
+        Sql.transacao(() -> {
+            faltando.forEach(TarefaDao::garantirExecucoes);
             return null;
         });
     }

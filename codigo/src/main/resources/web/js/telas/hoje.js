@@ -1,7 +1,7 @@
 // Tela "Hoje": o que fazer agora no turno, com um botão por tarefa.
 import { chamar } from '../api.js';
 import { estado, pacienteAtual } from '../estado.js';
-import { registrarTela, ir } from '../rotas.js';
+import { registrarTela, ir, mostrarAlertas } from '../rotas.js';
 import {
   el, preencher, campo, tentar, mostrarAviso, formatarHora, formatarIntervalo, formatarDiaSemana, paraData, isoData,
 } from '../ui.js';
@@ -127,6 +127,7 @@ function linhaItem(item, pacienteId, recarregar) {
 registrarTela('/hoje', async (conteudo) => {
   const paciente = pacienteAtual();
   const dados = await chamar('GET', `/hoje?pacienteId=${paciente.id}`);
+  mostrarAlertas(dados.alertas);
   const recarregar = () => ir('/hoje');
   const primeiroNome = (estado.pessoa?.nome || '').split(' ')[0];
 

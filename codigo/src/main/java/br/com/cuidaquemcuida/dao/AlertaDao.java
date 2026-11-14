@@ -33,6 +33,22 @@ public final class AlertaDao {
                 rs.getInt("prioridade"), rs.getObject("criado_em", LocalDateTime.class), false), pessoaId, pacienteId);
     }
 
+    /**
+     * Alertas calculados (dose, tarefa, turno vago, conflito, sobrecarga) que não valem mais (a dose foi dada,
+     * alguém cobriu o turno...) saem da lista: são marcados como lidos. Os gravados na hora do fato
+     * (sinal vital e pedido de ajuda) só saem quando a pessoa toca em "Ok".
+     *
+     * @param chavesAtivas "TIPO|referencia" de cada alerta que ainda vale agora
+     */
+    public static void marcarResolvidos(long pessoaId, long pacienteId, List<String> chavesAtivas) {
+        Sql.executar("""
+                UPDATE alerta SET lido_em = now()
+                 WHERE destinatario_id = ? AND paciente_id = ? AND lido_em IS NULL
+                   AND tipo NOT IN ('SINAL_FORA_FAIXA', 'SINAL_FORA_CURVA', 'PEDIDO_AJUDA')
+                   AND NOT (tipo || '|' || referencia = ANY (string_to_array(?, ';')))
+                """, pessoaId, pacienteId, String.join(";", chavesAtivas));
+    }
+
     public static int marcarLido(long id, long pessoaId) {
         return Sql.executar("UPDATE alerta SET lido_em = now() WHERE id = ? AND destinatario_id = ?", id, pessoaId);
     }
