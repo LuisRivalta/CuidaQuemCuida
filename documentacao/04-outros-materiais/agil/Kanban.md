@@ -9,7 +9,6 @@ Quadro do projeto. Cada cartão: tarefa, responsável, quem aprovou e datas reai
 
 ## A fazer
 - [ ] B1 Ambiente (IntelliJ, JDK 21) — resp.: Gabriel — aprovado por: Luis
-- [ ] B2 Compilar e passar nos testes — resp.: Gabriel — aprovado por: Luis
 - [ ] B3 Banco no Supabase e configuração — resp.: Gabriel — aprovado por: Luis
 - [ ] B4 Teste de ponta a ponta, conferência da Zarit e validação com cuidadores — resp.: Luis — aprovado por: Gabriel
 - [ ] B5 Diagramas finais (DER pelo DBeaver) e imagens — resp.: Luis — aprovado por: Gabriel
@@ -17,9 +16,11 @@ Quadro do projeto. Cada cartão: tarefa, responsável, quem aprovou e datas reai
 - [ ] B7 Empacotar e entregar (até 19/11) — resp.: Gabriel — aprovado por: Luis
 
 ## Fazendo
-- [ ] Redesenho visual das telas: tela Hoje pronta (4 rodadas de revisão de usabilidade, nota 30/40); login redesenhado, correções da revisão pendentes; outras 16 telas a seguir — resp.: Luis — desde 14/11
+- [ ] Redesenho visual: implementação e capturas das 18 rotas em 14/11. Revisão do login: 34/40. Falta a aprovação visual da dupla — resp.: Luis
+- [ ] B3–B4, verificação local: Java e PostgreSQL 18 integrados em 14/11. Verificações executadas em [[Testes e Validação]]. Falta Supabase, celular físico e validação com cuidadores
 
 ## Feito
+- [x] B2 Compilação limpa com Temurin 21 e 64 testes JUnit com zero falhas — execução em 14/11
 - [x] A13 Revisão da Parte A (revisão de código + 2 correções) — resp.: Gabriel — aprovado por: Luis — 13/11 a 14/11
 - [x] Descoberta: escolha e análise das ideias — Luis e Gabriel — ~09/11 a 12/11
 - [x] Sprint 0: documento de design, pesquisa de concorrentes, esboços das telas, plano — Luis e Gabriel — 13/11

@@ -71,5 +71,13 @@ Cada decisão importante, com data e motivo. Quando o código mudar em relação
 | D47 | Quando a sobrecarga é de quem está vendo, o aviso fala com a pessoa e fica no topo; quem está sobrecarregado não recebe "Posso cobrir" | "Cuidar de quem cuida" é o diferencial do produto |
 | D48 | Login com o céu, a marca e, no modo demonstração, botões para entrar como cada pessoa da família de exemplo | Facilita a apresentação e a gravação dos vídeos |
 | D49 | Alvos de toque de 48 px em tudo e letra relativa (112,5%) | Persona João; respeitar a letra escolhida no navegador |
+| D50 | Login com opção "Continuar conectado neste aparelho", pré-marcada. Mensagem de erro no formulário, orientação para convite e contexto da família de exemplo | A pessoa pode limitar a sessão à aba. A tela usa as rotas de cadastro e login já existentes |
+| D51 | Bem-estar com pausa opcional antes da avaliação | A pessoa pode fazer uma pausa ou iniciar as perguntas imediatamente |
 
-## Sprint 2 — (a preencher com as decisões tomadas na compilação, nos testes e na integração)
+## Compilação e integração (14/11/2026)
+
+| # | Decisão | Por quê |
+|---|---|---|
+| D52 | Testar a API com PostgreSQL local isolado e dados fictícios | Permitiu validar os scripts e o acesso JDBC antes da conexão no Supabase |
+| D53 | Usar o item 22 como última pergunta da ZBI-12, com opções de intensidade | A seleção corresponde ao estudo brasileiro de 2019. Referências em [[Escala Zarit]] |
+| D54 | Tornar a versão web instalável por manifesto e ícone da marca | Cumpre a etapa PWA do roadmap. Os dados de cuidado continuam acessados pela API quando há conexão |

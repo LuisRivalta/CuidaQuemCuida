@@ -72,8 +72,8 @@ async function entrar(email) {
   await espera(3800);   // deixa a animação de entrada terminar
 }
 
-async function foto(nome, largura) {
-  const altura = await avaliar('Math.ceil(document.documentElement.scrollHeight)');
+async function foto(nome, largura, alturaFixa) {
+  const altura = alturaFixa ?? await avaliar('Math.ceil(document.documentElement.scrollHeight)');
   await cdp('Emulation.setDeviceMetricsOverride', { width: largura, height: altura, deviceScaleFactor: 1, mobile: largura < 700 });
   await espera(400);
   const { result } = await cdp('Page.captureScreenshot', { format: 'png' });
@@ -96,23 +96,93 @@ function terminar() {
 
 // Modo "login": só a tela de entrada (dia, noite, computador) e o atalho da família de exemplo.
 if (process.argv[4] === 'login') {
+  const fusos = ['America/Sao_Paulo', 'Asia/Tokyo', 'UTC', 'America/Los_Angeles', 'Asia/Dubai'];
+  const horaLocal = (timeZone) => Number(new Intl.DateTimeFormat('en-GB', {
+    timeZone, hour: '2-digit', hourCycle: 'h23',
+  }).format(new Date()));
+  const dia = fusos.find((fuso) => horaLocal(fuso) >= 6 && horaLocal(fuso) < 18);
+  const noite = fusos.find((fuso) => horaLocal(fuso) < 6 || horaLocal(fuso) >= 18);
   const abrirLogin = async () => {
-    await cdp('Page.navigate', { url: base + '/#/login' });
+    await cdp('Page.navigate', { url: `${base}/?n=${Date.now()}#/login` });
     await espera(1200);
-    await avaliar(`sessionStorage.clear(); location.hash = '#/login'`);
     await espera(3200);
   };
-  await preparar(390); await abrirLogin(); await foto('10-login-celular', 390);
+  await preparar(390, dia); await abrirLogin(); await foto('10-login-celular', 390);
+  await avaliar(`document.querySelector('form').requestSubmit()`);
+  if (await avaliar(`document.activeElement.name !== 'email' || !document.querySelector('#erro-entrar').textContent`)) {
+    erros.push('Campo de e-mail vazio sem mensagem e foco');
+  }
+  await avaliar(`(() => { const f = document.querySelector('form'); f.email.value = 'paulo@demo.cqc'; f.senha.value = 'senha-incorreta'; f.requestSubmit(); })()`);
+  await espera(500);
+  if (await avaliar(`document.activeElement.name !== 'senha' || !document.querySelector('#erro-entrar').textContent`)) {
+    erros.push('Credenciais incorretas sem mensagem e foco');
+  }
   await avaliar(`document.querySelector('.mostrar-senha').click()`);
+  if (await avaliar(`document.querySelector('[name="senha"]').type !== 'text' || document.querySelector('.mostrar-senha').getAttribute('aria-label') !== 'Ocultar a senha'`)) {
+    erros.push('Mostrar senha não atualizou o campo e o nome acessível');
+  }
   await avaliar(`[...document.querySelectorAll('.pessoa-demo')][1].click()`);
   await espera(2500);
   const rota = await avaliar('location.hash');
   console.log('depois de tocar em Paulo, a rota é:', rota);
   if (rota !== '#/hoje') erros.push(`atalho da família não entrou (rota ${rota})`);
-  await preparar(390, 'Asia/Tokyo'); await abrirLogin(); await foto('11-login-noite', 390);
-  await preparar(1280); await abrirLogin(); await foto('12-login-computador', 1280);
+  await avaliar(`sessionStorage.clear()`);
+  await cdp('Page.navigate', { url: `${base}/?n=${Date.now()}` });
+  await espera(2200);
+  if (await avaliar(`!document.body.innerText.includes('Paulo') || document.body.dataset.tela !== 'hoje'`)) {
+    erros.push('Sessão lembrada não voltou sem sessionStorage');
+  }
+  await abrirLogin();
+  await avaliar(`document.querySelector('[name="lembrar"]').click(); document.querySelector('.pessoa-demo').click()`);
+  await espera(1500);
+  if (await avaliar(`document.body.dataset.tela !== 'hoje' || localStorage.getItem('cqc.sessao-lembrada') !== null`)) {
+    erros.push('Login sem lembrar deixou uma sessão persistente');
+  }
+  await avaliar(`sessionStorage.clear()`);
+  await cdp('Page.navigate', { url: `${base}/?n=${Date.now()}` });
+  await espera(1500);
+  if (await avaliar(`location.hash !== '#/login'`)) erros.push('Sessão de aba sobreviveu ao descarte do sessionStorage');
+  await preparar(390, noite); await abrirLogin(); await foto('11-login-noite', 390);
+  await preparar(1280, dia); await abrirLogin(); await foto('12-login-computador', 1280);
+  await preparar(360, dia); await abrirLogin();
+  await avaliar(`document.documentElement.style.fontSize = '168.75%'`);
+  if (await avaliar(`(() => { const h1 = document.querySelector('h1'); return h1.scrollWidth > h1.clientWidth; })()`)) {
+    erros.push('Nome da marca cortado com letra a 150%');
+  }
+  await foto('13-login-letra-150', 360);
+  await abrirLogin();
+  await foto('15-login-360x640', 360, 640);
+  await preparar(390, dia); await abrirLogin();
+  await cdp('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-color-scheme', value: 'dark' }] });
+  await foto('14-login-escuro-de-dia', 390);
   terminar();
   process.exit(0);
+}
+
+// Capturas das rotas internas, com dados da demonstração autenticada.
+if (process.argv[4] === 'rotas') {
+  const rotas = process.argv.slice(5);
+  await preparar(390);
+  await entrar('marta@demo.cqc');
+  for (const largura of [390, 1280]) {
+    await preparar(largura);
+    for (const rota of rotas) {
+      await avaliar(`location.hash = ${JSON.stringify('#' + rota)}`);
+      await espera(1200);
+      const titulo = await avaliar(`document.querySelector('#conteudo h1')?.textContent`);
+      if (!titulo || await avaliar(`Boolean(document.querySelector('#conteudo .cartao h2')?.textContent.includes('Não foi possível abrir esta tela'))`)) {
+        erros.push(`${rota}: tela não renderizada`);
+      }
+      await foto(`${rota.slice(1).replace(/[/?=&]+/g, '-')}-${largura}`, largura);
+      if (rota === '/bem-estar/responder') {
+        await avaliar(`document.querySelector('.bem-respiro button').click()`);
+        await espera(300);
+        await foto(`bem-estar-pergunta-${largura}`, largura);
+      }
+    }
+  }
+  terminar();
+  process.exit(erros.length ? 1 : 0);
 }
 
 await preparar(390);

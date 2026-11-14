@@ -11,7 +11,7 @@ tags: [diagrama, arquitetura]
 
 ## Visão geral
 
-Um **único processo Java** sobe o servidor Grizzly. Ele entrega as **telas** (HTML, CSS e JS) em `/` e a **API REST** (JAX-RS com Jersey) em `/api`. O banco é **PostgreSQL no Supabase** (região São Paulo), acessado só pelo Java, via **JDBC**.
+Um **único processo Java** sobe o servidor Grizzly. Ele entrega as **telas** (HTML, CSS e JS) em `/` e a **API REST** (JAX-RS com Jersey) em `/api`. O Java acessa **PostgreSQL** via **JDBC**. A implantação prevista usa Supabase na região São Paulo. A integração foi verificada com PostgreSQL 18 local em 14/11/2026.
 
 ```mermaid
 flowchart TB
@@ -96,5 +96,7 @@ O `UPDATE ... WHERE status = 'PENDENTE'` resolve o caso de **duas pessoas tocare
 | Supabase com RLS ligado e sem política | Fecha a API automática do Supabase; o Java acessa como dono das tabelas |
 | Web responsiva, não app de loja | Custo e prazo; a API REST já serve um app futuro (ver [[Design da Solução]], seção 17) |
 
-## Versão final (implementada)
-_A preencher depois da implementação (Tarefa B5): o que mudou desde a v1 e por quê._
+## Versão implementada, 14/11/2026
+
+- O serviço Grizzly entrega a interface e a API no mesmo endereço. A integração local confirmou acesso ao PostgreSQL por JDBC.
+- A interface tem JavaScript em módulos, com ícones SVG, tema por período do dia e sessão lembrada opcional.

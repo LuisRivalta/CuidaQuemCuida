@@ -1,5 +1,7 @@
 # Redesenho das telas com a Impeccable — plano de execução
 
+> **Atualização de 14/11/2026, à noite:** login revisado (34/40), sistema visual documentado, 18 rotas abertas em celular e computador no modo demonstração e detector de arquivos limpo. A equipe autorizou avançar com a implementação. A aprovação visual no navegador e a confirmação do sistema visual seguem pendentes.
+
 > **Passagem (14/11/2026):** a sessão foi encerrada no meio da Fase 2 (login). Antes de continuar, leia [[Redesenho - Passagem]], que tem o estado exato, as decisões pendentes e os próximos passos. O prompt para retomar está em [[PROMPT-PARA-CONTINUAR]].
 >
 > **Para quem executa:** siga as fases em ordem e marque `- [x]` ao concluir cada passo. Cada tela só é dada como pronta depois que o Luis aprova no navegador. Este plano complementa o plano principal ([[2026-11-13-cuidaquemcuida]]) e roda **antes** da Parte B.
@@ -68,8 +70,8 @@
 ```
 Para cada tela:
 - [x] **2.1 (Claude)** Rodar as duas avaliações separadas (A: revisão de design com as 10 heurísticas e as personas; B: detector e navegador), juntar no relatório e fazer as perguntas de prioridade. *(Hoje: 4 rodadas. Login: 1 rodada.)*
-- [ ] **2.2 (Luis)** Escolher por onde começar e quanto mexer. *(Hoje: feito. Login: pendente.)*
-- [ ] **2.3 (Claude)** Aplicar as correções com os comandos indicados (`polish`, `clarify`, `layout`...), refotografar e mostrar. *(Hoje: feito. Login: pendente.)*
+- [x] **2.2** Com a autorização para avançar, aplicar os cinco pontos, oferecer sessão lembrada opcional e deixar a recuperação de senha para evolução futura.
+- [x] **2.3** Corrigir, fotografar e revisar. Ver [[Critique Login - rodada 2 (34 de 40)]].
 - [ ] **2.4 (Luis)** Aprovar a tela no navegador (Ctrl+F5 antes). *(Hoje: fechada por decisão do Luis. Login: pendente.)*
 - **Pronto quando:** cada tela tem nota de 28/40 ou mais ("Boa"), nenhum problema P0 ou P1 e o ok do Luis.
 
@@ -155,11 +157,13 @@ Para cada tela:
 
 ## Fase 3 — Sistema visual (`document`)
 **Comando (Luis):** `/impeccable:impeccable document`
-- [ ] **3.1 (Claude)** Gravar `DESIGN.md` e `.impeccable/design.json` a partir do código aprovado: cores, letras, espaçamento, cantos, sombras, componentes (céu, cartão "Próximo", caminho do dia, avisos, menu, botões, campos) e movimento.
+- [x] **3.1** Gravar `DESIGN.md` e `.impeccable/design.json` com as decisões de cor, tipografia, medidas e componentes.
 - [ ] **3.2 (Luis)** Ler e confirmar.
 - **Pronto quando:** `DESIGN.md` existe com os tokens e a Impeccable o carrega no contexto.
 
 ## Fase 4 — Redesenho tela por tela
+
+**Implementação de 14/11:** as dez etapas abaixo foram aplicadas ao sistema visual já usado em Hoje e no login. As capturas da demonstração cobrem as 18 rotas. Os itens assinalados registram a implementação. A conferência da dupla segue na etapa 5.6.
 **Como pedir (Luis):** "redesenha a <tela>". Cada tela segue o **ciclo completo**:
 1. **Sorteio:** a Impeccable sorteia 3 estruturas diferentes para a tela (`concept-seed --scope surface --mode operate`) e abre a página de decisão no navegador. O Luis escolhe uma.
 2. **Contrato:** grava o resumo da tela (direção escolhida) em `.impeccable/surfaces/`.
@@ -171,36 +175,36 @@ Para cada tela:
 
 **Caminho rápido** (só se o prazo de 15/11 apertar, e só nas telas 4.5 a 4.10): pula os passos 1, 2 e 6; aplica o `DESIGN.md` direto; mantém as fotos, o detector e o ok do Luis.
 
-- [ ] **4.1 Escala**: semana, turnos, turno vago com "Posso cobrir", conflitos, folga e o aviso de turno noturno (o 🌙 vira ícone).
-- [ ] **4.2 Bem-estar e Zarit**: histórico e faixa, as 12 perguntas e o sono; **tela de respiração antes da Zarit** (um círculo que expande e contrai); resultado privado e "Pedir ajuda à rede"; o 🔒 vira ícone.
-- [ ] **4.3 Painel**: quem carrega o cuidado, médias, z-score e gráficos Chart.js (com a skill dataviz: paleta validada, legenda, tabela).
-- [ ] **4.4 Mais (menu)**: os 8 emojis viram ícones desenhados.
-- [ ] **4.5 Paciente e remédios**: dados do paciente e as 3 regras de horário.
-- [ ] **4.6 Pessoas da rede**: membros, papéis e código de convite.
-- [ ] **4.7 Sinais vitais**: faixas, registro e o aviso "Fora da faixa" (o ⚠ vira ícone).
-- [ ] **4.8 Tarefas de cuidado**: lista e "como fazer".
-- [ ] **4.9 Dados coletados, Banco ao vivo e Minha conta**: telas de leitura, feitas juntas.
-- [ ] **4.10 Cadastros**: criar conta (com termo), início sem rede, cadastrar paciente e entrar com código, no mesmo mundo do login.
+- [x] **4.1 Escala:** navegação semanal, turnos agrupados por dia e indicação de vaga e noite.
+- [x] **4.2 Bem-estar e Zarit:** pausa opcional, perguntas, sono, resultado, histórico e privacidade.
+- [x] **4.3 Painel:** hierarquia de carga, indicadores e gráficos com legenda, traços e valores em texto. O z-score permanece no módulo de sinais.
+- [x] **4.4 Mais:** dois grupos de navegação e ícones SVG.
+- [x] **4.5 Paciente e remédios:** dados e três regras de horário.
+- [x] **4.6 Pessoas da rede:** membros, papéis e código de convite.
+- [x] **4.7 Sinais vitais:** faixas, registro e avisos.
+- [x] **4.8 Tarefas de cuidado:** lista, estado vazio e instruções.
+- [x] **4.9 Dados coletados, Banco ao vivo e Minha conta:** organização das telas de leitura.
+- [x] **4.10 Cadastros:** criar conta, início sem rede, cadastrar paciente e entrar com código.
 - **Pronto quando:** as 18 telas têm o visual novo e o ok do Luis.
 
 ## Fase 5 — Passada final no app inteiro
-- [ ] **5.1** `/impeccable:impeccable audit codigo/src/main/resources/web`: acessibilidade, desempenho e celular. Corrigir P0 e P1.
+- [ ] **5.1** Auditoria: axe sem violações automatizadas nas 18 rotas em 390 px (WCAG 2.0 A/AA e 2.1 AA). Conferências manuais adicionais de acessibilidade e desempenho seguem no checklist final.
 - [ ] **5.2** `/impeccable:impeccable harden`: mensagens de erro, telas vazias, textos longos, sem internet (fontes e GSAP vêm de CDN).
 - [ ] **5.3** `/impeccable:impeccable adapt`: versão de computador boa para gravar o vídeo técnico.
 - [ ] **5.4** `/impeccable:impeccable polish`: o último acabamento.
-- [ ] **5.5 (Claude)** Rodar o detector em todas as telas e refotografar as 18 em celular e computador, com zero erro no console.
+- [x] **5.5** Detector limpo nos arquivos de interface e no login renderizado. As 18 rotas foram fotografadas em 390 e 1280 px com zero erro de console.
 - [ ] **5.6 (Luis)** Ok final do visual.
 
 ## Fase 6 — Documentação e registro
-- [ ] **6.1** Refazer `documentacao/02-wireframes/wireframes.html`, `Wireframes.md` e as fotos `imagens/*-real.png` com as telas novas.
+- [x] **6.1** Atualizar wireframes, nota e capturas da implementação.
 - [ ] **6.2** Atualizar `Mapa do Código.md`, `Arquitetura.md` e as notas de módulo que citam o front (Hoje e Alertas, Escala, Medicação, Sinais Vitais, Protocolo de Cuidado, Cadastros e Rede), incluindo os arquivos novos `js/icones.js` e `js/ceu.js`.
-- [ ] **6.3** `Registro de Decisões.md`, a partir de D34: redesenho visual e a direção "acolhedor e calmo"; GSAP e as fontes; "Não foi dado" com motivos em vez da caixa do navegador; login com atalho da família de exemplo; itens pendentes do caminho do dia que abrem com um toque; aviso de turno vago sem repetir o alerta.
-- [ ] **6.4** `Diário de Desafios.md`: só o que aconteceu de verdade. Candidato a avaliar com o Luis: o navegador guardou módulos JS antigos e a tela ficou em branco depois da atualização (14/11).
+- [x] **6.3** Atualizar o Registro de Decisões (D34 a D53).
+- [x] **6.4** Registrar os desafios confirmados no diário.
 - [ ] **6.5** Conferir se os roteiros dos vídeos, o README e o `Conteúdos do Curso.md` ainda batem com as telas novas (por exemplo, o login agora tem botões da família em vez da lista de e-mails).
-- [ ] **6.6** `AGENTS.md`: atualizar o "Estado atual" e acrescentar às pendências "depois de atualizar as telas, Ctrl+F5" e "fontes e GSAP precisam de internet".
-- [ ] **6.7** Kanban: cartão "Redesenho visual das telas" com as datas reais.
-- [ ] **6.8** Commit (o filtro `semcarimbo` tira o carimbo). Push só com o ok do Luis.
-- [ ] **6.9** Conferir os links do Obsidian (zero quebrado).
+- [x] **6.6** Atualizar o estado do `AGENTS.md`.
+- [x] **6.7** Atualizar o cartão do redesenho no Kanban.
+- [x] **6.8** Commits locais por assunto. Push só com o ok do Luis.
+- [x] **6.9** Conferir os links do Obsidian: 169 notas, zero links quebrados.
 
 ## Comandos de apoio (entram quando o critique ou a fase pedir)
 Não são fases próprias: o critique indica qual usar em cada problema (Fases 2 e 4), e alguns têm lugar fixo.

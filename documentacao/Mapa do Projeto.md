@@ -9,6 +9,7 @@ tags: [indice]
 > Equipe: Luis (Product Owner) e Gabriel Vilela (Scrum Master e validação).
 
 ## Comece aqui
+- [[Documentação Completa]]: sumário e reunião dos documentos da entrega.
 - [[Design da Solução]]: o documento base (o porquê, o que faz, a arquitetura, as regras).
 - [[Edital GS 2026]]: o que foi pedido, com o checklist dentro do design.
 

@@ -7,7 +7,7 @@ tags: [validacao, zarit, pesquisa]
 
 Texto pronto para montar no **Google Forms** e aplicar a 2 ou 3 cuidadores reais conhecidos da equipe (Tarefa B4). Serve de **evidência** do problema e de **validação** da proposta. Ver [[Testes e Validação]] e [[Escala Zarit]].
 
-> Antes de aplicar: conferir o texto das perguntas com a fonte original (Scazufca, 2002), conforme a nota [[Escala Zarit]].
+> Itens e respostas conferidos em 14/11/2026. Fontes em [[Escala Zarit]].
 
 ## Texto de abertura (termo de participação)
 > Olá! Somos estudantes da FIAP e estamos criando o **CuidaQuemCuida**, um sistema para ajudar famílias que cuidam de alguém dependente (idoso acamado, pessoa com Alzheimer ou com deficiência).
@@ -21,7 +21,10 @@ Texto pronto para montar no **Google Forms** e aplicar a 2 ou 3 cuidadores reais
 4. Mais alguém divide o cuidado com você? (ninguém · 1 pessoa · 2 ou mais)
 5. Quantas horas por semana, mais ou menos, você passa cuidando? (número)
 
-## Escala Zarit, 12 perguntas (Nunca · Raramente · Algumas vezes · Frequentemente · Sempre)
+## Escala Zarit, 12 perguntas
+
+Nas perguntas 1 a 11, use Nunca · Raramente · Algumas vezes · Muito frequentemente · Quase sempre.
+
 1. Você sente que, por causa do tempo que gasta com seu familiar, não tem tempo suficiente para si mesmo(a)?
 2. Você se sente estressado(a) entre cuidar do seu familiar e suas outras responsabilidades com a família e o trabalho?
 3. Você se sente irritado(a) quando seu familiar está por perto?
@@ -33,7 +36,7 @@ Texto pronto para montar no **Google Forms** e aplicar a 2 ou 3 cuidadores reais
 9. Você sente que perdeu o controle da sua vida desde a doença do seu familiar?
 10. Você se sente em dúvida sobre o que fazer pelo seu familiar?
 11. Você sente que deveria estar fazendo mais pelo seu familiar?
-12. Você sente que poderia cuidar melhor do seu familiar?
+12. De modo geral, quanto você se sente sobrecarregado(a) por cuidar do seu familiar? (Nem um pouco · Um pouco · Moderadamente · Muito · Extremamente)
 
 ## Sono
 13. Quantas horas você dormiu por noite, em média, nesta semana? (número)
@@ -44,7 +47,7 @@ Texto pronto para montar no **Google Forms** e aplicar a 2 ou 3 cuidadores reais
 16. O que mais ajudaria você hoje? (resposta aberta)
 
 ## Resultados (preencher com dados reais)
-Pontuação = soma das 12 respostas (Nunca = 0 ... Sempre = 4), de 0 a 48. Faixa: até 10 baixa, de 11 a 20 moderada, acima de 20 alta.
+Cada resposta vale de 0 a 4 na ordem apresentada. A soma vai de 0 a 48. O protótipo usa faixa baixa até 10, moderada de 11 a 20 e alta acima de 20.
 
 | Data | Participante | Cuida de | Divide com | Horas/semana | Pontuação Zarit | Faixa | Sono (h) | Usaria? | Comentário |
 |---|---|---|---|---|---|---|---|---|---|

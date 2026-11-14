@@ -176,5 +176,6 @@ flowchart LR
 | Fluxos alternativos | 2a. Único coordenador de uma rede com outros membros: recusa até passar a coordenação. |
 | Pós-condição | Pessoa anonimizada; avaliações Zarit apagadas; registros de cuidado mantidos como "Pessoa removida" |
 
-## Versão final (implementada)
-_A preencher depois da implementação (Tarefa B5)._
+## Versão implementada, 14/11/2026
+
+A verificação em Java e PostgreSQL local incluiu login, convite, exclusão de conta, acesso do coordenador, cobertura de turno, registro de dose, sinais vitais e pedido de ajuda. Resultados em [[Testes e Validação]].

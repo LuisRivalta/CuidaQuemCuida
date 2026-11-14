@@ -71,7 +71,23 @@ Achados ao fotografar automaticamente as 16 telas em tamanho de celular:
   - a tela não se redesenha enquanto há registro esperando, e fica travada ao voltar ao app até chegar a versão nova.
 - **Trecho:** `registrarComDesfazer`, `enviar` e `atualizar` em `codigo/src/main/resources/web/js/telas/hoje.js`.
 
+## 11. Divergência no item final da Zarit (14/11/2026)
+
+- **Problema:** a pergunta final usava o item 21 da escala completa. O Quadro 1 do estudo brasileiro de 2019 usa o item 22, sobre a intensidade da sobrecarga percebida.
+- **O que tentamos:** cruzamos a seleção do estudo com a Tabela 1 da tradução de Scazufca e conferimos o tipo de resposta de cada item.
+- **Decisão:** usar o item 22 com opções de intensidade, mantendo os escores de 0 a 4. A redação segue adaptada para autoaplicação. Referências em [[Escala Zarit]].
+
+## 12. Compilação limpa com servidor em execução (14/11/2026)
+
+- **Problema:** no Windows, o `mvn clean test` não conseguiu apagar `target/classes/web/js/ui.js` enquanto o servidor servia os arquivos.
+- **O que tentamos:** repetimos o comando com Temurin 21 e confirmamos a falha na etapa `clean`.
+- **Decisão:** parar o servidor antes de limpar, rodar `mvn clean test` e subir novamente com `mvn compile exec:java`. A compilação limpa passou com os 64 testes.
+
+## 13. Navegação rápida depois do login (14/11/2026)
+
+- **Problema:** ao entrar e abrir o questionário imediatamente, o teste do navegador em uma execução deixou de encontrar as respostas da primeira pergunta. As telas compartilhavam o mesmo elemento, inclusive quando uma consulta da tela anterior ainda estava em andamento.
+- **O que tentamos:** reproduzimos o fluxo de login, mudança imediata de tela e abertura da primeira pergunta.
+- **Decisão:** cada navegação recebe um elemento de conteúdo próprio. A interface ignora retornos que já perderam a conexão com a página. O teste repetido completou as 12 perguntas e exibiu 48 pontos.
+
 ## A acompanhar (previstos, ainda não aconteceram)
 - Conexão com o Supabase: a conexão direta só funciona em IPv6; usar o "Session pooler".
-- Versões das bibliotecas Jackson alinhadas pelo `jackson-bom` (conferir com `mvn dependency:tree`).
-- Erros de compilação na primeira execução do Java (código escrito sem compilador): registrar aqui os que aparecerem.

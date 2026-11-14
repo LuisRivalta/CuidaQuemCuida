@@ -4,7 +4,9 @@ data: 2026-11-14
 tags: [redesenho, tela, login]
 ---
 
-# Tela de login (redesenhada; correções do critique pendentes)
+# Tela de login
+
+> **Atualização de 14/11/2026:** foram aplicadas as cinco correções da primeira revisão. “Continuar conectado neste aparelho” vem marcado por padrão e pode ser desmarcado. O cadastro orienta quem recebeu convite. A recuperação de senha ficou para uma versão futura. A segunda revisão registrou **34/40**, sem P0 ou P1, com o detector limpo. Ver [[Critique Login - rodada 2 (34 de 40)]].
 
 Arquivo: `codigo/src/main/resources/web/js/telas/login.js`, com os estilos na seção "Login" do `css/estilo.css` e no bloco `@media (min-width: 900px)`. Voltar para [[Redesenho - Passagem]].
 

@@ -19,8 +19,11 @@ tags: [indice, codigo]
 | `js/rotas.js` | Registro das telas, navegação, seletor de paciente, barra de alertas |
 | `js/api.js` | Chama a API (com o token) ou o modo demonstração |
 | `js/demo.js` | Modo demonstração: o contrato da API inteiro em memória |
-| `js/estado.js` | Quem está logado e qual paciente está aberto |
+| `js/estado.js` | Sessão da aba, opção de lembrar neste aparelho e paciente selecionado |
 | `js/ui.js` | Criar elementos, mensagens e formatar datas |
+| `js/ceu.js` | Períodos do dia, estrelas, morros e preferência de movimento reduzido |
+| `js/icones.js` | Ícones SVG usados nas telas |
+| `manifest.json` e `icones/` | Metadados e ícones para instalação do app web |
 | `js/telas/*.js` | login, cadastros, hoje, escala, bem-estar, mais, painel |
 | `dados/zarit-perguntas.json` | As 12 perguntas da Zarit e as 2 de sono |
 

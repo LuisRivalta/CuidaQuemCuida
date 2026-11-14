@@ -634,6 +634,8 @@ C:\CuidaQuemCuida\
 
 ### Tarefa B1: Preparar o ambiente
 
+**Verificação de 14/11:** o repositório está disponível em `E:\Projetos\FIAP\GS\CuidaQuemCuida`. Maven 3.9.16 e Temurin 21.0.13 foram usados pelo terminal. A importação no IntelliJ permanece opcional para quem for usar a IDE na gravação.
+
 - [ ] **Passo 1:** instalar o **IntelliJ IDEA Community Edition** (site oficial da JetBrains, gratuito).
 - [ ] **Passo 2:** colocar a pasta do projeto (pendrive ou nuvem) em `C:\CuidaQuemCuida`, ou clonar do GitHub.
 - [ ] **Passo 3:** no IntelliJ: **File → Open →** escolher a pasta `C:\CuidaQuemCuida\codigo` (a que tem o `pom.xml`) → "Trust project". Ele reconhece o projeto Maven.
@@ -644,6 +646,8 @@ C:\CuidaQuemCuida\
 
 ### Tarefa B2: Compilar e passar nos testes
 
+**Verificação de 14/11:** `mvn clean test` com JDK 21 compilou o projeto e executou 64 testes, todos aprovados. As dependências Jackson estão na versão 2.15.3. O servidor Java foi iniciado após o teste.
+
 - [ ] **Passo 1:** **Maven → Lifecycle → compile** (duplo clique). Esperado: `BUILD SUCCESS`.
 - [ ] **Passo 2: se der erro de compilação** (o Java da Parte A foi escrito sem compilar, então isso é esperado):
   1. A janela "Run" mostra `[ERROR] /caminho/Arquivo.java:[linha,coluna] mensagem`. Clicar no link abre a linha.
@@ -653,13 +657,15 @@ C:\CuidaQuemCuida\
      - `package ... does not exist`: dependência do `pom.xml`; recarregar o Maven.
   3. Se usar uma IA para ajudar: colar o erro **e** o conteúdo do `AGENTS.md`, e pedir a correção **mínima** que mantém as assinaturas deste plano.
   4. Repetir até `BUILD SUCCESS`. Cada erro difícil vira uma entrada no diário.
-- [ ] **Passo 3:** **Maven → Lifecycle → test.** Esperado: `Tests run: N, Failures: 0, Errors: 0` e `BUILD SUCCESS`.
+- [x] **Passo 3:** `mvn clean test` executado com 64 testes, zero falhas e zero erros.
 - [ ] **Passo 4: se um teste falhar:** primeiro confirmar se o **teste** está de acordo com as restrições globais deste plano (os valores ali são a regra). Se estiver, corrigir o **código**, não o teste. Se `SenhaTest.confere(...)` falhar, o hash do seed está errado: gerar de novo com `Senha.novoSalt()` e `Senha.hash("demo1234", salt)` (um `main` temporário) e atualizar o `03-dados-demo.sql` e o teste.
-- [ ] **Passo 5:** conferir a versão do Jackson: no terminal do IntelliJ, `mvn dependency:tree | findstr jackson`. Se o `jackson-datatype-jsr310` estiver numa versão diferente do `jackson-databind`, igualar no `pom.xml`.
-- [ ] **Passo 6:** print da janela de testes verde, salvo em `documentacao/04-outros-materiais/imagens/testes-verdes.png`. Vai para o vídeo técnico e para "Testes e Validação".
+- [x] **Passo 5:** `mvn dependency:tree` confirmou Jackson 2.15.3 em todos os módulos.
+- [x] **Passo 6:** evidência dos 64 testes gerada a partir dos relatórios Maven Surefire, em `documentacao/04-outros-materiais/imagens/testes-verdes.png`.
 - [ ] **Passo 7:** commit `fix: ajustes de compilação e testes` (se houve mudança).
 
 ### Tarefa B3: Banco no Supabase e configuração
+
+**Verificação de 14/11:** scripts 00 a 03, conexão JDBC e teste de saúde concluídos em PostgreSQL 18 local com dados fictícios. Os passos da instância Supabase continuam pendentes.
 
 - [ ] **Passo 1:** em supabase.com, com a conta **pessoal**: **New project** → nome `cuidaquemcuida` → criar uma senha forte e **guardar num lugar seguro** → região **South America (São Paulo)** → plano Free → Create.
 - [ ] **Passo 2:** **SQL Editor → New query →** colar e rodar, um de cada vez, na ordem: `banco/00-apagar-tabelas.sql`, `01-criar-tabelas.sql`, `02-ligar-rls.sql`, `03-dados-demo.sql`. Cada um precisa terminar com "Success".
@@ -690,7 +696,7 @@ C:\CuidaQuemCuida\
   - excluir essa conta: o nome vira "Pessoa removida".
 - [ ] **Passo 2: duas pessoas na mesma dose:** abrir uma janela normal (Marta) e uma anônima (Paulo) e tocar "Dei o remédio" na mesma dose nas duas. A segunda mostra "Essa dose já foi registrada por Marta Souza".
 - [ ] **Passo 3: no celular de verdade** (mesmo Wi-Fi): no PC, rodar `ipconfig` e anotar o "Endereço IPv4" (por exemplo, 192.168.0.10). No celular, abrir `http://192.168.0.10:8080`. Se o Windows perguntar sobre o firewall do Java, permitir em **rede privada**. Conferir os botões grandes e a leitura confortável.
-- [ ] **Passo 4:** os itens com `[CONFERIR]` no `zarit-perguntas.json` precisam ser conferidos com a fonte (Scazufca 2002) e corrigidos.
+- [x] **Passo 4:** perguntas e opções conferidas em 14/11 com Gratão et al. (2019) e Scazufca (2002). Última pergunta corrigida para o item 22, com opções de intensidade.
 - [ ] **Passo 5:** cada falha encontrada: corrigir, anotar no diário (se foi um desafio de verdade), fazer o commit e repetir o cenário.
 - [ ] **Passo 6:** validação com pessoas (seção 12 do design): montar o Google Forms a partir de `Formulário Zarit (validação).md`, aplicar a 2 ou 3 cuidadores reais e registrar os resultados **reais** com a data. Teste de uso: uma pessoa marca um remédio no celular sem ajuda; anotar o que aconteceu.
 
@@ -698,7 +704,7 @@ C:\CuidaQuemCuida\
 
 - [ ] **Passo 1:** instalar o **DBeaver Community**. Nova conexão PostgreSQL com os dados do `config.properties` (host, porta 5432, banco `postgres`, usuário e senha; na aba SSL, "require"). Abrir **Schemas → public → Tables →** botão direito **→ View Diagram**. Exportar como PNG para `documentacao/01-diagramas/imagens/der-final.png`.
 - [ ] **Passo 2:** em cada nota de diagrama, acrescentar a seção "Versão final (implementada) — data", com o diagrama atualizado se o código mudou, e a lista "O que mudou desde a v1 e por quê" (as decisões vão também para o `Registro de Decisões.md`).
-- [ ] **Passo 3:** imagens dos diagramas Mermaid: abrir https://mermaid.live, colar cada bloco e usar **Actions → PNG**. Salvar em `documentacao/01-diagramas/imagens/`.
+- [x] **Passo 3:** 11 diagramas Mermaid exportados para `documentacao/01-diagramas/imagens/` em 14/11.
 - [ ] **Passo 4:** wireframes em imagem: abrir o `documentacao/02-wireframes/wireframes.html`, fazer um print de cada tela (Win+Shift+S) e salvar em `documentacao/02-wireframes/imagens/`. Prints das telas reais rodando vão para o mesmo lugar, com o sufixo `-real`.
 - [ ] **Passo 5 (opcional, acabamento):** graphify sobre a pasta `codigo/src`, com a saída **fora** do vault (por exemplo, `C:\cqc-graphify\`). Salvar a imagem do grafo em `documentacao/04-outros-materiais/imagens/grafo-codigo.png`.
 - [ ] **Passo 6:** commit `docs: diagramas finais e imagens`.
@@ -712,6 +718,8 @@ C:\CuidaQuemCuida\
 - [ ] **Passo 5:** atualizar `Sprint 2/3` em `agil/` com as datas reais, a revisão e a retrospectiva.
 
 ### Tarefa B7: Empacotar e entregar (até 19/11/2026)
+
+**Pré-entrega de 14/11:** documentação consolidada em PDF, exportação dos 11 diagramas e ZIP local inspecionado. A entrega final depende dos links dos vídeos e do envio pelo FIAP ON.
 
 - [ ] **Passo 1: carimbo de auditoria.** Abrir cada `.js` em `codigo/src/main/resources/web/js/` (e qualquer `.py`, `.ps1`). Se houver um bloco de comentário com `[CLAUDE-CODE-AUDIT]` no topo, apagar o bloco inteiro e salvar. Conferir com a busca do IntelliJ (Ctrl+Shift+F por `CLAUDE-CODE-AUDIT`): 0 resultados.
 - [ ] **Passo 2: PDF da documentação.** No Obsidian, criar a nota `Documentação Completa.md` com, em ordem: título, equipe, sumário e os embeds `![[Design da Solução]]`, `![[Arquitetura]]`, `![[Diagrama do Banco]]`, `![[Diagrama de Classes]]`, `![[Casos de Uso]]`, os três fluxos, `![[Wireframes]]`, `![[API]]`, `![[Regras de Negócio]]`, `![[Estatística]]`, `![[Problema e Evidências]]`, `![[Personas]]`, `![[Concorrentes]]`, `![[ODS]]`, `![[LGPD, Segurança e Acessibilidade]]`, `![[Testes e Validação]]`, `![[Métodos Ágeis]]`, `![[Diário de Desafios]]`, `![[Registro de Decisões]]` e `![[Conteúdos do Curso]]`. Depois, **⋯ → Export to PDF** e salvar como `Documentacao-CuidaQuemCuida.pdf` na raiz. Conferir se os diagramas Mermaid aparecem desenhados no PDF; se não aparecerem, usar as imagens da B5 no lugar.

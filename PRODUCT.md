@@ -64,7 +64,7 @@ Tudo em português, gratuito e no navegador.
   - a Zarit é privada;
   - a tela "Dados coletados" mostra o prazo de guarda de cada dado;
   - a pessoa pode ver os próprios dados e excluir a conta, com anonimização.
-- **Texto da Zarit:** segue a versão validada no Brasil e não é reescrito pelo design. A conferência com a fonte ainda está pendente.
+- **Texto da Zarit:** itens conferidos em 14/11/2026 com Gratão et al. (2019) e Scazufca (2002). A interface usa redação adaptada para autoaplicação.
 - **Fora do escopo** (roadmap):
   - app nas lojas, que fica para depois por custo, por isso o projeto é web;
   - notificação push, SMS ou WhatsApp;

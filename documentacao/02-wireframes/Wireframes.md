@@ -53,5 +53,12 @@ Fotos tiradas do sistema funcionando, em tamanho de celular:
 
 Demais fotos em `imagens/` (arquivos `*-real.png`).
 
-## Versão final
-_A preencher depois da implementação (Tarefa B5): prints das telas rodando com a API real e o que mudou em relação aos wireframes._
+## Versão implementada, 14/11/2026
+
+- O login ganhou a paisagem por horário, a opção de continuar conectado e orientação para quem recebeu convite.
+- Em Hoje, o arco acompanha o turno e a ação principal vem antes dos demais itens do dia.
+- A Escala mostra os turnos por dia, com marcação de hoje, vagas e texto para turno noturno.
+- Bem-estar inclui uma pausa opcional antes da primeira pergunta. O Painel oferece os números dos gráficos em texto ou tabela.
+- Mais agrupa rede de cuidado e conta. Os cadastros usam o mesmo sistema de tipografia, superfícies e campos.
+
+As capturas desta pasta usam a família Souza e dados fictícios. Os resultados com Java e PostgreSQL local estão em [[Testes e Validação]].

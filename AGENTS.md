@@ -37,7 +37,7 @@
 | Roteiros e links dos vídeos | `videos/` |
 
 ## Como continuar
-0. **Em andamento: o redesenho das telas.** Leia `docs/redesenho/Redesenho - Passagem.md` e cole o prompt de `PROMPT-PARA-CONTINUAR.md`. O redesenho vem antes da Parte B.
+0. **Retome pelas pendências da Parte B no Estado atual.** A passagem em `docs/redesenho/Redesenho - Passagem.md` guarda as decisões do redesenho.
 1. Abra o plano e ache o primeiro passo não marcado (`- [ ]`).
 2. Faça uma tarefa por vez, marque `- [x]` ao concluir e atualize a seção "Estado atual" abaixo.
 3. Quando um passo depender de uma pessoa (instalar programa, clicar no Supabase, gravar vídeo), explique o que fazer e espere a confirmação.
@@ -57,6 +57,14 @@ fazer e espere eu confirmar.
 ```
 
 ## Estado atual
+- **14/11/2026 (noite):** redesenho implementado nas 18 rotas. Login com sessão opcional, orientação de convite e família de exemplo. Segunda revisão do login: 34/40, sem P0 ou P1. Capturas e detector sem erros registrados na verificação. A aprovação visual da dupla segue pendente.
+  - **Integração local:** scripts 00 a 03 executados em PostgreSQL 18 isolado. Java e JDBC responderam em `http://localhost:8080`. Os 64 testes JUnit passaram. Os cenários executados estão em [[Testes e Validação]].
+  - **Ambiente deste PC:** Temurin 21.0.13 em `%LOCALAPPDATA%\CuidaQuemCuida\temurin21`. PostgreSQL isolado em `%LOCALAPPDATA%\CuidaQuemCuida\pg18`, na porta 55432 em loopback. A configuração local está em `codigo/config.properties` ignorado pelo Git.
+  - **Zarit:** itens e opções conferidos com Gratão et al. (2019) e Scazufca (2002). A última resposta agora mede intensidade. A mensagem do pedido de ajuda usa texto neutro.
+  - **Evolução prevista no design:** a versão web ganhou manifesto e ícones de instalação (PWA). A instalação em celular depende de um endereço HTTPS para a versão publicada.
+  - **Próximos passos:** disponibilizar a instância Supabase do projeto, rodar as verificações no ambiente final, testar em celular físico e validar com cuidadores, gravar e publicar os dois vídeos, preencher `videos/links.txt` e enviar o ZIP pelo FIAP ON.
+
+### Histórico anterior
 - **13/11/2026:** design aprovado; plano aprovado; Parte A (PC sem Java) em andamento.
 - **14/11/2026: Parte A concluída (A1 a A13).** Tudo commitado no Git (branch `main`) e enviado ao repositório **privado** `github.com/LuisRivalta/CuidaQuemCuida` (só para transporte e trabalho da dupla; **não compartilhar o link com a faculdade**: a entrega é o `.zip` limpo da B7). Em casa: `git clone https://github.com/LuisRivalta/CuidaQuemCuida.git C:\CuidaQuemCuida`. **Próximo passo: Tarefa B1** do plano.
   - **Telas:** completas e testadas no modo demonstração (16 telas, celular e computador, 0 erros).
@@ -72,7 +80,7 @@ fazer e espere eu confirmar.
 
 ## Pendências conhecidas (para a Parte B)
 Achadas na revisão de código e deixadas para depois por serem pequenas. Corrija se der tempo; nenhuma impede a demonstração.
-1. **Texto da Zarit não conferido** (`web/dados/zarit-perguntas.json`, `"conferido": false`): conferir com a fonte antes de gravar (B4, passo 4). **Obrigatório.**
+1. **Zarit conferida em 14/11** (`web/dados/zarit-perguntas.json`, `"conferido": true`). Referências em [[Escala Zarit]].
 2. **Jackson:** se aparecer `NoSuchMethodError` vindo de `org.glassfish.jersey.jackson` ao subir, alinhar a versão do `jackson-bom` no `pom.xml` com a do Jersey (`mvn dependency:tree`) ou tirar o BOM.
 3. **Rodar sempre com `mvn compile exec:java`** (o `exec:java` sozinho não recompila; no IntelliJ o botão ▶ já compila).
 4. **Resetar o banco no dia da gravação** (`banco/00` a `03`): a escala de demonstração vai até 7 dias à frente; nos dias seguintes aparecem "turnos vagos" falsos no fim da semana.
@@ -81,5 +89,5 @@ Achadas na revisão de código e deixadas para depois por serem pequenas. Corrij
 7. Pequenas, se sobrar tempo: texto maior que a coluna (`SQLState 22001`) vira 500 em `infra/Sql.java`; o `SELECT` de sessão feito a cada 2 s pela tela Banco ao vivo enche a lista de 50 comandos (pode-se não registrar esse `SELECT` no `LogSql`); "Posso cobrir" tocado por duas pessoas ao mesmo tempo cria dois turnos.
 8. **Depois de atualizar as telas, recarregar com Ctrl+F5.** O navegador guarda módulos JS antigos e a tela pode ficar em branco ([[Diário de Desafios]] nº 9). Antes de gravar o vídeo, abrir a página uma vez (as fontes trocam na primeira carga).
 9. **As fontes (Google Fonts) e o GSAP (cdnjs) vêm da internet.** Sem internet, as telas funcionam com fontes de reserva e sem animação.
-10. **Mensagem do pedido de ajuda com gênero neutro** (decisão D38): `AlertaPedidoAjuda.java` e `demo.js` ainda dizem "sobrecarregada(o)". Trocar por uma frase neutra na Parte B.
+10. **Mensagem do pedido de ajuda com texto neutro** aplicada em `AlertaPedidoAjuda.java` e `demo.js` em 14/11.
 11. **Tema noturno:** liga de 18h às 6h ou com o sistema em modo escuro. Para gravar o visual de dia num Windows em modo escuro, ajuste o modo do sistema ou use as ferramentas do navegador ("prefers-color-scheme: light").

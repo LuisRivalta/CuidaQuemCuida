@@ -159,7 +159,7 @@ O registro guarda quem declarou, a versão do termo, a data e o nome do respons�
 | **Sugestão de cobertura** | Membros ativos sem conflito no horário, do menos para o mais carregado em horas nos últimos 7 dias |
 | **Dose atrasada** | Dada mais de 30 min depois do previsto |
 | **Dose não dada** | Marcada como "não foi dado" ou sem registro 2 h depois do previsto |
-| **Pontuação Zarit** | Soma dos 12 itens (0 a 48). Faixa alta acima de 20, como no formulário ZBI-12. As faixas intermediárias seguem a fonte brasileira escolhida pelo construtor, citada em [[Escala Zarit]] |
+| **Pontuação Zarit** | Soma dos 12 itens (0 a 48). O protótipo usa faixa baixa até 10, moderada de 11 a 20 e alta acima de 20. A versão brasileira e o corte de triagem sugerido no estudo estão em [[Escala Zarit]] |
 | **Fora da curva (sinal vital)** | Com pelo menos 7 medições do mesmo tipo, valor com \|z\| > 2 em relação à média e ao desvio padrão do próprio paciente. Vale além da faixa fixa configurada |
 
 Detalhes em [[Regras de Negócio]].
@@ -553,7 +553,7 @@ Detalhes em [[ODS]].
 
 A versão web roda em qualquer celular pelo navegador, sem instalar nada, o que também reforça o ODS 10. **A API REST em Java já está pronta para servir um app futuro sem mudar o back-end:** o app nativo seria só uma nova tela sobre a mesma API.
 
-**Roadmap:** web responsiva (agora) → web instalável na tela inicial (PWA) → app nativo nas lojas.
+**Roadmap:** a web responsiva já dispõe de manifesto e ícone para instalação como PWA em navegadores compatíveis. A instalação fora do ambiente local requer publicação em HTTPS. O app nativo nas lojas é a etapa seguinte.
 
 ---
 

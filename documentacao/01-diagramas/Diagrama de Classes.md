@@ -259,5 +259,6 @@ classDiagram
 | **Records** | `MembroRede`, `FaixaSinal`, DTOs da API | Dados imutáveis, sem código repetido |
 | **Enums com dados** | `TipoSinal` (nome e unidade), `TipoAlerta` (prioridade) | Constantes com significado |
 
-## Versão final (implementada)
-_A preencher depois da implementação (Tarefa B5)._
+## Versão implementada, 14/11/2026
+
+A compilação e os 64 testes confirmaram as classes de domínio e os serviços usados nas regras de escala, medicação, sinais, Zarit e estatística. O redesenho manteve as assinaturas Java e as chamadas descritas no [[API|Contrato da API]].

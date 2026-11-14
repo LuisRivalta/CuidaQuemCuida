@@ -6,6 +6,8 @@ tags: [passagem, prompt]
 
 # Prompt para continuar o projeto
 
+> **Atualização de 14/11/2026:** use o estado atual de [[AGENTS]]. As três decisões do login foram resolvidas e o redesenho foi implementado. A verificação local já cobriu a interface, os 64 testes Java e a integração com PostgreSQL. Retome pelas pendências do Supabase, da validação e da entrega. O prompt abaixo registra o ponto de partida da sessão.
+
 > Arquivo de trabalho da equipe. **Não vai no .zip de entrega.** Atualizado em 14/11/2026, no fim da sessão em que a tela Hoje foi fechada e o login teve o 1º critique.
 
 ## 1. Antes de colar o prompt (máquina nova)

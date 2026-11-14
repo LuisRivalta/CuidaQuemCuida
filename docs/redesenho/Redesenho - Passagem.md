@@ -6,6 +6,8 @@ tags: [redesenho, passagem, estado]
 
 # Redesenho das telas — passagem (comece por aqui)
 
+> **Estado atualizado em 14/11/2026, à noite:** login corrigido e revisado (34/40), sistema visual formalizado, telas internas redesenhadas e 18 rotas verificadas em celular e computador no modo demonstração. Os 64 testes Java passaram e a API foi verificada com PostgreSQL local. A aprovação visual final da dupla, a instância do Supabase, o teste em celular físico, a validação com cuidadores, os vídeos e a submissão estão pendentes. A seção abaixo guarda o histórico da sessão anterior.
+
 > Nota de passagem para quem continuar o redesenho do front do CuidaQuemCuida, seja o Luis em outra máquina ou outra pessoa. Fica em `docs/`, **fora do .zip de entrega**. O prompt pronto para retomar está em [[PROMPT-PARA-CONTINUAR]].
 
 ## Resumo em 10 linhas

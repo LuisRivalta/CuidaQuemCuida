@@ -200,5 +200,6 @@ erDiagram
 | Tabela `auditoria` | Rastrear quem alterou o quê (LGPD e auditoria) | Fase 5: auditoria de sistemas |
 | RLS ligado em todas as tabelas, sem política | Fecha a API automática do Supabase; o Java acessa como dono das tabelas | Fase 3: cybersecurity |
 
-## Versão final (implementada)
-_A preencher depois da implementação (Tarefa B5): imagem do DER gerada pelo DBeaver a partir do banco real + lista do que mudou desde a v1 e por quê._
+## Versão implementada, 14/11/2026
+
+Os scripts 00 a 03 executaram no PostgreSQL 18 local. A inspeção confirmou as 17 tabelas com RLS e quatro contas de exemplo. O DER acima descreve o esquema criado pelos scripts. A exportação a partir do Supabase segue pendente.

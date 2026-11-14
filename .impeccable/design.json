@@ -1,0 +1,35 @@
+{
+  "name": "CuidaQuemCuida",
+  "colors": {
+    "light": {
+      "background": "#fff4ec",
+      "surface": "#ffffff",
+      "text": "#1e2a47",
+      "mutedText": "#586179",
+      "primary": "#1e2a47"
+    },
+    "dark": {
+      "background": "#121830",
+      "surface": "#1c2340",
+      "text": "#f3ecdf",
+      "mutedText": "#b8bed3",
+      "primary": "#ffd2b8"
+    },
+    "brand": {
+      "coral": "#ef8a62",
+      "sage": "#7aa98a"
+    }
+  },
+  "typography": {
+    "heading": "Young Serif",
+    "body": "Lexend",
+    "baseSize": "112.5%"
+  },
+  "layout": {
+    "pageGutter": "20px",
+    "cardRadius": "20px",
+    "featuredRadius": "28px",
+    "minimumTarget": "48px",
+    "readingWidth": "720px"
+  }
+}

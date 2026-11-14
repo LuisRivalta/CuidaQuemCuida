@@ -34,29 +34,30 @@
   .menu { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--linha); padding-top: 4px; font-size: 9px; text-align: center; }
   .menu b { text-decoration: underline; }
   .xs { font-size: 10px; color: #555; }
+  .ceu { background: linear-gradient(#ddd, #fafafa); padding: 12px 6px; text-align: center; border-radius: 12px; }
+  .respiro { flex: none; width: 46px; height: 46px; border: 2px solid var(--linha); border-radius: 50%; margin: 6px auto; }
 </style>
 </head>
 <body>
 <h1>CuidaQuemCuida — Wireframes (baixa fidelidade)</h1>
-<p class="nota">Versão 1 (planejada), 13/11/2026. Celular primeiro: letra grande, botões de dedo (≥ 48 px), ícone sempre com texto, barra inferior com 4 abas (Hoje · Escala · Bem-estar · Mais). No computador, a barra vira menu lateral. Descrição de cada tela em Wireframes.md.</p>
+<p class="nota">Versão 2, 14/11/2026. Esboços atualizados a partir da implementação. No celular, o menu tem quatro abas. No computador, ele fica à esquerda. Descrição e capturas em Wireframes.md.</p>
 
 <div class="telas">
 
 <figure><div class="cel">
-  <div class="topo">CuidaQuemCuida</div>
-  <div style="font-weight:700;font-size:14px">Bem-vinda(o)</div>
+  <div class="ceu"><b>CuidaQuemCuida</b><br>Quem cuida também precisa de cuidado.</div>
   <div class="rot">E-mail</div><div class="campo"></div>
   <div class="rot">Senha</div><div class="campo"></div>
+  <div class="xs">☑ Continuar conectado neste aparelho</div>
   <div class="botao">Entrar</div>
-  <div class="xs">Primeira vez? <u>Criar minha conta</u></div>
-  <div class="bloco">Contas de demonstração (só no modo demonstração)</div>
+  <div class="xs">Recebeu um convite? <u>Criar minha conta</u></div>
+  <div class="bloco">Experimente com a família Souza (só na demonstração)</div>
 </div><figcaption>1. Login</figcaption></figure>
 
 <figure><div class="cel">
   <div class="topo">CuidaQuemCuida <span>[Paciente ▾]</span></div>
-  <div class="bloco alerta">⚠ Domingo 22h–6h sem ninguém [Posso cobrir]</div>
-  <div style="font-weight:700">Olá, Paulo</div>
-  <div class="bloco">Seu turno: 14h–22h<br><span class="xs">cuidando de Lurdes</span></div>
+  <div class="ceu"><b>Boa tarde, Paulo</b><br>Seu turno: 14h–22h<br>Faltam 2 h para o fim do turno</div>
+  <div class="bloco alerta"><b>Agora · Losartana, 20h</b><div class="botao">Dei o remédio</div></div>
   <div class="bloco">
     <div class="linha"><span class="ponto cheio"></span><span>14:00 Amoxicilina ✓</span></div>
     <div class="linha"><span class="ponto"></span><span>16:00 Mudar de posição ▸ como fazer</span></div>
@@ -78,7 +79,7 @@
   <div class="rot">Sexta, 13/11</div>
   <div class="bloco">6h–14h · Marta</div>
   <div class="bloco">14h–22h · Paulo</div>
-  <div class="bloco">22h–6h · Ana 🌙</div>
+  <div class="bloco">22h–6h · Ana · Turno noturno</div>
   <div class="rot">Domingo, 15/11</div>
   <div class="bloco tracejado">22h–6h · sem ninguém [Posso cobrir]</div>
   <div class="espaco"></div>
@@ -98,11 +99,11 @@
 <figure><div class="cel">
   <div class="topo">Bem-estar</div>
   <div style="font-weight:700">Como você está?</div>
-  <div class="xs">🔒 Só você vê · Pergunta 4 de 12</div>
+  <div class="xs">Só você vê · Pergunta 4 de 12</div>
   <div class="barra" style="width:33%"></div>
   <div class="bloco">Você sente que sua saúde foi afetada por causa do seu envolvimento com seu familiar?</div>
   <div class="botao claro">Nunca</div><div class="botao claro">Raramente</div><div class="botao claro">Algumas vezes</div>
-  <div class="botao claro">Frequentemente</div><div class="botao claro">Sempre</div>
+  <div class="botao claro">Muito frequentemente</div><div class="botao claro">Quase sempre</div>
   <div class="xs">← Voltar</div>
   <div class="espaco"></div>
   <div class="menu"><span>Hoje</span><span>Escala</span><b>Bem-estar</b><span>Mais</span></div>
@@ -110,9 +111,9 @@
 
 <figure><div class="cel">
   <div class="topo">Seu resultado</div>
-  <div class="xs">🔒 Só você vê</div>
+  <div class="xs">Só você vê</div>
   <div class="bloco"><b>Sobrecarga alta</b><br><span style="font-size:20px;font-weight:700">34 de 48</span><br>Você merece apoio.</div>
-  <div class="bloco alerta"><b>Você não está sozinha(o)</b><br>CVV 188 · UBS · CAPS</div>
+  <div class="bloco alerta"><b>Onde buscar apoio</b><br>CVV 188 · UBS · CAPS</div>
   <div class="botao">Pedir ajuda à rede</div>
   <div class="xs">Avisa a rede sem mostrar a pontuação</div>
   <div class="botao claro">Voltar</div>
@@ -120,14 +121,16 @@
 
 <figure><div class="cel">
   <div class="topo">Mais</div>
-  <div class="bloco">📊 Painel da rede (coordenador) ›</div>
-  <div class="bloco">💊 Paciente e remédios ›</div>
-  <div class="bloco">👥 Pessoas da rede ›</div>
-  <div class="bloco">❤️ Sinais vitais ›</div>
-  <div class="bloco">📋 Tarefas de cuidado ›</div>
-  <div class="bloco">🔒 Dados coletados ›</div>
-  <div class="bloco">🗄️ Banco ao vivo ›</div>
-  <div class="bloco">👤 Minha conta ›</div>
+  <div class="rot">Rede de cuidado</div>
+  <div class="bloco">Painel da rede (coordenador) ›</div>
+  <div class="bloco">Paciente e remédios ›</div>
+  <div class="bloco">Pessoas da rede ›</div>
+  <div class="bloco">Sinais vitais ›</div>
+  <div class="bloco">Tarefas de cuidado ›</div>
+  <div class="rot">Conta e dados</div>
+  <div class="bloco">Minha conta ›</div>
+  <div class="bloco">Dados coletados ›</div>
+  <div class="bloco">Banco ao vivo ›</div>
   <div class="xs"><u>Sair</u></div>
   <div class="espaco"></div>
   <div class="menu"><span>Hoje</span><span>Escala</span><span>Bem-estar</span><b>Mais</b></div>
@@ -154,6 +157,14 @@
   <div class="bloco">Seus direitos (LGPD): ver dados, excluir conta · dados no Brasil</div>
   <div class="xs">Não substitui orientação médica.</div>
 </div><figcaption>9. Dados coletados</figcaption></figure>
+
+<figure><div class="cel">
+  <div class="topo">Bem-estar</div>
+  <div class="respiro"></div>
+  <div class="bloco"><b>Um instante para você</b><br>Se quiser, faça uma pausa e respire no seu ritmo.</div>
+  <div class="botao">Começar avaliação</div>
+  <div class="botao claro">Voltar</div>
+</div><figcaption>10. Bem-estar — pausa</figcaption></figure>
 
 </div>
 </body>
