@@ -21,6 +21,12 @@
 | O quê | Onde |
 |---|---|
 | Plano de construção (passo a passo, com checkboxes) | `docs/superpowers/plans/2026-11-13-cuidaquemcuida.md` |
+| Plano do redesenho das telas (roda antes da Parte B) | `docs/superpowers/plans/2026-11-14-redesenho-telas.md` |
+| **Passagem do redesenho (comece por aqui)** | `docs/redesenho/Redesenho - Passagem.md` (e as outras notas, fotos e critiques da pasta) |
+| **Prompt para continuar** | `PROMPT-PARA-CONTINUAR.md` (raiz) |
+| Contexto do produto (usado pela Impeccable) | `PRODUCT.md` (raiz) |
+| Exceções aprovadas do detector da Impeccable | `.impeccable/config.json` |
+| Scripts de fotos e de tela aberta para o detector | `ferramentas/` |
 | Especificação (design aprovado) | `documentacao/03-especificacoes-tecnicas/Design da Solução.md` |
 | Contrato da API | `documentacao/03-especificacoes-tecnicas/API.md` |
 | Edital | `documentacao/04-outros-materiais/Edital GS 2026.md` |
@@ -31,6 +37,7 @@
 | Roteiros e links dos vídeos | `videos/` |
 
 ## Como continuar
+0. **Em andamento: o redesenho das telas.** Leia `docs/redesenho/Redesenho - Passagem.md` e cole o prompt de `PROMPT-PARA-CONTINUAR.md`. O redesenho vem antes da Parte B.
 1. Abra o plano e ache o primeiro passo não marcado (`- [ ]`).
 2. Faça uma tarefa por vez, marque `- [x]` ao concluir e atualize a seção "Estado atual" abaixo.
 3. Quando um passo depender de uma pessoa (instalar programa, clicar no Supabase, gravar vídeo), explique o que fazer e espere a confirmação.
@@ -56,6 +63,12 @@ fazer e espere eu confirmar.
   - **Java:** completo, com 64 testes JUnit **escritos, mas nunca compilados nem executados** (o PC da Parte A não tinha JDK). Uma revisão independente leu tudo e não achou erro de compilação; mesmo assim, espere ajustes na B2.
   - **Banco:** scripts prontos, **nunca executados** (o projeto Supabase ainda não existe; ver B3).
   - **Documentação:** 152 notas, 0 links quebrados, 11 diagramas Mermaid validados.
+- **14/11/2026 (tarde): redesenho visual das telas em andamento**, pedido do Luis depois de ver o front. É feito antes da Parte B e tem plano próprio (`docs/superpowers/plans/2026-11-14-redesenho-telas.md`). **Leia `docs/redesenho/Redesenho - Passagem.md` e use o `PROMPT-PARA-CONTINUAR.md`.**
+  - **Direção aprovada:** "acolhedor e calmo" (Headspace/Calm). HTML/CSS/JS + GSAP; céu que muda com a hora; tema noturno; fundo pêssego `#fff4ec`; fontes Young Serif e Lexend; ícones SVG.
+  - **Concluído:** Fase 0 (fundo); Fase 1 (`PRODUCT.md`); **tela Hoje fechada** (4 rodadas de critique da Impeccable: 26 → 27 → 29 → 30/40).
+  - **Parado em:** login redesenhado, com 1º critique de 26/40. **As correções esperam 3 decisões do Luis:** escopo, login lembrado e senha esquecida.
+  - **Falta:** login; Fase 3 (`DESIGN.md`); Fase 4 (16 telas, uma por vez); Fases 5 e 6. Prazo do redesenho: **15/11**. A Parte B começa em **16/11**.
+  - **Nada do contrato da API, do `demo.js` nem do Java mudou** no redesenho.
 
 ## Pendências conhecidas (para a Parte B)
 Achadas na revisão de código e deixadas para depois por serem pequenas. Corrija se der tempo; nenhuma impede a demonstração.
@@ -66,3 +79,7 @@ Achadas na revisão de código e deixadas para depois por serem pequenas. Corrij
 5. Dados de demonstração: doses e tarefas de agora há pouco já entram como feitas; para mostrar uma dose atrasada no vídeo, basta não marcar a próxima dose prevista.
 6. O modo API das telas só liga quando a página é servida pela porta 8080 (`js/api.js`). Mudou a porta? Abra com `?modo=api`.
 7. Pequenas, se sobrar tempo: texto maior que a coluna (`SQLState 22001`) vira 500 em `infra/Sql.java`; o `SELECT` de sessão feito a cada 2 s pela tela Banco ao vivo enche a lista de 50 comandos (pode-se não registrar esse `SELECT` no `LogSql`); "Posso cobrir" tocado por duas pessoas ao mesmo tempo cria dois turnos.
+8. **Depois de atualizar as telas, recarregar com Ctrl+F5.** O navegador guarda módulos JS antigos e a tela pode ficar em branco ([[Diário de Desafios]] nº 9). Antes de gravar o vídeo, abrir a página uma vez (as fontes trocam na primeira carga).
+9. **As fontes (Google Fonts) e o GSAP (cdnjs) vêm da internet.** Sem internet, as telas funcionam com fontes de reserva e sem animação.
+10. **Mensagem do pedido de ajuda com gênero neutro** (decisão D38): `AlertaPedidoAjuda.java` e `demo.js` ainda dizem "sobrecarregada(o)". Trocar por uma frase neutra na Parte B.
+11. **Tema noturno:** liga de 18h às 6h ou com o sistema em modo escuro. Para gravar o visual de dia num Windows em modo escuro, ajuste o modo do sistema ou use as ferramentas do navegador ("prefers-color-scheme: light").
