@@ -51,7 +51,7 @@ fazer e espere eu confirmar.
 
 ## Estado atual
 - **13/11/2026:** design aprovado; plano aprovado; Parte A (PC sem Java) em andamento.
-- **14/11/2026: Parte A concluída (A1 a A13).** Tudo commitado no Git (branch `main`). **Próximo passo: Tarefa B1** do plano.
+- **14/11/2026: Parte A concluída (A1 a A13).** Tudo commitado no Git (branch `main`) e enviado ao repositório **privado** `github.com/LuisRivalta/CuidaQuemCuida` (só para transporte e trabalho da dupla; **não compartilhar o link com a faculdade**: a entrega é o `.zip` limpo da B7). Em casa: `git clone https://github.com/LuisRivalta/CuidaQuemCuida.git C:\CuidaQuemCuida`. **Próximo passo: Tarefa B1** do plano.
   - **Telas:** completas e testadas no modo demonstração (16 telas, celular e computador, 0 erros).
   - **Java:** completo, com 64 testes JUnit **escritos, mas nunca compilados nem executados** (o PC da Parte A não tinha JDK). Uma revisão independente leu tudo e não achou erro de compilação; mesmo assim, espere ajustes na B2.
   - **Banco:** scripts prontos, **nunca executados** (o projeto Supabase ainda não existe; ver B3).
