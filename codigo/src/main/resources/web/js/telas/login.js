@@ -9,9 +9,9 @@ import { periodoDoDia, ehNoite, semMovimento, estrelas, morros } from '../ceu.js
 
 const FAMILIA_DEMO = [
   { email: 'marta@demo.cqc', nome: 'Marta', papel: 'Filha · coordena o cuidado', cor: 'pessego' },
-  { email: 'paulo@demo.cqc', nome: 'Paulo', papel: 'Filho', cor: 'salvia' },
-  { email: 'ana@demo.cqc', nome: 'Ana', papel: 'Neta', cor: 'lilas' },
-  { email: 'joao@demo.cqc', nome: 'João', papel: 'Vizinho', cor: 'azul' },
+  { email: 'paulo@demo.cqc', nome: 'Paulo', papel: 'Filho · reveza os turnos', cor: 'salvia' },
+  { email: 'ana@demo.cqc', nome: 'Ana', papel: 'Neta · ajuda a cobrir turnos', cor: 'lilas' },
+  { email: 'joao@demo.cqc', nome: 'João', papel: 'Vizinho · apoia a família', cor: 'azul' },
 ];
 
 const MARCA = `<svg class="entrada-marca" viewBox="0 0 32 32" aria-hidden="true">
@@ -21,12 +21,12 @@ const MARCA = `<svg class="entrada-marca" viewBox="0 0 32 32" aria-hidden="true"
 function campoSenha() {
   const entrada = el('input', { name: 'senha', type: 'password', autocomplete: 'current-password', required: true });
   const botao = el('button', {
-    type: 'button', class: 'mostrar-senha', 'aria-label': 'Mostrar a senha', 'aria-pressed': 'false',
+    type: 'button', class: 'mostrar-senha', 'aria-label': 'Mostrar a senha',
     onclick: () => {
       const mostrar = entrada.type === 'password';
       entrada.type = mostrar ? 'text' : 'password';
       botao.textContent = mostrar ? 'Ocultar' : 'Mostrar';
-      botao.setAttribute('aria-pressed', String(mostrar));
+      botao.setAttribute('aria-label', mostrar ? 'Ocultar a senha' : 'Mostrar a senha');
     },
   }, 'Mostrar');
   const bloco = campo('Senha', entrada);
@@ -37,26 +37,67 @@ function campoSenha() {
 }
 
 function formularioEntrar() {
+  const emailInput = el('input', {
+    name: 'email', type: 'email', inputmode: 'email', autocomplete: 'email', required: true,
+  });
+  const senhaCampo = campoSenha();
+  const senhaInput = senhaCampo.querySelector('input');
+  const erro = el('p', { id: 'erro-entrar', class: 'erro-campo', role: 'alert' });
+  const botao = el('button', { type: 'submit', class: 'largo' }, 'Entrar');
   const form = el('form', { class: 'entrada-form', novalidate: true, 'aria-labelledby': 't-entrar' },
     el('h2', { id: 't-entrar' }, 'Entrar'),
-    campo('E-mail', el('input', { name: 'email', type: 'email', inputmode: 'email', autocomplete: 'email', required: true })),
-    campoSenha(),
-    el('button', { type: 'submit', class: 'largo' }, 'Entrar'));
+    campo('E-mail', emailInput),
+    senhaCampo,
+    el('label', { class: 'entrada-lembrar' },
+      el('input', { type: 'checkbox', name: 'lembrar', checked: true }), 'Continuar conectado neste aparelho'),
+    erro,
+    botao);
 
+  function limparErro() {
+    erro.textContent = '';
+    for (const controle of [emailInput, senhaInput]) {
+      controle.removeAttribute('aria-invalid');
+      controle.removeAttribute('aria-describedby');
+    }
+  }
+
+  function indicarErro(mensagem, controle) {
+    erro.textContent = mensagem;
+    if (controle) {
+      controle.setAttribute('aria-invalid', 'true');
+      controle.setAttribute('aria-describedby', erro.id);
+      controle.focus();
+    } else {
+      botao.focus();
+    }
+  }
+
+  form.addEventListener('input', limparErro);
   form.addEventListener('submit', async (evento) => {
     evento.preventDefault();
-    const { email, senha } = lerFormulario(form);
-    if (!email || !senha) return tentar(() => { throw new Error('Preencha o e-mail e a senha.'); });
-    const botao = form.querySelector('button[type="submit"]');
-    botao.disabled = true;
+    if (botao.disabled) return;
+    limparErro();
+    const { email, senha, lembrar } = lerFormulario(form);
+    if (!email) return indicarErro('Digite seu e-mail.', emailInput);
+    if (!emailInput.validity.valid) return indicarErro('Confira o endereço de e-mail.', emailInput);
+    if (!senha) return indicarErro('Digite sua senha.', senhaInput);
+    const botoes = [botao, ...form.parentElement.querySelectorAll('.pessoa-demo')];
+    botoes.forEach((item) => { item.disabled = true; });
     botao.textContent = 'Entrando...';
-    const resposta = await tentar(() => chamar('POST', '/auth/login', { email, senha }));
-    botao.disabled = false;
-    botao.textContent = 'Entrar';
-    if (!resposta) return;
-    salvarSessao(resposta.token, resposta.pessoa);
-    await tentar(carregarContexto);
-    ir('/hoje');
+    try {
+      const resposta = await chamar('POST', '/auth/login', { email, senha });
+      if (!form.isConnected) return;
+      salvarSessao(resposta.token, resposta.pessoa, lembrar);
+      await tentar(carregarContexto);
+      if (form.isConnected) ir('/hoje');
+    } catch (falha) {
+      botoes.forEach((item) => { item.disabled = false; });
+      if (falha.status === 401) indicarErro('E-mail ou senha incorretos. Confira os dois campos e tente novamente.', senhaInput);
+      else indicarErro(falha.message);
+    } finally {
+      botoes.forEach((item) => { item.disabled = false; });
+      botao.textContent = 'Entrar';
+    }
   });
   return form;
 }
@@ -64,7 +105,7 @@ function formularioEntrar() {
 function familiaDemo(form) {
   return el('section', { class: 'entrada-demo', 'aria-labelledby': 't-demo' },
     el('h2', { id: 't-demo' }, 'Experimente com a família Souza'),
-    el('p', { class: 'detalhe' }, 'Dados de exemplo. Toque em alguém para entrar. A senha de todas as contas é demo1234.'),
+    el('p', { class: 'detalhe' }, 'Neste exemplo, a família Souza cuida de Dona Lurdes, de 82 anos, que tem Alzheimer. Escolha uma pessoa para ver como ela ajuda.'),
     el('ul', { class: 'pessoas-demo' }, FAMILIA_DEMO.map((pessoa) => el('li', {},
       el('button', {
         type: 'button', class: 'pessoa-demo',
@@ -100,7 +141,9 @@ registrarTela('/login', (conteudo) => {
       morros()),
     el('div', { class: 'entrada-lado' },
       form,
-      el('p', { class: 'entrada-criar' }, 'Primeira vez aqui? ', el('a', { href: '#/cadastro' }, 'Criar minha conta')),
+      el('div', { class: 'entrada-criar' },
+        el('p', {}, 'Recebeu um código de convite? Crie sua conta e digite o código em seguida.'),
+        el('a', { href: '#/cadastro' }, 'Criar minha conta')),
       MODO === 'demo' ? familiaDemo(form) : null)));
   animar(conteudo);
 });

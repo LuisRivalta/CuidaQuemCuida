@@ -12,6 +12,6 @@ public class AlertaPedidoAjuda extends Alerta {
 
     @Override
     public String mensagem() {
-        return nomePessoa + " pediu ajuda à rede: está muito sobrecarregada(o). Que tal oferecer um turno?";
+        return nomePessoa + " pediu ajuda à rede para dividir o cuidado. Que tal oferecer um turno?";
     }
 }

@@ -39,7 +39,9 @@ export async function carregarContexto() {
 export async function atualizarAlertas() {
   const paciente = pacienteAtual();
   if (!estado.token || !paciente) { mostrarAlertas([]); return; }
-  mostrarAlertas(await chamar('GET', `/alertas?pacienteId=${paciente.id}`).catch(() => []));
+  const conteudo = document.getElementById('conteudo');
+  const alertas = await chamar('GET', `/alertas?pacienteId=${paciente.id}`).catch(() => []);
+  if (conteudo.isConnected) mostrarAlertas(alertas);
 }
 
 /**

@@ -7,8 +7,8 @@ import { el, preencher, formatarData, porcentagem, numero } from '../ui.js';
 // Paleta categórica validada (daltonismo): ordem fixa, a cor segue a pessoa, nunca a posição no ranking.
 const CORES_SERIE = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100'];
 const COR_UNICA = '#2a78d6';
-const TINTA = '#55625c';
-const GRADE = '#e1e0d9';
+const TRACOS_SERIE = [[], [7, 4], [2, 4], [10, 3, 2, 3]];
+const corTema = (token) => getComputedStyle(document.body).getPropertyValue(token).trim();
 const PERIODOS = { MADRUGADA: 'Madrugada (0h–6h)', MANHA: 'Manhã (6h–12h)', TARDE: 'Tarde (12h–18h)', NOITE: 'Noite (18h–24h)' };
 
 let graficos = [];
@@ -31,23 +31,28 @@ const tile = (rotulo, valor, detalhe) => el('div', { class: 'cartao' },
   el('span', { class: 'detalhe' }, rotulo), el('span', { class: 'numero-grande' }, valor), detalhe ? el('span', { class: 'detalhe' }, detalhe) : null);
 
 function opcoesBase(extra = {}) {
+  const tinta = corTema('--texto-suave');
   return {
     responsive: true, maintainAspectRatio: false, animation: false,
     plugins: { legend: { display: false }, ...extra.plugins },
     scales: {
-      x: { grid: { display: false }, ticks: { color: TINTA } },
-      y: { grid: { color: GRADE }, ticks: { color: TINTA }, beginAtZero: true, ...extra.y },
+      x: { grid: { display: false }, ticks: { color: tinta } },
+      y: { grid: { color: corTema('--borda') }, ticks: { color: tinta }, beginAtZero: true, ...extra.y },
     },
     ...extra.raiz,
   };
 }
 
 function desenhar(canvas, config) {
-  requestAnimationFrame(() => { if (window.Chart) graficos.push(new window.Chart(canvas, config)); });
+  requestAnimationFrame(() => {
+    if (!canvas.isConnected) return;
+    if (window.Chart) graficos.push(new window.Chart(canvas, config));
+    else canvas.parentElement.hidden = true;
+  });
 }
 
 function secaoCarga(est) {
-  return el('section', { class: 'cartao', 'aria-labelledby': 't-carga' },
+  return el('section', { class: 'cartao painel-carga', 'aria-labelledby': 't-carga' },
     el('h2', { id: 't-carga' }, 'Quem carrega o cuidado'),
     el('p', { class: 'detalhe' }, `Porcentagem das horas de turno nos últimos ${est.periodoDias} dias.`),
     est.cargaPorPessoa.map((c) => el('div', { class: 'barra-carga' },
@@ -72,12 +77,13 @@ function secaoMediaMovel(est) {
       datasets: est.mediaMovelHoras.map((s, i) => ({
         label: s.nome.split(' ')[0], data: s.serie.map((p) => p.valor),
         borderColor: CORES_SERIE[i % CORES_SERIE.length], backgroundColor: CORES_SERIE[i % CORES_SERIE.length],
-        borderWidth: 2, pointRadius: 0, pointHoverRadius: 5, tension: 0.25,
+        borderDash: TRACOS_SERIE[i % TRACOS_SERIE.length],
+        borderWidth: 3, pointRadius: 0, pointHoverRadius: 5, tension: 0.25,
       })),
     },
     options: opcoesBase({
-      plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 12, color: TINTA } } },
-      y: { title: { display: true, text: 'horas por dia', color: TINTA } },
+      plugins: { legend: { display: true, position: 'bottom', labels: { boxWidth: 28, color: corTema('--texto-suave') } } },
+      y: { title: { display: true, text: 'horas por dia', color: corTema('--texto-suave') } },
       raiz: { interaction: { mode: 'index', intersect: false } },
     }),
   });
@@ -98,16 +104,19 @@ function secaoAdesao(est) {
   desenhar(canvas, {
     type: 'bar',
     data: {
-      labels: periodos.map((p) => `${PERIODOS[p.periodo].split(' ')[0]} ${porcentagem(p.taxa)}`),
+      labels: periodos.map((p) => PERIODOS[p.periodo].split(' ')[0]),
       datasets: [{ label: 'Adesão', data: periodos.map((p) => (p.taxa === null ? null : Math.round(p.taxa * 100))),
         backgroundColor: COR_UNICA, borderRadius: 4, maxBarThickness: 48 }],
     },
-    options: opcoesBase({ y: { max: 100, ticks: { color: TINTA, callback: (v) => `${v}%` } } }),
+    options: opcoesBase({ y: { max: 100, ticks: { color: corTema('--texto-suave'), callback: (v) => `${v}%` } } }),
   });
   return el('section', { class: 'cartao', 'aria-labelledby': 't-adesao' },
     el('h2', { id: 't-adesao' }, 'Adesão aos remédios por período'),
     el('p', { class: 'detalhe' }, 'Doses dadas no horário (até 30 min) ÷ doses previstas.'),
     el('div', { class: 'grafico' }, canvas),
+    el('details', {}, el('summary', {}, 'Ver valores por período'),
+      el('dl', { class: 'painel-periodos' }, periodos.map((p) => el('div', {},
+        el('dt', {}, PERIODOS[p.periodo]), el('dd', {}, porcentagem(p.taxa)))))),
     el('h3', {}, 'Por remédio'),
     el('ul', { class: 'lista' }, est.adesao.porMedicamento.map((m) => el('li', {}, el('span', {}, m.nome), el('strong', {}, porcentagem(m.taxa))))));
 }
@@ -154,12 +163,13 @@ registrarTela('/mais/painel', async (conteudo) => {
 
   preencher(conteudo,
     el('a', { href: '#/mais', class: 'link-botao' }, '← Mais'),
-    el('h1', {}, 'Painel da rede'),
-    el('p', { class: 'subtitulo' }, `Cuidado de ${paciente.nome} nos últimos ${est.periodoDias} dias.`),
-    el('div', { class: 'grade-2' },
+    el('header', { class: 'painel-cabecalho' },
+      el('h1', {}, 'Painel da rede'),
+      el('p', {}, `Cuidado de ${paciente.nome} nos últimos ${est.periodoDias} dias.`)),
+    secaoCarga(est),
+    el('div', { class: 'grade-2 painel-indicadores' },
       tile('Adesão aos remédios', porcentagem(est.adesao.geral), 'doses no horário'),
       tile('Compartilharam a Zarit', `${est.zarit.compartilharam} de ${est.zarit.total}`, 'pessoas da rede')),
-    secaoCarga(est),
     secaoMediaMovel(est),
     secaoAdesao(est),
     el('section', { class: 'cartao', 'aria-labelledby': 't-chance' },

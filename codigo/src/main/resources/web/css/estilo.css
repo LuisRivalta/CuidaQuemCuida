@@ -564,38 +564,38 @@ li.feito .caminho-corpo strong { color: var(--texto-suave); font-weight: 500; }
 body.sem-menu { padding-bottom: 0; }
 .conteudo:has(> .entrada) { max-width: 1120px; padding-top: 0; }
 
-.entrada-ceu { margin: 0 calc(-1 * var(--espaco)); padding: 40px var(--espaco) 0; text-align: center; }
+.entrada-ceu { container-type: inline-size; margin: 0 calc(-1 * var(--espaco)); padding: 32px var(--espaco) 0; text-align: center; }
 .entrada-icone {
-  display: grid; place-items: center; width: 108px; height: 108px; margin: 0 auto 16px;
-  border-radius: 34px; background: rgba(255, 255, 255, 0.6);
-  box-shadow: 0 2px 6px rgba(30, 42, 71, 0.06), 0 14px 32px rgba(239, 138, 98, 0.28);
+  display: grid; place-items: center; width: 96px; height: 96px; margin: 0 auto 12px;
 }
-body[data-tema="noite"] .entrada-icone { background: rgba(251, 244, 234, 0.14); box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25); }
-.entrada-marca { width: 70px; height: 70px; overflow: visible; }
-.coracao-pequeno { transform-box: fill-box; transform-origin: center; animation: pulsar 2.4s ease-in-out 1.8s infinite alternate; }
+.entrada-marca { width: 90px; height: 90px; overflow: visible; }
+.coracao-pequeno { transform-box: fill-box; transform-origin: center; animation: pulsar 2.4s ease-in-out 1.8s 4 alternate; }
 @keyframes pulsar { to { transform: scale(1.08); } }
-.entrada-ceu h1 { font-size: clamp(2.1rem, 9vw, 2.8rem); margin: 0 0 8px; }
+.entrada-ceu h1 { font-size: min(2.8rem, 10.2cqi); margin: 0 0 8px; }
 .entrada-lema { font-family: var(--fonte-titulo); font-size: 1.25rem; line-height: 1.3; margin: 0 0 8px; text-wrap: balance; }
 .entrada-sobre { color: var(--ceu-suave); font-size: 0.95rem; max-width: 22rem; margin: 0 auto; text-wrap: balance; }
 .entrada-ceu .morros { margin-top: 20px; }
 
 .entrada-form {
-  position: relative; z-index: 2; margin: -38px 0 0; padding: 22px 20px 24px;
+  position: relative; z-index: 2; margin: -16px 0 0; padding: 22px 20px 24px;
   background: var(--superficie); border-radius: var(--raio-grande); box-shadow: var(--sombra-alta);
 }
 .entrada-form h2 { margin-bottom: 16px; }
 .entrada-form button[type="submit"] { margin-top: 4px; }
-.campo-senha { position: relative; }
-.campo-senha input { padding-right: 108px; }
+.entrada-form .erro-campo:empty { margin: 0; }
+.entrada-form input:focus-visible { outline: 2px solid var(--foco); outline-offset: 2px; }
+.campo-senha { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px; }
 .mostrar-senha, .mostrar-senha:hover, .mostrar-senha:active {
-  position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
-  min-height: 48px; padding: 6px 14px; font-size: 0.85rem; font-weight: 600;
+  min-height: 48px; padding: 6px 0.6em; font-size: 0.85rem; font-weight: 600;
   color: var(--texto); background: transparent; border: none; border-radius: 12px;
 }
 .mostrar-senha:hover { background: var(--principal-claro); }
+.entrada-lembrar { display: flex; gap: 10px; align-items: center; min-height: 48px; margin-bottom: 6px; cursor: pointer; }
+.entrada-lembrar input { flex: none; width: 1.15em; height: 1.15em; min-height: 0; accent-color: var(--principal); }
 
 .entrada-criar { text-align: center; margin: 18px 0 0; }
-.entrada-criar a { font-weight: 600; }
+.entrada-criar p { margin: 0; color: var(--texto-suave); }
+.entrada-criar a { display: inline-flex; align-items: center; min-height: 48px; font-weight: 600; }
 
 .entrada-demo { margin-top: 32px; }
 .entrada-demo h2 { font-size: 1.3rem; margin-bottom: 4px; }
@@ -620,20 +620,59 @@ body[data-tema="noite"] .entrada-icone { background: rgba(251, 244, 234, 0.14); 
 .pessoa-texto span { font-size: 0.85rem; color: var(--texto-suave); }
 .seta-direita { transform: rotate(-90deg); color: var(--texto-suave); }
 
-/* ---------------------------------------------------------- escala */
-.semana-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
-.dia-escala { margin-bottom: 14px; }
-.dia-escala h3 { font-size: 0.95rem; color: var(--texto-suave); text-transform: capitalize; }
-.turno {
-  display: flex; justify-content: space-between; align-items: center; gap: 8px;
-  padding: 12px 14px; margin-bottom: 8px; border-radius: 16px;
-  background: var(--pessego-claro); border: 2px solid transparent;
+@media (max-width: 899px) and (max-height: 760px) {
+  .entrada-ceu { padding-top: 16px; }
+  .entrada-icone { width: 60px; height: 60px; margin-bottom: 6px; }
+  .entrada-marca { width: 60px; height: 60px; }
+  .entrada-sobre { display: none; }
+  .entrada-ceu .morros { height: 44px; margin-top: 10px; }
+  .entrada-form { padding: 16px; }
+  .entrada-form .campo { margin-bottom: 10px; }
 }
-.turno.vago { background: var(--superficie); border: 2px dashed var(--perigo); color: var(--perigo); font-weight: 600; }
-.turno.meu { border-color: var(--coral); }
+
+@media (min-width: 1100px) {
+  .pessoas-demo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pessoa-demo { height: 100%; }
+}
+
+/* ---------------------------------------------------------- escala */
+.escala-cabecalho { padding: 24px; margin-bottom: 12px; border-radius: var(--raio-grande); background: var(--pessego-claro); }
+.escala-cabecalho p { margin: 0; }
+.semana-nav { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px; margin-bottom: 16px; text-align: center; }
+.semana-nav a { min-width: 48px; min-height: 48px; justify-content: center; }
+.semana-nav div > a { display: flex; align-items: center; }
+.seta-esquerda { transform: rotate(90deg); }
+.semana-turnos { display: grid; gap: 18px; margin: 24px 0; }
+.dia-escala { display: grid; gap: 8px; }
+.dia-escala h2 { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0; font-size: 1.15rem; text-transform: capitalize; }
+.dia-escala p { margin: 0; }
+.turno {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px;
+  padding: 12px 14px; border-radius: 16px; background: var(--superficie); border: 1px solid var(--borda);
+}
+.turno.vago { background: var(--atencao-fundo); border-color: var(--atencao); }
+.turno.vago .turno-info { color: var(--atencao); }
+.turno.meu { background: var(--salvia-clara); border-color: var(--salvia-escura); }
+.turno-info { display: grid; gap: 3px; font-variant-numeric: tabular-nums; }
+.turno-noturno { display: inline-flex; align-items: center; gap: 6px; color: var(--texto-suave); font-size: 0.85rem; }
 
 /* ---------------------------------------------------------- bem-estar */
+body.em-avaliacao #alertas { display: none; }
 .privado { display: inline-flex; gap: 6px; align-items: center; font-size: 0.85rem; color: var(--texto-suave); }
+.bem-cabecalho, .bem-respiro { background: var(--salvia-clara); border-radius: var(--raio-grande); padding: clamp(20px, 5vw, 36px); margin-bottom: 18px; }
+.bem-cabecalho .privado { display: flex; }
+.bem-respiro { text-align: center; padding-block: clamp(28px, 8vw, 60px); }
+.bem-respiro p { max-width: 28ch; margin: 0 auto 20px; }
+.bem-respiro .botao { margin: 8px; }
+.bem-respiro-circulo {
+  display: grid; place-items: center; margin: 10px auto 30px; border: 1px solid var(--salvia-escura);
+  border-radius: 50%; width: 104px; height: 104px; color: var(--salvia-escura); background: var(--superficie);
+  animation: respirar 7s ease-in-out 3;
+}
+.bem-respiro-circulo .icone { width: 36px; height: 36px; }
+@keyframes respirar { 50% { transform: scale(1.13); } }
+.bem-pergunta h2 { margin-bottom: 18px; }
+.bem-resultado .numero-grande { color: var(--salvia-escura); }
 .opcoes-resposta { display: grid; gap: 10px; }
 .opcoes-resposta button { justify-content: flex-start; }
 .progresso { height: 8px; background: var(--superficie-2); border-radius: 999px; overflow: hidden; margin: 8px 0 16px; }
@@ -641,10 +680,46 @@ body[data-tema="noite"] .entrada-icone { background: rgba(251, 244, 234, 0.14); 
 .ajuda-cvv { background: var(--atencao-fundo); }
 
 /* ---------------------------------------------------------- painel */
-.barra-carga { display: grid; grid-template-columns: 7.5em 1fr 3.2em; gap: 8px; align-items: center; margin-bottom: 8px; }
+.painel-cabecalho, .painel-carga { background: var(--salvia-clara); border-radius: var(--raio-grande); padding: clamp(18px, 5vw, 28px); margin-bottom: 16px; }
+.painel-cabecalho p { margin: 0; }
+.painel-carga { background: var(--superficie); }
+.painel-indicadores, .painel-indicadores .cartao { margin-bottom: 12px; }
+.painel-periodos > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-bottom: 1px solid var(--borda); padding: 8px 0; }
+.painel-periodos dd { margin: 0; font-weight: 600; }
+.barra-carga { display: grid; grid-template-columns: minmax(0, 7ch) minmax(24px, 1fr) auto; gap: 8px; align-items: center; margin-bottom: 8px; }
+.barra-carga > span:first-child { overflow-wrap: anywhere; }
 .barra-carga .trilho { height: 14px; background: var(--superficie-2); border-radius: 999px; overflow: hidden; }
 .barra-carga .trilho > span { display: block; height: 100%; background: var(--salvia); border-radius: 999px; }
 .grafico { position: relative; height: 240px; }
+body[data-tela="mais"] details > summary { min-height: 48px; align-content: center; cursor: pointer; }
+
+/* ---------------------------------------------------------- rede, conta e dados */
+.mais-cabecalho { padding: clamp(18px, 5vw, 28px); margin-bottom: 16px; border-radius: var(--raio-grande); background: var(--pessego-claro); }
+.mais-cabecalho p, .mais-cabecalho h1:last-child { margin: 0; }
+.mais-grupo > h2 { margin-bottom: 4px; }
+.mais-grupo .lista > li { padding: 0; }
+.mais-grupo .item-menu { min-height: 56px; gap: 8px; }
+.mais-item { display: inline-flex; align-items: center; gap: 12px; }
+.mais-item .icone { flex: none; color: var(--salvia-escura); }
+.mais-ficha .lista > li { flex-wrap: wrap; }
+.mais-convite { background: var(--salvia-clara); }
+.mais-codigo { letter-spacing: 0.12em; overflow-wrap: anywhere; }
+.mais-sinal-alerta { padding: 12px; border-radius: 12px; margin-top: 12px; background: var(--atencao-fundo); color: var(--atencao); }
+.mais-sinal-alerta .icone { vertical-align: middle; }
+
+/* ---------------------------------------------------------- cadastro e entrada na rede */
+.cadastro-cabecalho { padding: clamp(18px, 5vw, 28px); margin-bottom: 16px; border-radius: var(--raio-grande); background: var(--pessego-claro); }
+.cadastro-cabecalho h1:last-child, .cadastro-cabecalho p { margin: 0; }
+.cadastro-voltar { display: inline-flex; align-items: center; min-height: 48px; }
+.cadastro-termo { margin-bottom: 16px; padding: 12px; border-radius: 16px; background: var(--superficie-2); }
+.cadastro-termo .caixa { min-height: 48px; padding-top: 6px; }
+.rede-opcoes { display: grid; gap: 12px; }
+.rede-opcoes .cartao { margin: 0; }
+@media (min-width: 700px) {
+  .rede-opcoes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rede-opcoes .cartao { display: flex; flex-direction: column; }
+  .rede-opcoes .botao { margin-top: auto; }
+}
 
 /* ---------------------------------------------------------- banco ao vivo */
 .sql-lista { list-style: none; margin: 0; padding: 0; }

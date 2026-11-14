@@ -1,14 +1,14 @@
 {
   "instrumento": "Escala de Sobrecarga do Cuidador de Zarit, versão curta de 12 itens (ZBI-12)",
-  "fonte": "Bédard et al., 2001 (versão curta); tradução brasileira validada por Scazufca, 2002 (Rev Bras Psiquiatr 24(1):12-7). Texto adaptado para autoaplicação ('você' e 'seu familiar').",
-  "conferido": false,
-  "observacao": "conferido=false: texto e itens ainda não comparados com a fonte original. Conferir na Tarefa B4 do plano e então mudar para true.",
+  "fonte": "Quadro 1 de Gratão et al. (2019), DOI 10.1590/1980-57642018dn13-010015, e Tabela 1 de Scazufca (2002), DOI 10.1590/S1516-44462002000100006.",
+  "conferido": true,
+  "observacao": "Itens e opções conferidos em 14/11/2026. Redação adaptada para autoaplicação ('você' e 'seu familiar'). A última pergunta usa intensidade.",
   "opcoes": [
     { "valor": 0, "texto": "Nunca" },
     { "valor": 1, "texto": "Raramente" },
     { "valor": 2, "texto": "Algumas vezes" },
-    { "valor": 3, "texto": "Frequentemente" },
-    { "valor": 4, "texto": "Sempre" }
+    { "valor": 3, "texto": "Muito frequentemente" },
+    { "valor": 4, "texto": "Quase sempre" }
   ],
   "perguntas": [
     { "item": 1,  "itemOriginal": 2,  "texto": "Você sente que, por causa do tempo que gasta com seu familiar, não tem tempo suficiente para si mesmo(a)?" },
@@ -22,7 +22,18 @@
     { "item": 9,  "itemOriginal": 17, "texto": "Você sente que perdeu o controle da sua vida desde a doença do seu familiar?" },
     { "item": 10, "itemOriginal": 19, "texto": "Você se sente em dúvida sobre o que fazer pelo seu familiar?" },
     { "item": 11, "itemOriginal": 20, "texto": "Você sente que deveria estar fazendo mais pelo seu familiar?" },
-    { "item": 12, "itemOriginal": 21, "texto": "Você sente que poderia cuidar melhor do seu familiar?" }
+    {
+      "item": 12,
+      "itemOriginal": 22,
+      "texto": "De modo geral, quanto você se sente sobrecarregado(a) por cuidar do seu familiar?",
+      "opcoes": [
+        { "valor": 0, "texto": "Nem um pouco" },
+        { "valor": 1, "texto": "Um pouco" },
+        { "valor": 2, "texto": "Moderadamente" },
+        { "valor": 3, "texto": "Muito" },
+        { "valor": 4, "texto": "Extremamente" }
+      ]
+    }
   ],
   "sono": {
     "horas": "Quantas horas você dormiu por noite, em média, nesta semana?",

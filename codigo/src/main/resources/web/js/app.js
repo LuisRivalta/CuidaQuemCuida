@@ -41,11 +41,18 @@ async function mostrarRota() {
 
   if (!estado.token && !ROTAS_PUBLICAS.has(rota)) { location.hash = '#/login'; return; }
 
-  const conteudo = document.getElementById('conteudo');
+  // Cada navegação tem seu próprio elemento. Uma resposta anterior pode terminar
+  // depois da mudança de rota e só escreverá no elemento que já saiu da página.
+  const anterior = document.getElementById('conteudo');
+  const conteudo = anterior.cloneNode(false);
+  conteudo.inert = false;
+  conteudo.removeAttribute('aria-busy');
+  anterior.replaceWith(conteudo);
   const comMenu = !ROTAS_SEM_MENU.has(rota);
   document.getElementById('menu').hidden = !comMenu;
   document.getElementById('topo').hidden = !estado.token || ROTAS_PUBLICAS.has(rota);
   document.body.classList.toggle('sem-menu', !comMenu);
+  document.body.classList.toggle('em-avaliacao', rota === '/bem-estar/responder');
 
   const aba = rota.split('/')[1];
   document.body.dataset.tela = aba;
@@ -57,7 +64,7 @@ async function mostrarRota() {
 
   if (estado.token && comMenu && estado.pacientes.length === 0) {
     await tentar(carregarContexto);
-    if (!estado.token) return;
+    if (!estado.token || !conteudo.isConnected) return;
     if (estado.pacientes.length === 0) { location.hash = '#/inicio-rede'; return; }
   }
 
@@ -66,11 +73,13 @@ async function mostrarRota() {
   try {
     await render(conteudo, parametros);
   } catch (erro) {
+    if (!conteudo.isConnected) return;
     conteudo.replaceChildren(el('div', { class: 'cartao' },
       el('h2', {}, 'Não foi possível abrir esta tela'),
       el('p', {}, erro.message || 'Tente de novo em instantes.'),
       el('button', { onclick: mostrarRota }, 'Tentar de novo')));
   }
+  if (!conteudo.isConnected) return;
   if (comMenu && rota !== '/hoje') atualizarAlertas();   // a tela Hoje já recebe os alertas no /hoje
   else document.getElementById('alertas').replaceChildren();
   conteudo.focus({ preventScroll: true });

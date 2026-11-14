@@ -810,6 +810,7 @@ async function montar({ animar, forcar = true }) {
 
   const minhaSobrecarga = dados.alertas.find((a) => a.tipo === 'SOBRECARGA' && a.mensagem.startsWith(`${estado.pessoa?.nome}:`));
   const vago = await avisoVago(pacienteId, !minhaSobrecarga);
+  if (!conteudo.isConnected) return false;
   const outros = dados.alertas.filter((a) => a !== minhaSobrecarga && !ALERTAS_DA_LISTA.includes(a.tipo)
     && !(vago && a.tipo === 'TURNO_VAGO'));
   const avisos = [vago, ...cartoesAlerta(outros, () => atualizar({ forcar: true }), { anunciar: animar })].filter(Boolean);

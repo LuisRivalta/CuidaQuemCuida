@@ -11,21 +11,39 @@ function gravar(chave, valor) {
   } catch { /* navegador sem sessionStorage: segue só em memória */ }
 }
 
+const CHAVE_SESSAO = 'cqc.sessao-lembrada';
+
+function lerSessaoLembrada() {
+  try { return JSON.parse(localStorage.getItem(CHAVE_SESSAO)); } catch { return null; }
+}
+
+function gravarSessaoLembrada(sessao) {
+  try {
+    if (sessao) localStorage.setItem(CHAVE_SESSAO, JSON.stringify(sessao));
+    else localStorage.removeItem(CHAVE_SESSAO);
+  } catch { /* navegador sem localStorage: usa a sessão da aba */ }
+}
+
+const tokenDaAba = ler('cqc.token');
+const sessaoLembrada = tokenDaAba ? null : lerSessaoLembrada();
+
 export const estado = {
-  token: ler('cqc.token'),
-  pessoa: ler('cqc.pessoa'),        // { id, nome, email }
+  token: tokenDaAba ?? sessaoLembrada?.token ?? null,
+  pessoa: tokenDaAba ? ler('cqc.pessoa') : sessaoLembrada?.pessoa ?? null,
   pacientes: [],                    // [{ id, nome, condicao, papel }]
   pacienteId: ler('cqc.paciente'),
 };
 
-export function salvarSessao(token, pessoa) {
+export function salvarSessao(token, pessoa, lembrar = false) {
   estado.token = token;
   estado.pessoa = pessoa;
   gravar('cqc.token', token);
   gravar('cqc.pessoa', pessoa);
+  gravarSessaoLembrada(lembrar ? { token, pessoa } : null);
 }
 
 export function limparSessao() {
+  if (lerSessaoLembrada()?.token === estado.token) gravarSessaoLembrada(null);
   estado.token = null;
   estado.pessoa = null;
   estado.pacientes = [];

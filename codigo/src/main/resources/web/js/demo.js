@@ -899,7 +899,7 @@ rota('POST', '/zarit/{id}/pedir-ajuda', false, ({ eu, params: [id], corpo }) => 
     exigirMembro(eu, pacienteId);
     const destinatarios = membrosAtivos(pacienteId).map((m) => m.pessoaId).filter((p) => p !== eu);
     db.alertasGravados.push({ pacienteId, tipo: 'PEDIDO_AJUDA', referencia: `zarit:${id}`,
-      mensagem: `${nomeDe(eu)} pediu ajuda à rede: está muito sobrecarregada(o). Que tal oferecer um turno?`, prioridade: 100, destinatarios });
+      mensagem: `${nomeDe(eu)} pediu ajuda à rede para dividir o cuidado. Que tal oferecer um turno?`, prioridade: 100, destinatarios });
     criados += destinatarios.length;
     sql('INSERT INTO alerta (paciente_id, destinatario_id, tipo, referencia, mensagem, prioridade) VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING');
   }

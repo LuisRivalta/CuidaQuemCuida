@@ -2,6 +2,7 @@
 import { chamar } from '../api.js';
 import { estado, pacienteAtual, souCoordenador } from '../estado.js';
 import { registrarTela, ir } from '../rotas.js';
+import { icone } from '../icones.js';
 import {
   el, preencher, campo, lerFormulario, tentar, mostrarAviso, formatarIntervalo, formatarDiaSemana, formatarData, paraData, isoData, isoLocal,
 } from '../ui.js';
@@ -62,7 +63,7 @@ function linhaTurno(turno, recarregar) {
         const ok = await tentar(() => chamar('POST', `/turnos/${turno.id}/assumir`));
         if (ok) { mostrarAviso('Obrigado! O turno agora é seu.'); recarregar(); }
       },
-    }, 'Assumir'));
+      }, 'Posso cobrir'));
     if (souCoordenador()) acoes.append(el('button', { class: 'pequeno secundario', onclick: () => mostrarSugestoes(turno, sugestoes) }, 'Quem pode?'));
   }
   if (souCoordenador()) {
@@ -76,15 +77,18 @@ function linhaTurno(turno, recarregar) {
   }
   return el('div', {},
     el('div', { class: 'turno' + (vago ? ' vago' : '') + (meu ? ' meu' : '') },
-      el('span', {}, el('strong', {}, formatarIntervalo(turno.inicio, turno.fim)), ' · ',
-        vago ? 'vago' : (meu ? 'você' : turno.pessoaNome), turno.noturno ? ' 🌙' : ''),
+      el('div', { class: 'turno-info' },
+        el('strong', {}, formatarIntervalo(turno.inicio, turno.fim)),
+        el('span', {}, vago ? 'Turno vago' : (meu ? 'Seu turno' : turno.pessoaNome)),
+        turno.noturno ? el('span', { class: 'turno-noturno' }, icone('lua'), 'Turno noturno') : null),
       acoes),
     sugestoes);
 }
 
 function linhaVago(intervalo, pacienteId, recarregar) {
   return el('div', { class: 'turno vago' },
-    el('span', {}, el('strong', {}, formatarIntervalo(intervalo.inicio, intervalo.fim)), ' · sem ninguém'),
+    el('div', { class: 'turno-info' }, el('strong', {}, formatarIntervalo(intervalo.inicio, intervalo.fim)),
+      el('span', {}, 'Turno vago')),
     el('button', {
       class: 'pequeno',
       onclick: async () => {
@@ -156,24 +160,28 @@ registrarTela('/escala', async (conteudo, parametros) => {
     const vagosDoDia = analise.vagos.filter((v) => v.inicio.startsWith(dia) && paraData(v.fim) > new Date())
       .map((v) => ({ hora: v.inicio, no: linhaVago(v, paciente.id, recarregar) }));
     const linhas = [...doDia, ...vagosDoDia].sort((a, b) => a.hora.localeCompare(b.hora)).map((x) => x.no);
-    dias.push(el('section', { class: 'dia-escala', 'aria-label': formatarDiaSemana(dia) },
-      el('h3', {}, formatarDiaSemana(dia)),
-      linhas.length ? linhas : el('p', { class: 'detalhe' }, 'Sem turnos.')));
+    const hoje = dia === isoData(new Date());
+    dias.push(el('section', { class: 'dia-escala', 'aria-labelledby': `dia-${dia}` },
+      el('h2', { id: `dia-${dia}` }, formatarDiaSemana(dia), hoje ? el('span', { class: 'etiqueta foco' }, 'Hoje') : null),
+      linhas.length ? linhas : el('p', { class: 'detalhe' }, 'Sem turnos marcados.')));
   }
 
   const areaFormulario = el('div');
   preencher(conteudo,
-    el('h1', {}, 'Escala'),
-    el('div', { class: 'semana-nav' },
-      el('a', { class: 'botao secundario pequeno', href: `#/escala?semana=${deslocamento - 1}`, 'aria-label': 'Semana anterior' }, '◀'),
-      el('strong', {}, `${formatarData(de)} a ${formatarData(ate)}`),
-      el('a', { class: 'botao secundario pequeno', href: `#/escala?semana=${deslocamento + 1}`, 'aria-label': 'Próxima semana' }, '▶')),
+    el('header', { class: 'escala-cabecalho' },
+      el('h1', {}, 'Escala'),
+      el('p', {}, `Revezamento para cuidar de ${paciente.nome}.`)),
+    el('nav', { class: 'semana-nav', 'aria-label': 'Semanas da escala' },
+      el('a', { class: 'botao secundario pequeno', href: `#/escala?semana=${deslocamento - 1}`, 'aria-label': 'Semana anterior' }, icone('seta', 'seta-esquerda')),
+      el('div', {}, el('strong', {}, `${formatarData(de)} a ${formatarData(ate)}`),
+        deslocamento ? el('a', { href: '#/escala' }, 'Voltar à semana atual') : null),
+      el('a', { class: 'botao secundario pequeno', href: `#/escala?semana=${deslocamento + 1}`, 'aria-label': 'Próxima semana' }, icone('seta', 'seta-direita'))),
     ...avisosConflito(analise),
     ...avisosSobrecarga(analise),
     souCoordenador()
       ? el('button', { class: 'largo', onclick: () => areaFormulario.replaceChildren(formularioNovoTurno(paciente.id, membros, recarregar)) }, '+ Novo turno')
       : null,
     areaFormulario,
-    el('div', { class: 'cartao' }, dias),
-    el('p', { class: 'detalhe' }, '🌙 = turno noturno (pelo menos 3 horas entre 22h e 6h).'));
+    el('div', { class: 'semana-turnos' }, dias),
+    el('p', { class: 'detalhe' }, 'O turno é noturno quando inclui pelo menos 3 horas entre 22h e 6h.'));
 });

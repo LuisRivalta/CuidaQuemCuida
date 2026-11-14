@@ -5,6 +5,8 @@ import { registrarTela, carregarContexto, ir } from '../rotas.js';
 import { el, preencher, campo, lerFormulario, tentar, mostrarAviso } from '../ui.js';
 
 const VERSAO_TERMO = '1.0';
+const cabecalho = (titulo, texto) => el('header', { class: 'cadastro-cabecalho' },
+  el('h1', {}, titulo), texto ? el('p', {}, texto) : null);
 
 function termoDeUso() {
   return el('div', { class: 'termo', tabindex: '0', 'aria-label': 'Termo de uso e de consentimento' },
@@ -35,9 +37,10 @@ registrarTela('/cadastro', (conteudo) => {
       el('option', { value: 'OUTRO' }, 'Outro'),
       el('option', { value: 'NAO_INFORMAR' }, 'Prefiro não informar')),
     'Usado só em números gerais da rede, para mostrar como o cuidado se divide.'),
-    termoDeUso(),
-    el('label', { class: 'caixa' }, el('input', { type: 'checkbox', name: 'aceiteTermo' }),
-      'Li e aceito o termo de uso e consentimento.'),
+    el('section', { class: 'cadastro-termo', 'aria-label': 'Consentimento' },
+      termoDeUso(),
+      el('label', { class: 'caixa' }, el('input', { type: 'checkbox', name: 'aceiteTermo' }),
+        'Li e aceito o termo de uso e consentimento.')),
     el('button', { type: 'submit', class: 'largo' }, 'Criar minha conta'));
 
   form.addEventListener('submit', async (evento) => {
@@ -52,22 +55,22 @@ registrarTela('/cadastro', (conteudo) => {
     ir('/login');
   });
 
-  conteudo.replaceChildren(el('h1', {}, 'Criar minha conta'), form,
-    el('p', {}, 'Já tem conta? ', el('a', { href: '#/login' }, 'Entrar')));
+  preencher(conteudo, cabecalho('Criar minha conta'), form,
+    el('p', {}, 'Já tem conta? ', el('a', { class: 'cadastro-voltar', href: '#/login' }, 'Entrar')));
 });
 
 registrarTela('/inicio-rede', (conteudo) => {
   preencher(conteudo,
-    el('h1', {}, 'Vamos começar'),
-    el('p', {}, 'Você ainda não faz parte de nenhuma rede de cuidado.'),
-    el('div', { class: 'cartao' },
-      el('h2', {}, 'Sou quem coordena o cuidado'),
-      el('p', {}, 'Cadastre a pessoa cuidada e depois convide familiares e vizinhos.'),
-      el('a', { class: 'botao largo', href: '#/novo-paciente' }, 'Cadastrar a pessoa cuidada')),
-    el('div', { class: 'cartao' },
-      el('h2', {}, 'Recebi um código de convite'),
-      el('p', {}, 'Entre na rede de quem já usa o CuidaQuemCuida.'),
-      el('a', { class: 'botao secundario largo', href: '#/entrar-rede' }, 'Entrar com código')));
+    cabecalho('Vamos começar', 'Você pode criar uma rede de cuidado ou entrar em uma que já existe.'),
+    el('div', { class: 'rede-opcoes' },
+      el('div', { class: 'cartao' },
+        el('h2', {}, 'Criar uma rede'),
+        el('p', {}, 'Cadastre a pessoa cuidada e depois convide familiares e vizinhos.'),
+        el('a', { class: 'botao largo', href: '#/novo-paciente' }, 'Cadastrar a pessoa cuidada')),
+      el('div', { class: 'cartao' },
+        el('h2', {}, 'Usar um convite'),
+        el('p', {}, 'Você vai precisar do código de quem coordena o cuidado.'),
+        el('a', { class: 'botao secundario largo', href: '#/entrar-rede' }, 'Entrar com código'))));
 });
 
 registrarTela('/novo-paciente', (conteudo) => {
@@ -102,7 +105,8 @@ registrarTela('/novo-paciente', (conteudo) => {
     ir('/mais/pessoas');
   });
 
-  conteudo.replaceChildren(el('h1', {}, 'Cadastrar a pessoa cuidada'), form);
+  preencher(conteudo, cabecalho('Cadastrar a pessoa cuidada'), form,
+    el('a', { class: 'cadastro-voltar', href: '#/inicio-rede' }, 'Voltar às opções da rede'));
 });
 
 registrarTela('/entrar-rede', (conteudo) => {
@@ -131,5 +135,6 @@ registrarTela('/entrar-rede', (conteudo) => {
     ir('/hoje');
   });
 
-  conteudo.replaceChildren(el('h1', {}, 'Entrar com código'), form);
+  preencher(conteudo, cabecalho('Entrar com código'), form,
+    el('a', { class: 'cadastro-voltar', href: '#/inicio-rede' }, 'Voltar às opções da rede'));
 });

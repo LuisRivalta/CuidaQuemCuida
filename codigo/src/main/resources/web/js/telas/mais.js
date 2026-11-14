@@ -3,6 +3,7 @@
 import { chamar, MODO } from '../api.js';
 import { estado, limparSessao, pacienteAtual, souCoordenador } from '../estado.js';
 import { registrarTela, ir, carregarContexto } from '../rotas.js';
+import { icone } from '../icones.js';
 import {
   el, preencher, campo, lerFormulario, tentar, mostrarAviso, formatarData, formatarHora, isoData, paraData,
 } from '../ui.js';
@@ -18,31 +19,38 @@ const PAPEL = { COORDENADOR: 'Coordenador(a)', MEMBRO: 'Membro' };
 const VINCULO = { FAMILIAR: 'Familiar', VIZINHO: 'Vizinho(a)', AMIGO: 'Amigo(a)', OUTRO: 'Outro' };
 
 const voltar = () => el('a', { href: '#/mais', class: 'link-botao' }, '← Mais');
+const cabecalho = (titulo, texto) => el('header', { class: 'mais-cabecalho' },
+  el('h1', {}, titulo), texto ? el('p', {}, texto) : null);
 
 // ------------------------------------------------------------------ menu
 registrarTela('/mais', (conteudo) => {
-  const item = (rota, texto, icone) => el('li', {}, el('a', { class: 'item-menu', href: '#' + rota },
-    el('span', {}, el('span', { 'aria-hidden': 'true' }, icone + ' '), texto), el('span', { 'aria-hidden': 'true' }, '›')));
+  const item = (rota, texto, simbolo) => el('li', {}, el('a', { class: 'item-menu', href: '#' + rota },
+    el('span', { class: 'mais-item' }, icone(simbolo), texto), icone('seta', 'seta-direita')));
+  const grupo = (id, titulo, itens) => el('section', { class: 'cartao mais-grupo', 'aria-labelledby': id },
+    el('h2', { id }, titulo), el('ul', { class: 'lista' }, itens));
   preencher(conteudo,
-    el('h1', {}, 'Mais'),
-    el('nav', { class: 'cartao', 'aria-label': 'Mais opções' },
-      el('ul', { class: 'lista' },
-        souCoordenador() ? item('/mais/painel', 'Painel da rede', '📊') : null,
-        item('/mais/paciente', 'Paciente e remédios', '💊'),
-        item('/mais/pessoas', 'Pessoas da rede', '👥'),
-        item('/mais/sinais', 'Sinais vitais', '❤️'),
-        item('/mais/tarefas', 'Tarefas de cuidado', '📋'),
-        item('/mais/dados', 'Dados coletados', '🔒'),
-        item('/mais/banco', 'Banco ao vivo', '🗄️'),
-        item('/mais/conta', 'Minha conta', '👤'),
-        el('li', {}, el('button', {
-          class: 'link-botao',
-          onclick: async () => {
-            await chamar('POST', '/auth/logout').catch(() => null);
-            limparSessao();
-            ir('/login');
-          },
-        }, 'Sair')))));
+    cabecalho('Mais'),
+    el('nav', { 'aria-label': 'Mais opções' },
+      grupo('mais-rede', 'Rede de cuidado', [
+        souCoordenador() ? item('/mais/painel', 'Painel da rede', 'grafico') : null,
+        item('/mais/paciente', 'Paciente e remédios', 'pilula'),
+        item('/mais/pessoas', 'Pessoas da rede', 'pessoas'),
+        item('/mais/sinais', 'Sinais vitais', 'pulso'),
+        item('/mais/tarefas', 'Tarefas de cuidado', 'lista'),
+      ]),
+      grupo('mais-conta', 'Conta e dados', [
+        item('/mais/conta', 'Minha conta', 'pessoa'),
+        item('/mais/dados', 'Dados coletados', 'cadeado'),
+        item('/mais/banco', 'Banco ao vivo', 'banco'),
+      ])),
+    el('button', {
+      class: 'secundario',
+      onclick: async () => {
+        await chamar('POST', '/auth/logout').catch(() => null);
+        limparSessao();
+        ir('/login');
+      },
+    }, 'Sair'));
 });
 
 // ------------------------------------------------------------------ paciente e remédios
@@ -147,9 +155,9 @@ registrarTela('/mais/paciente', async (conteudo) => {
 
   preencher(conteudo,
     voltar(),
-    el('h1', {}, p.nome),
-    el('div', { class: 'cartao' },
-      el('p', {}, el('strong', {}, 'Condição: '), p.condicao || '—'),
+    cabecalho(p.nome, p.condicao),
+    el('div', { class: 'cartao mais-ficha' },
+      el('h2', {}, 'Dados da pessoa cuidada'),
       p.dataNascimento ? el('p', {}, el('strong', {}, 'Nascimento: '), formatarData(p.dataNascimento) + '/' + p.dataNascimento.slice(0, 4)) : null,
       el('p', {}, el('strong', {}, 'Acompanhamento 24 h: '), p.precisa24h ? 'sim' : 'não'),
       p.observacoes ? el('p', {}, el('strong', {}, 'Observações: '), p.observacoes) : null,
@@ -187,11 +195,11 @@ registrarTela('/mais/pessoas', async (conteudo) => {
 
   preencher(conteudo,
     voltar(),
-    el('h1', {}, 'Pessoas da rede'),
-    coord ? el('div', { class: 'cartao' },
+    cabecalho('Pessoas da rede', `Quem cuida de ${p.nome}.`),
+    coord ? el('div', { class: 'cartao mais-convite' },
       el('h2', {}, 'Convidar alguém'),
       el('p', {}, 'Passe este código para a pessoa. Ela cria a conta e toca em "Entrar com código".'),
-      el('p', { class: 'numero-grande', 'aria-label': 'Código de convite' }, p.codigoConvite),
+      el('p', { class: 'numero-grande mais-codigo' }, p.codigoConvite),
       el('button', {
         class: 'secundario pequeno',
         onclick: async () => {
@@ -297,7 +305,7 @@ registrarTela('/mais/sinais', async (conteudo, parametros) => {
 
   preencher(conteudo,
     voltar(),
-    el('h1', {}, 'Sinais vitais'),
+    cabecalho('Sinais vitais', 'Registre uma medição ou consulte o histórico por tipo.'),
     campo('Tipo de medição', (() => {
       const s = el('select', {}, Object.entries(TIPOS_SINAL).map(([k, v]) => el('option', { value: k, selected: k === tipo }, v.nome)));
       s.addEventListener('change', () => ir(`/mais/sinais?tipo=${s.value}`));
@@ -308,7 +316,7 @@ registrarTela('/mais/sinais', async (conteudo, parametros) => {
       el('h2', { id: 't-graf' }, `${TIPOS_SINAL[tipo].nome}: últimos 30 dias`),
       faixa ? el('p', { class: 'detalhe' }, `Faixa combinada: ${faixa.minimo ?? '—'} a ${faixa.maximo ?? '—'} ${TIPOS_SINAL[tipo].unidade}`) : null,
       graficoSinal(tipo, medicoes, faixa) || el('p', {}, 'Nenhuma medição nos últimos 30 dias.'),
-      foraDaFaixa.length ? el('p', {}, el('strong', {}, '⚠ Fora da faixa: '),
+      foraDaFaixa.length ? el('p', { class: 'mais-sinal-alerta' }, icone('alerta'), el('strong', {}, ' Fora da faixa: '),
         foraDaFaixa.map((m) => `${formatarData(m.medidoEm)} ${formatarHora(m.medidoEm)} (${m.valor}${m.valor2 ? '/' + m.valor2 : ''})`).join('; ')) : null,
       medicoes.length ? el('details', {}, el('summary', {}, 'Ver em tabela'),
         el('div', { class: 'tabela-rolagem' }, el('table', {},
@@ -353,10 +361,9 @@ registrarTela('/mais/tarefas', async (conteudo) => {
   const area = el('div');
   preencher(conteudo,
     voltar(),
-    el('h1', {}, 'Tarefas de cuidado'),
-    el('p', { class: 'subtitulo' }, 'Aparecem na tela Hoje de quem estiver no turno.'),
+    cabecalho('Tarefas de cuidado', 'Aparecem na tela Hoje de quem estiver no turno.'),
     area,
-    el('div', { class: 'cartao' }, el('ul', { class: 'lista' }, tarefas.map((t) => el('li', {},
+    el('div', { class: 'cartao mais-ficha' }, tarefas.length ? el('ul', { class: 'lista' }, tarefas.map((t) => el('li', {},
       el('div', {},
         el('strong', {}, t.titulo), t.tipoSinal ? ` (medição: ${TIPOS_SINAL[t.tipoSinal].nome})` : '', el('br'),
         el('span', { class: 'detalhe' }, t.recorrenciaHoras === 24 ? `Uma vez por dia, às ${t.primeiraVez}` : `A cada ${t.recorrenciaHoras} h, a partir das ${t.primeiraVez}`),
@@ -369,7 +376,7 @@ registrarTela('/mais/tarefas', async (conteudo) => {
             if (!window.confirm(`Excluir a tarefa "${t.titulo}"?`)) return;
             if (await tentar(() => chamar('DELETE', `/tarefas/${t.id}`)) !== undefined) recarregar();
           },
-        }, 'Excluir')) : null)))),
+        }, 'Excluir')) : null))) : el('p', {}, 'Nenhuma tarefa cadastrada.')),
     coord ? el('button', { class: 'largo', onclick: () => area.replaceChildren(formularioTarefa(atual.id, null, recarregar)) }, '+ Nova tarefa') : null);
 });
 
@@ -383,7 +390,7 @@ const DADOS_COLETADOS = [
   ['Sinais vitais (pressão, glicemia...)', 'Acompanhar a saúde e avisar valores fora do normal', 'Membros da rede', 'Enquanto a rede existir'],
   ['Tarefas de cuidado feitas', 'Garantir a rotina (ex.: mudar de posição para evitar escara)', 'Membros da rede', 'Enquanto a rede existir'],
   ['Questionário de bem-estar (Escala Zarit) e sono', 'Perceber a sobrecarga de quem cuida', 'Só você (o coordenador vê se você escolher compartilhar)', 'Até você apagar ou excluir a conta'],
-  ['Sessão de login', 'Manter você conectado(a)', 'Ninguém', '7 dias'],
+  ['Sessão de login', 'Permitir que você continue usando sua conta', 'Ninguém', '7 dias'],
   ['Auditoria (quem alterou o quê e quando)', 'Segurança e rastreabilidade', 'Equipe técnica, só em caso de problema', '6 meses'],
   ['Banco ao vivo (comandos recentes)', 'Demonstração técnica', 'Quem abrir a tela', 'Só na memória; some ao reiniciar o sistema'],
 ];
@@ -391,8 +398,7 @@ const DADOS_COLETADOS = [
 registrarTela('/mais/dados', (conteudo) => {
   preencher(conteudo,
     voltar(),
-    el('h1', {}, 'Dados coletados'),
-    el('p', {}, 'Transparência sobre o que o CuidaQuemCuida guarda, por quê, quem vê e por quanto tempo.'),
+    cabecalho('Dados coletados', 'Veja quais dados o CuidaQuemCuida guarda, quem pode ver e por quanto tempo.'),
     el('ul', { class: 'lista cartao', 'aria-label': 'Dados coletados pelo CuidaQuemCuida' },
       DADOS_COLETADOS.map(([dado, porque, quem, tempo]) => el('li', { style: 'display:block' },
         el('strong', {}, dado),
@@ -429,9 +435,7 @@ registrarTela('/mais/banco', async (conteudo) => {
 
   preencher(conteudo,
     voltar(),
-    el('h1', {}, 'Banco ao vivo'),
-    el('p', {}, 'Os últimos comandos SQL que o sistema enviou ao banco de dados (atualiza sozinho). ',
-      'Os valores aparecem como "?" porque vão separados do comando (PreparedStatement), o que impede injeção de SQL.'),
+    cabecalho('Banco ao vivo', 'Comandos SQL recentes, atualizados a cada 2 segundos. Os valores são enviados separadamente e aparecem como "?".'),
     MODO === 'demo' ? el('p', { class: 'detalhe' }, 'No modo demonstração, os comandos são simulados.') : null,
     el('div', { class: 'cartao' }, lista));
 });
@@ -441,8 +445,8 @@ registrarTela('/mais/conta', async (conteudo) => {
   const eu = await chamar('GET', '/pessoas/eu');
   preencher(conteudo,
     voltar(),
-    el('h1', {}, 'Minha conta'),
-    el('div', { class: 'cartao' },
+    cabecalho('Minha conta'),
+    el('div', { class: 'cartao mais-ficha' },
       el('h2', {}, 'Meus dados'),
       el('p', {}, el('strong', {}, 'Nome: '), eu.nome),
       el('p', {}, el('strong', {}, 'E-mail: '), eu.email),
