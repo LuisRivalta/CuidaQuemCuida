@@ -5,3 +5,4 @@ codigo/config.properties
 *.class
 .idea/
 *.iml
+.impeccable/hook.cache.json

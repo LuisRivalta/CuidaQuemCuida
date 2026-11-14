@@ -1,0 +1,35 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "tiny-text",
+        "value": "*",
+        "files": [
+          "documentacao/02-wireframes/wireframes.html"
+        ],
+        "createdAt": "2026-11-14T12:55:00.611Z",
+        "reason": "Claude: folha de wireframes da documentação com telas de celular em miniatura (vira PNG); não é a interface entregue"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          "documentacao/02-wireframes/wireframes.html"
+        ],
+        "createdAt": "2026-11-14T12:55:00.908Z",
+        "reason": "Claude: folha de wireframes da documentação com telas de celular em miniatura (vira PNG); não é a interface entregue"
+      },
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "codigo/src/main/resources/web/index.html"
+        ],
+        "createdAt": "2026-11-14T13:12:21.544Z",
+        "reason": "Luis escolheu o fundo pêssego bem claro #fff4ec em 14/11/2026 (Fase 0 do plano de redesenho), no lugar do creme"
+      }
+    ]
+  }
+}
