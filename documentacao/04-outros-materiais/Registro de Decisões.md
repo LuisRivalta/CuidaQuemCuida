@@ -81,3 +81,6 @@ Cada decisão importante, com data e motivo. Quando o código mudar em relação
 | D52 | Testar a API com PostgreSQL local isolado e dados fictícios | Permitiu validar os scripts e o acesso JDBC antes da conexão no Supabase |
 | D53 | Usar o item 22 como última pergunta da ZBI-12, com opções de intensidade | A seleção corresponde ao estudo brasileiro de 2019. Referências em [[Escala Zarit]] |
 | D54 | Tornar a versão web instalável por manifesto e ícone da marca | Cumpre a etapa PWA do roadmap. Os dados de cuidado continuam acessados pela API quando há conexão |
+| D55 | Escala com dias vazios agrupados, alertas de sobrecarga expansíveis e ações de gestão em “Opções” | Turnos e vagas ficam visíveis mais cedo, com a data de término nos turnos que atravessam a meia-noite |
+| D56 | Avisos no topo das páginas internas reunidos em um painel expansível | O primeiro aviso fica visível e a lista completa abre a pedido, liberando espaço para o conteúdo da página |
+| D57 | Cadastro de paciente em Mais e filtro Meus turnos na Escala | A pessoa pode cadastrar outro paciente no uso cotidiano e consultar seus próprios turnos por semana no paciente atual |

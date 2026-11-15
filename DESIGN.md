@@ -30,6 +30,8 @@ Coral `#ef8a62` e sálvia `#7aa98a` compõem o símbolo dos dois corações. O c
 
 ## Componentes
 
+- Nas páginas internas, o título aparece sobre o fundo da página. Use superfícies com borda fina para formulários e grupos de conteúdo. Na Escala, as linhas têm divisórias e os dias vazios podem ser consultados em um grupo recolhido.
+- Em Mais, agrupe cadastro, ficha e convite em Pacientes. Na Escala, identifique o paciente atual e a opção ativa entre Todos os turnos e Meus turnos.
 - O cartão Agora mostra uma ação principal. Anteponha a orientação ou o horário à ação quando a pessoa precisar conferir algo antes de registrar.
 - O caminho do dia usa horário, texto de estado e ícone. Mantenha os registros feitos recolhidos, disponíveis para consultar.
 - Avisos devem indicar o que ocorreu e a ação possível. Mostre erros de campo junto ao formulário e preserve o conteúdo já preenchido.

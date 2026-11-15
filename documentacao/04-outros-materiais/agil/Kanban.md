@@ -16,6 +16,8 @@ Quadro do projeto. Cada cartão: tarefa, responsável, quem aprovou e datas reai
 - [ ] B7 Empacotar e entregar (até 19/11) — resp.: Gabriel — aprovado por: Luis
 
 ## Fazendo
+- [ ] Revisão de navegação de 14/11: cadastro pelo menu Mais e filtro Meus turnos conferidos com dados de demonstração. Falta a revisão visual da dupla
+- [ ] Revisão de UX pedida em 14/11: Escala simplificada e ajuste visual dos componentes internos. Falta a revisão visual da dupla
 - [ ] Redesenho visual: implementação e capturas das 18 rotas em 14/11. Revisão do login: 34/40. Falta a aprovação visual da dupla — resp.: Luis
 - [ ] B3–B4, verificação local: Java e PostgreSQL 18 integrados em 14/11. Verificações executadas em [[Testes e Validação]]. Falta Supabase, celular físico e validação com cuidadores
 

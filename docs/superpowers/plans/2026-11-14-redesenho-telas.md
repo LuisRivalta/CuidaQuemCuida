@@ -188,6 +188,10 @@ Para cada tela:
 - **Pronto quando:** as 18 telas têm o visual novo e o ok do Luis.
 
 ## Fase 5 — Passada final no app inteiro
+
+**Revisão de UX em 14/11:** removemos fundos dos cabeçalhos internos e sombras dos cartões de consulta. A Escala passou a mostrar primeiro os dias ocupados, com ações de gestão e dias vazios expansíveis. Ver [[Redesenho - Passagem]].
+
+**Navegação em 14/11:** cadastro e convite passaram ao grupo Pacientes de Mais. Escala ganhou o filtro de turnos pessoais, preservado na navegação semanal. Fluxos verificados com dados de demonstração.
 - [ ] **5.1** Auditoria: axe sem violações automatizadas nas 18 rotas em 390 px (WCAG 2.0 A/AA e 2.1 AA). Conferências manuais adicionais de acessibilidade e desempenho seguem no checklist final.
 - [ ] **5.2** `/impeccable:impeccable harden`: mensagens de erro, telas vazias, textos longos, sem internet (fontes e GSAP vêm de CDN).
 - [ ] **5.3** `/impeccable:impeccable adapt`: versão de computador boa para gravar o vídeo técnico.

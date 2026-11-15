@@ -57,6 +57,8 @@ fazer e espere eu confirmar.
 ```
 
 ## Estado atual
+- **14/11/2026, navegação:** Mais → Pacientes oferece cadastro e entrada em outra rede. O cadastro abre a ficha do paciente recém-adicionado. Escala permite alternar entre Todos os turnos e Meus turnos do paciente atual. Fluxos conferidos com dados de demonstração no navegador.
+- **14/11/2026, revisão de UX:** Escala com dias sem turnos agrupados, ações de gestão recolhidas e datas explícitas para turnos que atravessam a meia-noite. Cabeçalhos e cartões das páginas internas receberam acabamento mais leve. Capturas e verificação em [[Redesenho - Passagem]]. Falta a revisão visual da dupla.
 - **14/11/2026 (noite):** redesenho implementado nas 18 rotas. Login com sessão opcional, orientação de convite e família de exemplo. Segunda revisão do login: 34/40, sem P0 ou P1. Capturas e detector sem erros registrados na verificação. A aprovação visual da dupla segue pendente.
   - **Integração local:** scripts 00 a 03 executados em PostgreSQL 18 isolado. Java e JDBC responderam em `http://localhost:8080`. Os 64 testes JUnit passaram. Os cenários executados estão em [[Testes e Validação]].
   - **Ambiente deste PC:** Temurin 21.0.13 em `%LOCALAPPDATA%\CuidaQuemCuida\temurin21`. PostgreSQL isolado em `%LOCALAPPDATA%\CuidaQuemCuida\pg18`, na porta 55432 em loopback. A configuração local está em `codigo/config.properties` ignorado pelo Git.
