@@ -48,6 +48,7 @@ async function mostrarRota() {
   conteudo.inert = false;
   conteudo.removeAttribute('aria-busy');
   anterior.replaceWith(conteudo);
+  document.getElementById('alertas').replaceChildren();
   const comMenu = !ROTAS_SEM_MENU.has(rota);
   document.getElementById('menu').hidden = !comMenu;
   document.getElementById('topo').hidden = !estado.token || ROTAS_PUBLICAS.has(rota);
@@ -81,7 +82,6 @@ async function mostrarRota() {
   }
   if (!conteudo.isConnected) return;
   if (comMenu && rota !== '/hoje') atualizarAlertas();   // a tela Hoje já recebe os alertas no /hoje
-  else document.getElementById('alertas').replaceChildren();
   conteudo.focus({ preventScroll: true });
   window.scrollTo(0, 0);
 }

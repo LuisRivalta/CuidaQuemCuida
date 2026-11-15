@@ -31,9 +31,14 @@ registrarTela('/mais', (conteudo) => {
   preencher(conteudo,
     cabecalho('Mais'),
     el('nav', { 'aria-label': 'Mais opções' },
-      grupo('mais-rede', 'Rede de cuidado', [
-        souCoordenador() ? item('/mais/painel', 'Painel da rede', 'grafico') : null,
+      grupo('mais-pacientes', 'Pacientes', [
         item('/mais/paciente', 'Paciente e remédios', 'pilula'),
+        item('/novo-paciente?origem=mais', 'Cadastrar paciente', 'pessoa'),
+        item('/entrar-rede?origem=mais', 'Entrar em outra rede', 'pessoas'),
+      ]),
+      grupo('mais-rede', 'Rede de cuidado', [
+        item('/escala?visao=meus', 'Meus turnos', 'calendario'),
+        souCoordenador() ? item('/mais/painel', 'Painel da rede', 'grafico') : null,
         item('/mais/pessoas', 'Pessoas da rede', 'pessoas'),
         item('/mais/sinais', 'Sinais vitais', 'pulso'),
         item('/mais/tarefas', 'Tarefas de cuidado', 'lista'),
@@ -156,6 +161,10 @@ registrarTela('/mais/paciente', async (conteudo) => {
   preencher(conteudo,
     voltar(),
     cabecalho(p.nome, p.condicao),
+    el('nav', { class: 'paciente-atalhos', 'aria-label': 'Ações do paciente' },
+      el('a', { href: '#/escala' }, 'Ver escala'),
+      el('a', { href: '#/mais/pessoas' }, 'Pessoas da rede'),
+      el('a', { href: '#/novo-paciente?origem=paciente' }, 'Cadastrar outro paciente')),
     el('div', { class: 'cartao mais-ficha' },
       el('h2', {}, 'Dados da pessoa cuidada'),
       p.dataNascimento ? el('p', {}, el('strong', {}, 'Nascimento: '), formatarData(p.dataNascimento) + '/' + p.dataNascimento.slice(0, 4)) : null,

@@ -1,12 +1,18 @@
 // Telas de cadastro: criar conta (com termo), início sem rede, cadastrar paciente e entrar com código.
 import { chamar } from '../api.js';
-import { escolherPaciente } from '../estado.js';
-import { registrarTela, carregarContexto, ir } from '../rotas.js';
+import { registrarTela, carregarContexto, abrirRede, ir } from '../rotas.js';
 import { el, preencher, campo, lerFormulario, tentar, mostrarAviso } from '../ui.js';
 
 const VERSAO_TERMO = '1.0';
 const cabecalho = (titulo, texto) => el('header', { class: 'cadastro-cabecalho' },
   el('h1', {}, titulo), texto ? el('p', {}, texto) : null);
+
+function voltarAoCadastro(origem) {
+  const destino = origem === 'paciente' ? ['/mais/paciente', 'Voltar ao paciente']
+    : origem === 'mais' ? ['/mais', 'Voltar a Mais']
+      : ['/inicio-rede', 'Voltar às opções da rede'];
+  return el('a', { class: 'cadastro-voltar', href: '#' + destino[0] }, destino[1]);
+}
 
 function termoDeUso() {
   return el('div', { class: 'termo', tabindex: '0', 'aria-label': 'Termo de uso e de consentimento' },
@@ -66,14 +72,15 @@ registrarTela('/inicio-rede', (conteudo) => {
       el('div', { class: 'cartao' },
         el('h2', {}, 'Criar uma rede'),
         el('p', {}, 'Cadastre a pessoa cuidada e depois convide familiares e vizinhos.'),
-        el('a', { class: 'botao largo', href: '#/novo-paciente' }, 'Cadastrar a pessoa cuidada')),
+        el('a', { class: 'botao largo', href: '#/novo-paciente' }, 'Cadastrar paciente')),
       el('div', { class: 'cartao' },
         el('h2', {}, 'Usar um convite'),
         el('p', {}, 'Você vai precisar do código de quem coordena o cuidado.'),
         el('a', { class: 'botao secundario largo', href: '#/entrar-rede' }, 'Entrar com código'))));
 });
 
-registrarTela('/novo-paciente', (conteudo) => {
+registrarTela('/novo-paciente', (conteudo, { origem }) => {
+  const salvar = el('button', { type: 'submit', class: 'largo' }, 'Cadastrar paciente');
   const form = el('form', { class: 'cartao', novalidate: true },
     campo('Nome da pessoa cuidada', el('input', { name: 'nome', required: true })),
     campo('Data de nascimento', el('input', { name: 'dataNascimento', type: 'date' })),
@@ -87,29 +94,36 @@ registrarTela('/novo-paciente', (conteudo) => {
     campo('Parentesco', el('input', { name: 'responsavelParentesco', placeholder: 'Ex.: Filha', required: true })),
     el('label', { class: 'caixa campo' }, el('input', { type: 'checkbox', name: 'declaracaoAutorizacao' }),
       'Declaro que sou o responsável legal ou tenho a autorização dele para registrar os dados de saúde desta pessoa.'),
-    el('button', { type: 'submit', class: 'largo' }, 'Cadastrar'));
+    salvar);
 
   form.addEventListener('submit', async (evento) => {
     evento.preventDefault();
+    if (salvar.disabled) return;
     const dados = lerFormulario(form);
     if (!dados.nome) return tentar(() => { throw new Error('Preencha o nome da pessoa cuidada.'); });
     if (!dados.responsavelNome || !dados.responsavelParentesco) {
       return tentar(() => { throw new Error('Preencha o nome e o parentesco do responsável legal.'); });
     }
     if (!dados.declaracaoAutorizacao) return tentar(() => { throw new Error('Marque a declaração de autorização para continuar.'); });
-    const criado = await tentar(() => chamar('POST', '/pacientes', dados));
-    if (!criado) return;
-    await tentar(carregarContexto);
-    escolherPaciente(criado.id);
-    mostrarAviso(`Pronto! Código de convite da rede: ${criado.codigoConvite}`);
-    ir('/mais/pessoas');
+    salvar.disabled = true;
+    try {
+      const criado = await tentar(() => chamar('POST', '/pacientes', dados));
+      if (!criado || !form.isConnected) return;
+      abrirRede({ id: criado.id, nome: criado.nome, condicao: dados.condicao, papel: 'COORDENADOR' });
+      await tentar(carregarContexto);
+      if (!form.isConnected) return;
+      mostrarAviso('Paciente cadastrado.');
+      ir('/mais/paciente');
+    } finally {
+      salvar.disabled = false;
+    }
   });
 
-  preencher(conteudo, cabecalho('Cadastrar a pessoa cuidada'), form,
-    el('a', { class: 'cadastro-voltar', href: '#/inicio-rede' }, 'Voltar às opções da rede'));
+  preencher(conteudo, voltarAoCadastro(origem),
+    cabecalho('Cadastrar paciente', 'A pessoa cadastrada terá uma rede de cuidado própria.'), form);
 });
 
-registrarTela('/entrar-rede', (conteudo) => {
+registrarTela('/entrar-rede', (conteudo, { origem }) => {
   const form = el('form', { class: 'cartao', novalidate: true },
     campo('Código de convite', el('input', {
       name: 'codigo', required: true, maxlength: '6', autocapitalize: 'characters', placeholder: 'Ex.: LURD26',
@@ -128,13 +142,13 @@ registrarTela('/entrar-rede', (conteudo) => {
     const resposta = await tentar(() => chamar('POST', '/pacientes/entrar', {
       codigo: dados.codigo.toUpperCase(), vinculo: dados.vinculo,
     }));
-    if (!resposta) return;
+    if (!resposta || !form.isConnected) return;
+    abrirRede({ id: resposta.pacienteId, nome: resposta.pacienteNome, papel: 'MEMBRO' });
     await tentar(carregarContexto);
-    escolherPaciente(resposta.pacienteId);
+    if (!form.isConnected) return;
     mostrarAviso(`Você agora faz parte da rede de ${resposta.pacienteNome}.`);
     ir('/hoje');
   });
 
-  preencher(conteudo, cabecalho('Entrar com código'), form,
-    el('a', { class: 'cadastro-voltar', href: '#/inicio-rede' }, 'Voltar às opções da rede'));
+  preencher(conteudo, voltarAoCadastro(origem), cabecalho('Entrar com código'), form);
 });

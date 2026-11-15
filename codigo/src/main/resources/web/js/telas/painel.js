@@ -52,7 +52,7 @@ function desenhar(canvas, config) {
 }
 
 function secaoCarga(est) {
-  return el('section', { class: 'cartao painel-carga', 'aria-labelledby': 't-carga' },
+  return el('section', { class: 'cartao', 'aria-labelledby': 't-carga' },
     el('h2', { id: 't-carga' }, 'Quem carrega o cuidado'),
     el('p', { class: 'detalhe' }, `Porcentagem das horas de turno nos últimos ${est.periodoDias} dias.`),
     est.cargaPorPessoa.map((c) => el('div', { class: 'barra-carga' },

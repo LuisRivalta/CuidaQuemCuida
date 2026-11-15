@@ -26,6 +26,13 @@ function montarSeletor() {
   rotulo.hidden = estado.pacientes.length < 2;
 }
 
+/** Usa a rede confirmada pelo cadastro ou pelo convite enquanto o contexto é atualizado. */
+export function abrirRede(rede) {
+  if (!estado.pacientes.some((paciente) => paciente.id === rede.id)) estado.pacientes.push(rede);
+  escolherPaciente(rede.id);
+  montarSeletor();
+}
+
 /** Recarrega a lista de pacientes da pessoa logada e o seletor do topo. */
 export async function carregarContexto() {
   estado.pacientes = await chamar('GET', '/pacientes');
@@ -45,11 +52,11 @@ export async function atualizarAlertas() {
 }
 
 /**
- * Monta até 3 avisos; aoLer() roda depois de marcar um como lido.
+ * Monta os avisos até o limite pedido; aoLer() roda depois de marcar um como lido.
  * anunciar=false tira o role="alert" (para o leitor de tela não repetir os avisos a cada atualização).
  */
-export function cartoesAlerta(alertas, aoLer, { anunciar = true } = {}) {
-  return alertas.slice(0, 3).map((a) => el('div', {
+export function cartoesAlerta(alertas, aoLer, { anunciar = true, limite = 3 } = {}) {
+  return alertas.slice(0, limite).map((a) => el('div', {
     class: 'alerta' + (a.prioridade < 60 ? ' atencao' : ''), role: anunciar ? 'alert' : null,
   },
   icone('sino'),
@@ -62,5 +69,21 @@ export function cartoesAlerta(alertas, aoLer, { anunciar = true } = {}) {
 
 /** Mostra os alertas no topo (a tela Hoje mostra os dela dentro da própria tela). */
 export function mostrarAlertas(alertas) {
-  document.getElementById('alertas').replaceChildren(...cartoesAlerta(alertas, atualizarAlertas));
+  const area = document.getElementById('alertas');
+  const aberto = area.querySelector('details')?.open;
+  const recuperarFoco = area.contains(document.activeElement);
+  const visiveis = cartoesAlerta(alertas, atualizarAlertas, { anunciar: false, limite: alertas.length });
+  if (!visiveis.length) {
+    area.replaceChildren();
+    if (recuperarFoco) document.getElementById('conteudo').focus();
+    return;
+  }
+  const primeiro = alertas[0];
+  const resumo = el('summary', {},
+    icone('sino'),
+    el('span', {}, el('strong', {}, visiveis.length === 1 ? '1 aviso da rede' : `${visiveis.length} avisos da rede`),
+      el('span', { class: `alertas-previa${primeiro.prioridade < 60 ? ' atencao' : ''}` }, primeiro.mensagem)),
+    icone('seta'));
+  area.replaceChildren(el('details', { class: 'alertas-rede', open: aberto }, resumo, ...visiveis));
+  if (recuperarFoco) resumo.focus();
 }
